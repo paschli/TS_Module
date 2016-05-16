@@ -131,6 +131,7 @@ class TSKodi extends IPSModule {
 		$this->UpdateState($data);
 		$this->UpdateVolumeVar($data);
     $this->UpdateMuteVar($data);
+    $this->UpdateVolume($data);
 //    $this->UpdatePlayerItemVars($data);
     
 	}
@@ -157,11 +158,6 @@ class TSKodi extends IPSModule {
 		$this->Send($durationJson);
 	}
 
-	public function GetVolume(){
-		$Json = '{"jsonrpc": "2.0", "method": "Application.GetProperties", "params": {"properties": ["volume"]}, "id": 1}';
-		$this->Send($Json);
-	}
-
 
 	public function UpdateDuration($data){
 		if(isset($data["result"]["percentage"])){
@@ -172,7 +168,21 @@ class TSKodi extends IPSModule {
 			SetValue(@IPS_GetObjectIDByIdent("TSKodi_duration", $parent), $percentage);
 		}
 	}
-	
+
+	public function GetVolume(){
+		$Json = '{"jsonrpc": "2.0", "method": "Application.GetProperties", "params": {"properties": ["volume"]}, "id": 1}';
+		$this->Send($Json);
+	}
+	public function UpdateVolume($data){
+		if(isset($data["result"]["volume"])){
+			$parent = IPS_GetParent(IPS_GetParent($_IPS['SELF']));
+			
+			$daten = $data["result"]["volume"];
+			
+			SetValue(@IPS_GetObjectIDByIdent("TSKodi_volume", $parent), $percentage);
+		}
+	}
+
 	public function UpdateState($data){
 		//Play
 		if(isset($data["method"]) && $data["method"] == "Player.OnPlay"){
