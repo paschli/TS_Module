@@ -38,8 +38,8 @@ class TSKodi extends IPSModule {
                         Array(2, "red", "", 16711680),
                         Array(3, "green", "", 65280 ),
                         Array(4, "yellow", "", 16776960),
-                        Array(5, "Select", "", -1),
 */
+                        Array(5, "Select", "", -1),
                         Array(6, "Up", "", -1),
                         Array(7, "Left", "", -1),
                         Array(8, "Right", "", -1),
