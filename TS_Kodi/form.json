@@ -3,8 +3,8 @@
 	[
     { "type": "Label", "label": "channelid holen mit : http://192.168.1.66/jsonrpc?request={%22jsonrpc%22:%222.0%22,%22method%22:%22PVR.GetChannels%22,%22params%22:{%22channelgroupid%22:1},%20%22id%22:1}"}, 
 
-		{ "name": "IPAddress",     "type": "ValidationTextBox", "caption": "IP-Address/Host"},
-		{ "name": "Port",     "type": "ValidationTextBox", "caption": "Port"},
+//		{ "name": "IPAddress",     "type": "ValidationTextBox", "caption": "IP-Address/Host"},
+//		{ "name": "Port",     "type": "ValidationTextBox", "caption": "Port"},
 		{ "name": "S1_Name",       "type": "ValidationTextBox", "caption": "Stationsname 1" },
 		{ "name": "S1_Wert",       "type": "ValidationTextBox", "caption": "channelid" },
 		{ "name": "S2_Name",       "type": "ValidationTextBox", "caption": "Stationsname 2" },
