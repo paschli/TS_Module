@@ -162,9 +162,7 @@ class TSKodi extends IPSModule {
 	public function UpdateDuration($data){
 		if(isset($data["result"]["percentage"])){
 			$parent = IPS_GetParent(IPS_GetParent($_IPS['SELF']));
-			
 			$percentage = round($data["result"]["percentage"]);
-			
 			SetValue(@IPS_GetObjectIDByIdent("TSKodi_duration", $parent), $percentage);
 		}
 	}
@@ -176,9 +174,7 @@ class TSKodi extends IPSModule {
 	public function UpdateVolume($data){
 		if(isset($data["result"]["volume"])){
 			$parent = IPS_GetParent(IPS_GetParent($_IPS['SELF']));
-			
 			$daten = $data["result"]["volume"];
-			
 			SetValue(@IPS_GetObjectIDByIdent("TSKodi_volume", $parent), $daten);
 		}
 	}
@@ -265,10 +261,11 @@ class TSKodi extends IPSModule {
 
     public function FB($_steuer)
     {
-/*
-{ "jsonrpc": "2.0", "method": "GUI.SetFullscreen", "params": {"fullscreen": true}, "id": "1"}"
 
-        if ($_steuer === 1) ($_befehl="POWER");
+//{ "jsonrpc": "2.0", "method": "GUI.SetFullscreen", "params": {"fullscreen": true}, "id": "1"}"
+
+        if ($_steuer === 1) ($_befehl='"System.Shutdown"');
+/*
         if ($_steuer === 2) ($_befehl="RED" );
         if ($_steuer === 3) ($_befehl="GREEN" );
         if ($_steuer === 4) ($_befehl="YELLOW" );
@@ -342,8 +339,6 @@ class TSKodi extends IPSModule {
           $result = $this->Station($value);
           break;
 
-
-
 			case "TSKodi_on": 
 				$this->SetOn();
 			break;
@@ -400,7 +395,7 @@ class TSKodi extends IPSModule {
 	}
 	
 	public function SetOff(){
-		$sendJson = '{"jsonrpc":"2.0","method":"Addons.ExecuteAddon","params":{"addonid":"script.json-cec","params":{"command":"standby"}},"id":1}';
+		$sendJson = '{"jsonrpc": "2.0", "method": "System.Shutdown", "id": 1}';
 		$jsonRpcSocketID = IPS_GetInstance($this->InstanceID)["ConnectionID"];
 		$kodiSend 		 = CSCK_SendText($jsonRpcSocketID, $sendJson);
 		if($kodiSend) {
@@ -600,9 +595,8 @@ class TSKodi extends IPSModule {
 		
 		$this->CreateVariableByIdent($this->InstanceID, "TSKodi_mute", "Mute", 0, "~Switch");
 		$this->EnableAction("TSKodi_mute");
-/*		
-		$this->CreateVariableByIdent($this->InstanceID, "TSKodi_record", "Aufnahme", 0, "~Switch");
-		$this->EnableAction("TSKodi_record");
+//		$this->CreateVariableByIdent($this->InstanceID, "TSKodi_record", "Aufnahme", 0, "~Switch");
+//		$this->EnableAction("TSKodi_record");
 		
 		$this->CreateVariableByIdent($this->InstanceID, "TSKodi_playPause", "Pause", 0, "~Switch");
 		$this->EnableAction("TSKodi_playPause");
