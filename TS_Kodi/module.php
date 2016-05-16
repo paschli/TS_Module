@@ -156,6 +156,13 @@ class TSKodi extends IPSModule {
 		$durationJson = '{"jsonrpc":"2.0","method":"Player.GetProperties","params":{"playerid":1,"properties":["percentage"]},"id":"1"}}';
 		$this->Send($durationJson);
 	}
+
+	public function GetVolume(){
+		$Json = '{"jsonrpc": "2.0", "method": "Application.GetProperties", "params": {"properties": ["volume"]}, "id": 1}';
+		$this->Send($Json);
+	}
+
+
 	public function UpdateDuration($data){
 		if(isset($data["result"]["percentage"])){
 			$parent = IPS_GetParent(IPS_GetParent($_IPS['SELF']));
