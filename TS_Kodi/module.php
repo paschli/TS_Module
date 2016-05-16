@@ -63,6 +63,7 @@ class TSKodi extends IPSModule {
 */
                         Array(25, "Info", "", -1),
                         Array(26, "Back", "", -1),
+                        Array(27, "Fullscreen", "", -1),
  
         ));
 
@@ -248,6 +249,8 @@ class TSKodi extends IPSModule {
     public function FB($_steuer)
     {
 /*
+{ "jsonrpc": "2.0", "method": "GUI.SetFullscreen", "params": {"fullscreen": true}, "id": "1"}"
+
         if ($_steuer === 1) ($_befehl="POWER");
         if ($_steuer === 2) ($_befehl="RED" );
         if ($_steuer === 3) ($_befehl="GREEN" );
@@ -265,6 +268,8 @@ class TSKodi extends IPSModule {
         if ($_steuer === 12)($_befehl='"Application.SetVolume" ,"params": {"volume": "decrement"}' );
         if ($_steuer === 13)($_befehl='"Application.SetVolume" ,"params": {"volume": "increment"}' );
         if ($_steuer === 14)($_befehl='"Application.SetMute", "params": {"mute": "toggle"}' );
+        if ($_steuer === 27)($_befehl='"GUI.SetFullscreen", "params": {"fullscreen": "toggle"}' );
+        
 /*       
         if ($_steuer === 15)($_befehl="1" );
         if ($_steuer === 16)($_befehl="2" );
