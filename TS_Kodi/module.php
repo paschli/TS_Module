@@ -179,7 +179,7 @@ class TSKodi extends IPSModule {
 			
 			$daten = $data["result"]["volume"];
 			
-			SetValue(@IPS_GetObjectIDByIdent("TSKodi_volume", $parent), $percentage);
+			SetValue(@IPS_GetObjectIDByIdent("TSKodi_volume", $parent), $daten);
 		}
 	}
 
