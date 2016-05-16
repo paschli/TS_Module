@@ -28,16 +28,12 @@
 	],    "actions":
             [
                 {
-                    "type": "Button",
-                    "label": "UpdatePlayerItemVars",
-                    "onClick": "TFKODI_UpdatePlayerItemVars();"
-                }, {
                     "type": "Label",
                     "label": "Mute:"
                 }, {
                     "type": "Button",
                     "label": "ON/OFF",
-                    "onClick": "TFKODI_SetMute($id, true);"
+                    "onClick": "TSKODI_SetMute($id, true);"
                 }, {
                     "type": "Label",
                     "label": "Volume:"
@@ -46,6 +42,6 @@
                     "type": "HorizontalSlider",
                     "minimum": 0,
                     "maximum": 100,
-                    "onChange": "TFKODI_SetVolume($id, $Slider);"
+                    "onChange": "TSKODI_SetVolume($id, $Slider);"
                 }
             ]}
