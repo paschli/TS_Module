@@ -603,7 +603,7 @@ class TSKodi extends IPSModule {
 		
 		$this->CreateVariableByIdent($this->InstanceID, "TSKodi_stopp", "Stopp", 0, "~Switch");
 		$this->EnableAction("TSKodi_stopp");
-*/		
+		
 	}
 	
 	private function CreateRXScript(){
