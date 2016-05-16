@@ -1,0 +1,25 @@
+{
+	"elements":
+	[
+//    { "type": "SelectVariable", "name": "ziel_id", "caption": "Ziel ID" },
+      { "type": "Select", "name": "Tag_", "caption": "Wochentag",
+        "options": [
+              { "label": "Montag", "value": "mon" },
+              { "label": "Dienstag", "value": "tue" },
+              { "label": "Mittwoch", "value": "wed" },
+              { "label": "Donnerstag", "value": "thu" },
+              { "label": "Freitag", "value": "fri" },
+              { "label": "Samstag", "value": "sat" }
+      ]},
+//      { "type": "ValidationTextBox", "name": "Tag_", "caption": "Wochentag" },
+      { "type": "NumberSpinner", "name": "StartWoche", "caption": "1. Woche Abholung" },
+      { "type": "ValidationTextBox", "name": "Start_tonne1", "caption": "1. Abholung" },
+      { "type": "ValidationTextBox", "name": "Start_tonne2", "caption": "2. Abholung" },
+      { "type": "ValidationTextBox", "name": "Start_tonne3", "caption": "3. Abholung" },
+      { "type": "ValidationTextBox", "name": "Start_tonne4", "caption": "4. Abholung" }
+	],
+	"actions":
+	[
+
+	]	
+}

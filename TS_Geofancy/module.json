@@ -1,0 +1,14 @@
+{
+	"id": "{628ed7d5-73fe-45d3-bf9b-f267231cb422}",
+	"name": "TS_Geofancy",
+	"type": 0,
+	"vendor": "",
+	"aliases": 
+	[
+		"TS_Geofancy"
+	],
+	"parentRequirements": [],
+	"childRequirements": [],
+	"implemented": [],
+	"prefix": "TSGEO"
+}

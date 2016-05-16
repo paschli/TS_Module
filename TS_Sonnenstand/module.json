@@ -1,0 +1,14 @@
+{
+	"id": "{f023dd56-4757-11e5-a151-feff819cdc9f}",
+	"name": "TS_Sonnenstand",
+	"type": 3,
+	"vendor": "",
+	"aliases": 
+	[
+		"TS_Sonnenstand"
+	],
+	"parentRequirements": [],
+	"childRequirements": [],
+	"implemented": [],
+	"prefix": ""
+}

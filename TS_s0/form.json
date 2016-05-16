@@ -1,0 +1,11 @@
+{  
+	"elements":
+	[
+   { "type": "SelectVariable", "name": "kontakt_id", "caption": "Target" },
+   { "type": "ValidationTextBox", "name": "Impulse", "caption": "Impulse pro KW/h" } 
+	],
+	"actions":
+	[
+
+	]	
+}

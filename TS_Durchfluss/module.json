@@ -1,0 +1,14 @@
+{
+	"id": "{643795fa-4750-11e5-a151-feff819cdc9f}",
+	"name": "TS_Durchfluss",
+	"type": 3,
+	"vendor": "",
+	"aliases": 
+	[
+		"TS_Durchfluss"
+	],
+	"parentRequirements": [],
+	"childRequirements": [],
+	"implemented": [],
+	"prefix": ""
+}

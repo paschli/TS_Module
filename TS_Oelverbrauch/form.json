@@ -1,0 +1,13 @@
+{
+	"elements":
+	[
+    { "type": "SelectVariable", "name": "ziel_id", "caption": "Ziel ID" }
+//    { "type": "ValidationTextBox", "name": "Tankmenge", "caption": "Tankmenge" },
+//    { "type": "ValidationTextBox", "name": "Restmenge", "caption": "Restmenge" },
+//    { "type": "ValidationTextBox", "name": "Liter_Stunde", "caption": "Liter Stunde" }
+	],
+	"actions":
+	[
+//    { "type": "Button", "label": "Install", "onClick": "Install" }
+	]	
+}

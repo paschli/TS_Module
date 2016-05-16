@@ -1,0 +1,14 @@
+{
+	"id": "{a71e0e20-6515-11e5-9d70-feff819cdc9f}",
+	"name": "TS_SonosAlarm",
+	"type": 3,
+	"vendor": "",
+	"aliases": 
+	[
+		"TS_SonosAlarm"
+	],
+	"parentRequirements": [],
+	"childRequirements": [],
+	"implemented": [],
+	"prefix": ""
+}

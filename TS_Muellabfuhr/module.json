@@ -1,0 +1,14 @@
+{
+	"id": "{0a78e954-61e7-11e5-9d70-feff819cdc9f}",
+	"name": "TS_Muellabfuhr",
+	"type": 3,
+	"vendor": "",
+	"aliases": 
+	[
+		"TS_Muellabfuhr"
+	],
+	"parentRequirements": [],
+	"childRequirements": [],
+	"implemented": [],
+	"prefix": ""
+}

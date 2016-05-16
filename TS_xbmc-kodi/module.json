@@ -1,0 +1,14 @@
+{
+	"id": "{92c1c668-74d0-11e5-8bcf-feff819cdc9f}",
+	"name": "TS_xbmc",
+	"type": 3,
+	"vendor": "",
+	"aliases": 
+	[
+		"TS_xbmc"
+	],
+	"parentRequirements": [],
+	"childRequirements": [],
+	"implemented": [],
+	"prefix": "xbmc"
+}

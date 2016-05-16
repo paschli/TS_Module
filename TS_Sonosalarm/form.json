@@ -1,0 +1,15 @@
+{
+	"elements":
+	[
+    { "type": "Label", "label": "Angepasst an das Sonos Modul von Kugelberg : https://www.symcon.de/forum/threads/27500-Sonos-Modul"}, 
+    { "type": "Label", "label": "https://github.com/tkugelberg/SymconSonos"},
+    { "name": "Sonos_ID",        "type": "SelectInstance",    "caption": "Sonos ID" },
+    { "name": "Trigger",    "type": "SelectVariable",    "caption": "Trigger Ereignis" },
+    { "type": "ValidationTextBox", "name": "Pfad", "caption": "Pfad Dateien" },
+    { "type": "ValidationTextBox", "name": "Alarm1", "caption": "Alarm Datei1" },
+		{ "name": "AlarmVolume",    "type": "NumberSpinner",     "caption": "Alarm volume (%)", } 
+	],
+	"actions":
+	[  
+	]	
+}

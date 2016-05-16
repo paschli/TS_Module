@@ -1,0 +1,11 @@
+{
+	"elements":
+	[
+   { "type": "SelectVariable", "name": "VariableID", "caption": "Target" }
+
+	],
+	"actions":
+	[
+
+	]	
+}

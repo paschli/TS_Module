@@ -1,0 +1,16 @@
+{
+	"elements":
+	[
+		{ "name": "IPAddress",        "type": "ValidationTextBox", "caption": "IP-Address/Host"     }
+
+	],
+	"actions":
+	[
+		{ "type": "Button", "label": "POWER",  "onClick": "DBox_FB(1);" },
+		{ "type": "Button", "label": "RED", "onClick": "DBox_FB(2);" },
+		{ "type": "Button", "label": "GREEN", "onClick": "DBox_FB(3);" },
+		{ "type": "Button", "label": "YELLOW", "onClick": "DBox_FB(4);" },
+		{ "type": "Button", "label": "BLUE", "onClick": "DBox_FB(5);" },
+		{ "type": "Button", "label": "UP",  "onClick": "DBox_FB(6);" }
+  ]	
+}

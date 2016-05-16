@@ -1,0 +1,14 @@
+{
+	"id": "{778ccdd0-ecb2-11e4-90ec-1681e6b88ec1}",
+	"name": "TS_Betriebsstunden",
+	"type": 3,
+	"vendor": "",
+	"aliases": 
+	[
+		"TS_Betriebsstunden"
+	],
+	"parentRequirements": [],
+	"childRequirements": [],
+	"implemented": [],
+	"prefix": ""
+}

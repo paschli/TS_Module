@@ -1,0 +1,48 @@
+Auf PI
+Port ist  9418
+git daemon --base-path=/home/git --detach --syslog --export-all
+git commit -am "Initial"
+
+Anlegen als User git !!!!!:
+git --bare init
+git update-server-info
+
+
+TS_DBox
+TS_LCN2Sonos
+TS_Sonos
+git://icy.my-router.de/TS_DBox
+git://icy.my-router.de/TS_DBox
+git://icy.my-router.de/TS_DBox
+git://icy.my-router.de/TS_DBox
+git://icy.my-router.de/TS_DBox
+git://icy.my-router.de/TS_DBox
+------------------------------------------------------------------
+in IPS
+git://192.168.1.93/Ts_Module
+git://icy.my-router.de/Ts_Module
+
+
+------------------------------------------------------------------
+git clone git@192.168.1.93:/home/git/Ts_Module
+
+
+
+
+------------------------------------------------------------------
+git init
+git add *
+git commit -m "Commit-Nachricht"
+
+git remote add origin <server>
+
+git pull
+
+
+git clone git@192.168.1.106:/home/git/Ts
+git git@192.168.1.106/home/git/Ts
+git://192.168.1.106/home/git/ts_module.git
+http://192.168.1.106:8080/?p=ts_module.git/.git;a=summary
+git://git:git@192.168.1.106/home/git/ts_module.git
+
+git remote add pi git@192.168.1.106:/home/git/Ts

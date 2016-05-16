@@ -1,0 +1,17 @@
+{
+	"elements":
+	[
+		{ "name": "IPAddress",        "type": "ValidationTextBox", "caption": "IP-Address Fritzbox"     }, 
+		{ "name": "Port",    "type": "NumberSpinner",     "caption": "Port", },
+    { "name": "Open",      "type": "CheckBox",          "caption": "Open" },
+		{ "name": "an_tel1",        "type": "ValidationTextBox", "caption": "Text Telefon1"     }, 
+    { "name": "runskript1",    "type": "SelectScript",    "caption": "Skript1" }, 
+		{ "name": "an_tel2",        "type": "ValidationTextBox", "caption": "Text Telefon2"     }, 
+    { "name": "runskript2",    "type": "SelectScript",    "caption": "Skript2" } 
+	],
+	"actions":
+	[
+
+	]	
+
+}

@@ -1,0 +1,38 @@
+{
+	"elements":
+	[
+    { "type": "Label", "label": "channelid holen mit : http://192.168.1.66/jsonrpc?request={%22jsonrpc%22:%222.0%22,%22method%22:%22PVR.GetChannels%22,%22params%22:{%22channelgroupid%22:1},%20%22id%22:1}"}, 
+
+		{ "name": "IPAddress",     "type": "ValidationTextBox", "caption": "IP-Address/Host"},
+		{ "name": "Port",     "type": "ValidationTextBox", "caption": "Port"},
+		{ "name": "S1_Name",       "type": "ValidationTextBox", "caption": "Stationsname 1" },
+		{ "name": "S1_Wert",       "type": "ValidationTextBox", "caption": "channelid" },
+		{ "name": "S2_Name",       "type": "ValidationTextBox", "caption": "Stationsname 2" },
+		{ "name": "S2_Wert",       "type": "ValidationTextBox", "caption": "channelid" },
+		{ "name": "S3_Name",       "type": "ValidationTextBox", "caption": "Stationsname 3" },
+		{ "name": "S3_Wert",       "type": "ValidationTextBox", "caption": "channelid" },
+		{ "name": "S4_Name",       "type": "ValidationTextBox", "caption": "Stationsname 4" },
+		{ "name": "S4_Wert",       "type": "ValidationTextBox", "caption": "channelid" },
+		{ "name": "S5_Name",       "type": "ValidationTextBox", "caption": "Stationsname 5" },
+		{ "name": "S5_Wert",       "type": "ValidationTextBox", "caption": "channelid" },
+		{ "name": "S6_Name",       "type": "ValidationTextBox", "caption": "Stationsname 6" },
+		{ "name": "S6_Wert",       "type": "ValidationTextBox", "caption": "channelid" },
+		{ "name": "S7_Name",       "type": "ValidationTextBox", "caption": "Stationsname 7" },
+		{ "name": "S7_Wert",       "type": "ValidationTextBox", "caption": "channelid" },
+		{ "name": "S8_Name",       "type": "ValidationTextBox", "caption": "Stationsname 8" },
+		{ "name": "S8_Wert",       "type": "ValidationTextBox", "caption": "channelid" },
+		{ "name": "S9_Name",       "type": "ValidationTextBox", "caption": "Stationsname 9" },
+		{ "name": "S9_Wert",       "type": "ValidationTextBox", "caption": "channelid" },
+		{ "name": "S10_Name",      "type": "ValidationTextBox", "caption": "Stationsname 10" },
+		{ "name": "S10_Wert",      "type": "ValidationTextBox", "caption": "channelid" }
+	],
+	"actions":
+	[
+		{ "type": "Button", "label": "POWER",  "onClick": "kodi_FB($id,1);" },
+//		{ "type": "Button", "label": "RED", "onClick": "kodi_FB($id,2);" },
+//		{ "type": "Button", "label": "GREEN", "onClick": "kodi_FB($id,3);" },
+//		{ "type": "Button", "label": "YELLOW", "onClick": "kodi_FB($id,4);" },
+//		{ "type": "Button", "label": "BLUE", "onClick": "kodi_FB($id,5);" },
+//		{ "type": "Button", "label": "UP",  "onClick": "kodi_FB($id,6);" }
+  ]	
+}

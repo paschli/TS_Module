@@ -1,0 +1,14 @@
+{
+	"id": "{cce1563c-45f1-11e5-a151-feff819cdc9f}",
+	"name": "TS_Benzinpreise",
+	"type": 3,
+	"vendor": "",
+	"aliases": 
+	[
+		"TS_Benzinpreise"
+	],
+	"parentRequirements": [],
+	"childRequirements": [],
+	"implemented": [],
+	"prefix": ""
+}

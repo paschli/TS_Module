@@ -1,0 +1,7 @@
+{
+	"elements":
+	[
+   { "name": "Lat",            "type": "NumberSpinner", "digits": 6,     "caption": "Lat" },
+   { "name": "Lon",            "type": "NumberSpinner", "digits": 6,     "caption": "Lon" } 
+ 	]
+}

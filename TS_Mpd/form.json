@@ -1,0 +1,43 @@
+{
+	"elements":
+	[
+		{ "name": "IPAddress",        "type": "ValidationTextBox", "caption": "IP-Address/Host"     },
+		{ "name": "DefaultVolume",    "type": "NumberSpinner",     "caption": "Default volume (%)", },
+                { "name": "MuteControl",      "type": "CheckBox",          "caption": "Enable Mute Control" },
+                { "name": "Logo",             "type": "CheckBox",          "caption": "Enable Logo" },
+                { "name": "Rel_id",    "type": "SelectVariable",    "caption": "Relais" },
+
+                { "type": "Label", "label": "Settings for radio stations:"},
+		{ "name": "FavoriteStation",  "type": "Select",            "caption": "Favorite radio station", 
+                    "options": [
+                                 { "label": "1LIVE",           "value": "1LIVE" },
+                                 { "label": "Antenne 1",       "value": "Antenne 1" },
+                                 { "label": "Antenne Bayern",  "value": "Antenne Bayern" },
+                                 { "label": "Antenne MV",      "value": "Antenne MV" },
+                                 { "label": "Bayern 3",        "value": "Bayern 3" },
+                                 { "label": "bigFM",           "value": "bigFM" },
+                                 { "label": "Deutschlandfunk", "value": "Deutschlandfunk" },
+                                 { "label": "FFH",             "value": "FFH" },
+                                 { "label": "FFN",             "value": "FFN" },
+                                 { "label": "HR3",             "value": "HR3" },
+                                 { "label": "KiRaKa",          "value": "KiRaKa" },
+                                 { "label": "NDR2",            "value": "NDR2" },
+                                 { "label": "N-JOY",           "value": "N-JOY" },
+                                 { "label": "OE3",             "value": "OE3" },
+                                 { "label": "Radio Lippe",     "value": "Radio Lippe" },
+                                 { "label": "RPR1",            "value": "RPR1" },
+                                 { "label": "SWR1 BW",         "value": "SWR1 BW" },
+                                 { "label": "SWR1 RP",         "value": "SWR1 RP" },
+                                 { "label": "SWR3",            "value": "SWR3" },
+                                 { "label": "WDR2",            "value": "WDR2" }
+                  ] },
+
+		{ "name": "WebFrontStations", "type": "ValidationTextBox", "caption": "Stations in WebFront" }
+	],
+	"actions":
+	[
+		{ "type": "Button", "label": "Play",  "onClick": "TSMPD_Play($id);" },
+		{ "type": "Button", "label": "Pause", "onClick": "TSMPD_Pause($id);" },
+		{ "type": "Button", "label": "Next",  "onClick": "TSMPD_Next($id);" }
+	]	
+} 

@@ -1,0 +1,14 @@
+{
+	"id": "{018332f8-e679-11e4-8a00-1681e6b88ec1}",
+	"name": "TS_Oel",
+	"type": 3,
+	"vendor": "",
+	"aliases": 
+	[
+		"TS_Oel"
+	],
+	"parentRequirements": [],
+	"childRequirements": [],
+	"implemented": [],
+	"prefix": ""
+}

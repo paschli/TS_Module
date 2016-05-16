@@ -1,0 +1,8 @@
+{
+	"elements":
+	[
+   { "type": "Label", "label": "Daten von http://www.tankentanken.de/suche ermitteln"},
+   { "name": "daten", "type": "ValidationTextBox", "caption": "Daten" },
+   { "name": "umkreis",     "type": "NumberSpinner",     "caption": "Umkreis" }
+ 	]
+}

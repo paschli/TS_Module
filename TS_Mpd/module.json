@@ -1,0 +1,14 @@
+{
+	"id": "{56fd500a-0cdb-11e5-a6c0-1697f925ec7b}",
+	"name": "TS_MPD",
+	"type": 3,
+	"vendor": "",
+	"aliases": 
+	[
+		"TS_Mpd"
+	],
+	"parentRequirements": [],
+	"childRequirements": [],
+	"implemented": [],
+	"prefix": "TSmpd"
+}

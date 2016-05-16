@@ -1,0 +1,14 @@
+{
+	"id": "{86695b28-65b3-11e5-9d70-feff819cdc9f}",
+	"name": "TS_Fritzbox",
+	"type": 3,
+	"vendor": "",
+	"aliases": 
+	[
+		"TS_Fritzbox"
+	],
+	"parentRequirements": [],
+	"childRequirements": [],
+	"implemented": [],
+	"prefix": ""
+}

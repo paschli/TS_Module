@@ -1,0 +1,14 @@
+{
+	"elements":
+	[
+    { "type": "Label", "label": "Settings for IOS-APP Geofancy"},
+    { "type": "Label", "label": "http://my-dyndns.de:3777/hook/TS_geofancy"},
+    { "type": "Label", "label": "   "},
+		{ "name": "Test", "type": "ValidationTextBox", "caption": "Meldung: test" },
+		{ "name": "Enter", "type": "ValidationTextBox", "caption": "Meldung: anwesend" },
+		{ "name": "Exit", "type": "ValidationTextBox", "caption": "Meldung: abwesend" },
+    { "type": "Label", "label": "   "},
+		{ "name": "Username", "type": "ValidationTextBox", "caption": "Username" },
+		{ "name": "Password", "type": "PasswordTextBox", "caption": "Password" }
+	]
+}

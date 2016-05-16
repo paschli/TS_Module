@@ -1,0 +1,14 @@
+{
+	"id": "{ff04f4d8-640c-4ac5-8811-dedf86ac93ee}",
+	"name": "TS_S0",
+	"type": 3,
+	"vendor": "",
+	"aliases": 
+	[
+		"TS_S0"
+	],
+	"parentRequirements": [],
+	"childRequirements": [],
+	"implemented": [],
+	"prefix": ""
+}
