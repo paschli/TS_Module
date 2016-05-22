@@ -644,8 +644,17 @@ class TSKodi extends IPSModule {
 		$scriptsCatID = @IPS_GetObjectIDByIdent("TSKodi_scripts", $this->InstanceID);
 		
 		$script  = '<?'."\n";
+		$script  = '$id1 = IPS_GetParent($_IPS["SELF"]);'."\n";
+		$script  = '$id2 = IPS_GetParent($id1);'."\n";
+		$script  = '$id3 = IPS_GetInstance($id2)["ConnectionID"];'."\n";
+		$script  = '$ip = IPS_GetProperty($id3,"Host");'."\n";
+		$script  = 'if (Sys_Ping($ip,1000) == true ){'."\n";
+		$script  = '   IPS_SetHidden($id2, false);'."\n";
 		$script .= '	TSKodi_GetChannelInfo('.$this->InstanceID.');'."\n";
 		$script .= '	TSKodi_GetDuration('.$this->InstanceID.');'."\n";
+		$script  = '} else {'."\n";
+		$script  = '   IPS_SetHidden($id2, true);'."\n";
+		$script  = '}'."\n";
 		$script .= '?>';
 		
 		if(!@IPS_GetScriptIDByName("TSKodi_Updater", $scriptsCatID)){
