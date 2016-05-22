@@ -186,7 +186,7 @@ class TSKodi extends IPSModule {
 			
 			$scriptsCatID 	= @IPS_GetObjectIDByIdent("TSKodi_scripts", $this->InstanceID);
 			$updaterID		= @IPS_GetScriptIDByName("TSKodi_Updater", $scriptsCatID);
-			IPS_SetScriptTimer($updaterID,30);
+			IPS_SetScriptTimer($updaterID,15);
 			
 			$this->SetActuatorsByCatIdent("TSKodi_onPlay");
 			IPS_Sleep(4);
