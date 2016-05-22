@@ -3,8 +3,6 @@ class TSKodi extends IPSModule {
 	public function Create()
 	{
 		parent::Create();		
-        $this->RegisterPropertyString("IPAddress", "192.168.1.55");
-        $this->RegisterPropertyString("Port","8080");
         $this->RegisterPropertyString("S1_Name", "ARD");
         $this->RegisterPropertyString("S1_Wert", "1");      
         $this->RegisterPropertyString("S2_Name", "ZDF");
