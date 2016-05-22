@@ -376,8 +376,9 @@ class TSKodi extends IPSModule {
 	public function Send($sendJson){
 		$jsonRpcSocketID = IPS_GetInstance($this->InstanceID)["ConnectionID"];
     $fehler = (IPS_GetInstance($this->InstanceID)['InstanceStatus']);
-    print_r ($fehler);
+    print_r ($fehler.chr(10));
 		$kodiSend 		 = CSCK_SendText($jsonRpcSocketID, $sendJson);
+    print_r ($kodiSend.chr(10));
 
 		if($kodiSend) {
 			return true;
