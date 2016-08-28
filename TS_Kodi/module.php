@@ -136,7 +136,8 @@ class TSKodi extends IPSModule {
 	
 	
 	public function GetChannelInfo(){ //Anfrage Kanal und Title
-		$channelInfoJson = '{"jsonrpc": "2.0", "method": "Player.GetItem", "params": { "properties": ["title"], "playerid":1 }, "id": 1}';
+//		$channelInfoJson = '{"jsonrpc": "2.0", "method": "Player.GetItem", "params": { "properties": ["title"], "playerid":1 }, "id": 1}';
+		$channelInfoJson = '{"jsonrpc":"2.0","method":"Player.GetItem","params":{"playerid":1,"properties":["title","artist","albumartist","genre","year","rating","album","track","duration","comment","lyrics","musicbrainztrackid","musicbrainzartistid","musicbrainzalbumid","musicbrainzalbumartistid","playcount","fanart","director","trailer","tagline","plot","plotoutline","originaltitle","lastplayed","writer","studio","mpaa","cast","country","imdbnumber","premiered","productioncode","runtime","set","showlink","streamdetails","top250","votes","firstaired","season","episode","showtitle","thumbnail","file","resume","artistid","albumid","tvshowid","setid","watchedepisodes","disc","tag","art","genreid","displayartist","albumartistid","description","theme","mood","style","albumlabel","sorttitle","episodeguide","uniqueid","dateadded","channel","channeltype","hidden","locked","channelnumber","starttime","endtime"]},"id":1}';
 		$this->Send($channelInfoJson);
 	}
 	public function UpdateChannelInfo($data){
