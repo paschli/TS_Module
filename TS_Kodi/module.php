@@ -147,7 +147,7 @@ class TSKodi extends IPSModule {
 			$channel = $data["result"]["item"]["label"];
 			$title = $data["result"]["item"]["title"];
 			$plot = $data["result"]["item"]["plot"];
-			$plotoutline = $data["result"]["item"]["plotoutline"];
+//			$plotoutline = $data["result"]["item"]["plotoutline"];
       
 			SetValue(@IPS_GetObjectIDByIdent("TSKodi_channel", $parent), $channel);
 			SetValue(@IPS_GetObjectIDByIdent("TSKodi_title", $parent), $title);
@@ -571,12 +571,12 @@ class TSKodi extends IPSModule {
 		$titleID = $this->CreateVariableByIdent($this->InstanceID, "TSKodi_title", "Titel", 3, "");
 		IPS_SetPosition($titleID,6);
 
-		$plotID = $this->CreateVariableByIdent($this->InstanceID, "TSKodi_plot", "Plot", 3, "");
-		IPS_SetPosition($plotID,6);
+		$plotID = $this->CreateVariableByIdent($this->InstanceID, "TSKodi_plot", "Plot", 3, "~HTMLBox");
+		IPS_SetPosition($plotID,7);
 		
 		$durationID = $this->CreateVariableByIdent($this->InstanceID, "TSKodi_duration", "Fortschritt", 1, "~Valve");
 		$this->EnableAction("TSKodi_duration");
-		IPS_SetPosition($durationID,7);
+		IPS_SetPosition($durationID,8);
 		
 		if(!IPS_VariableProfileExists("TSKodi_State")){
 			IPS_CreateVariableProfile("TSKodi_State", 1);
@@ -588,7 +588,7 @@ class TSKodi extends IPSModule {
 		}
 		
 		$stateID = $this->CreateVariableByIdent($this->InstanceID, "TSKodi_state", "Status", 1, "TSKodi_State");
-		IPS_SetPosition($stateID,8);
+		IPS_SetPosition($stateID,9);
 		
 /*		 
 		$this->CreateVariableByIdent($this->InstanceID, "TSKodi_on", "Einschalten", 0, "~Switch");
