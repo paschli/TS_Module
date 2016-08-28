@@ -151,7 +151,7 @@ class TSKodi extends IPSModule {
       
 			SetValue(@IPS_GetObjectIDByIdent("TSKodi_channel", $parent), $channel);
 			SetValue(@IPS_GetObjectIDByIdent("TSKodi_title", $parent), $title);
-			SetValue(@IPS_GetObjectIDByIdent("TSKodi_plot", $parent), $title);
+			SetValue(@IPS_GetObjectIDByIdent("TSKodi_plot", $parent), $plot);
       
 		}
 	}
