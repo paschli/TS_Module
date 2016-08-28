@@ -146,9 +146,13 @@ class TSKodi extends IPSModule {
 			
 			$channel = $data["result"]["item"]["label"];
 			$title = $data["result"]["item"]["title"];
-			
+			$plot = $data["result"]["item"]["plot"];
+			$plotoutline = $data["result"]["item"]["plotoutline"];
+      
 			SetValue(@IPS_GetObjectIDByIdent("TSKodi_channel", $parent), $channel);
 			SetValue(@IPS_GetObjectIDByIdent("TSKodi_title", $parent), $title);
+			SetValue(@IPS_GetObjectIDByIdent("TSKodi_plot", $parent), $title);
+      
 		}
 	}
 	
@@ -566,6 +570,9 @@ class TSKodi extends IPSModule {
 		
 		$titleID = $this->CreateVariableByIdent($this->InstanceID, "TSKodi_title", "Titel", 3, "");
 		IPS_SetPosition($titleID,6);
+
+		$plotID = $this->CreateVariableByIdent($this->InstanceID, "TSKodi_plot", "Plot", 3, "");
+		IPS_SetPosition($plotID,6);
 		
 		$durationID = $this->CreateVariableByIdent($this->InstanceID, "TSKodi_duration", "Fortschritt", 1, "~Valve");
 		$this->EnableAction("TSKodi_duration");
