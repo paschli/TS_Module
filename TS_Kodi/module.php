@@ -590,7 +590,7 @@ class TSKodi extends IPSModule {
 		$stateID = $this->CreateVariableByIdent($this->InstanceID, "TSKodi_state", "Status", 1, "TSKodi_State");
 		IPS_SetPosition($stateID,9);
 		
-/*		 
+		 
 		$this->CreateVariableByIdent($this->InstanceID, "TSKodi_on", "Einschalten", 0, "~Switch");
 		$this->EnableAction("TSKodi_on");
 		$this->CreateVariableByIdent($this->InstanceID, "TSKodi_off", "Ausschalten", 0, "~Switch");
@@ -599,7 +599,7 @@ class TSKodi extends IPSModule {
 		$this->EnableAction("TSKodi_channelUp");
 		$this->CreateVariableByIdent($this->InstanceID, "TSKodi_channelDown", "Kanal runter", 0, "~Switch");
 		$this->EnableAction("TSKodi_channelDown");
-*/
+
 		$this->CreateVariableByIdent($this->InstanceID, "TSKodi_volume", "Lautstärke", 1, "~Valve");
 		$this->EnableAction("TSKodi_volume");
 		
@@ -611,8 +611,8 @@ class TSKodi extends IPSModule {
 		$this->CreateVariableByIdent($this->InstanceID, "TSKodi_playPause", "Pause", 0, "~Switch");
 		$this->EnableAction("TSKodi_playPause");
 		
-		$this->CreateVariableByIdent($this->InstanceID, "TSKodi_stopp", "Stop", 0, "~Switch");
-		$this->EnableAction("TSKodi_stopp");
+//		$this->CreateVariableByIdent($this->InstanceID, "TSKodi_stopp", "Stop", 0, "~Switch");
+//		$this->EnableAction("TSKodi_stopp");
 		
 	}
 	
