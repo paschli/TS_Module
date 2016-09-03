@@ -548,7 +548,7 @@ class TSKodi extends IPSModule {
 		$scriptsCatID = $this->CreateCategoryByIdent($this->InstanceID, "TSKodi_scripts", "Scripte"); //Kategorie Scripte
 		IPS_SetHidden($scriptsCatID, true);
 		IPS_SetPosition($scriptsCatID,0);
-/*		
+		
 		$onPlayCatID = $this->CreateCategoryByIdent($this->InstanceID, "TSKodi_onPlay", "Play"); //Kategorie Scripte
 		IPS_SetHidden($onPlayCatID, true);
 		IPS_SetPosition($onPlayCatID,1);
@@ -556,15 +556,15 @@ class TSKodi extends IPSModule {
 		$onPauseCatID = $this->CreateCategoryByIdent($this->InstanceID, "TSKodi_onPause", "Pause"); //Kategorie Scripte
 		IPS_SetHidden($onPauseCatID, true);
 		IPS_SetPosition($onPauseCatID,2);
-*/		
+		
 		$onStopCatID = $this->CreateCategoryByIdent($this->InstanceID, "TSKodi_onStop", "Stop"); //Kategorie Scripte
 		IPS_SetHidden($onStopCatID, true);
 		IPS_SetPosition($onStopCatID,3);
-/*		
+		
 		$screensaverActivatedCatID 	= $this->CreateCategoryByIdent($this->InstanceID, "TSKodi_screensaverActivated", "Screensaver"); //Kategorie Scripte
 		IPS_SetHidden($screensaverActivatedCatID, true);
 		IPS_SetPosition($screensaverActivatedCatID,4);
-*/		
+		
 		$channelID = $this->CreateVariableByIdent($this->InstanceID, "TSKodi_channel", "Kanal", 3, "");
 		IPS_SetPosition($channelID,5);
 		
