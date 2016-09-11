@@ -683,7 +683,8 @@ class TSKodi extends IPSModule {
 			$script .= '		SetValue(@IPS_GetObjectIDByIdent("TSKodi_channel", '.$this->InstanceID.'), "");'."\n";
 			$script .= '		SetValue(@IPS_GetObjectIDByIdent("TSKodi_title", '.$this->InstanceID.'), "");'."\n";
 			$script .= '		SetValue(@IPS_GetObjectIDByIdent("TSKodi_duration", '.$this->InstanceID.'), 0);'."\n";
-			$script .= '		TSKodi_SetActuatorsByCatIdent('.$this->InstanceID.', "TSKodi_onStop");'."\n";
+			$script .= '		SetValue(@IPS_GetObjectIDByIdent("TSKodi_plot", '.$this->InstanceID.'), "");'."\n";
+			$script .= '		TSKodi_SetActuatorsByCatIdent('.$this->InstanceID.', "TSKodi_stopp");'."\n";
 			$script .= '	}'."\n";
 			$script .= '	IPS_SetScriptTimer('.$scriptID.', 0);'."\n";
 			$script .= '?>';
