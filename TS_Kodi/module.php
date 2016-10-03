@@ -726,14 +726,14 @@ class TSKodi extends IPSModule {
 		
 		$registerVariableModuleID = "{F3855B3C-7CD6-47CA-97AB-E66D346C037F}";
 		$moduleIDs = IPS_GetInstanceListByModuleID($registerVariableModuleID);
-print_r($moduleIDs);
+//print_r($moduleIDs);
 		foreach($moduleIDs as $moduleID) {
 			$name = IPS_GetName($moduleID);
-print_r($name);
+//print_r($name);
 			if($name == "TSKodi RegisterVariable") {
 				$registerVariable = IPS_GetInstance($moduleID);
 				$registerVariableID = $registerVariable["InstanceID"];
-print_r($registerVariableID);        
+//print_r($registerVariableID);        
 				if($registerVariable['ConnectionID'] == 0) {
 					IPS_ConnectInstance($registerVariableID, $jsonRpcSocketID);
 					IPS_SetProperty($registerVariableID, "RXObjectID", $rxScriptID);
