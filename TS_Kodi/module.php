@@ -24,7 +24,6 @@ class TSKodi extends IPSModule {
         $this->RegisterPropertyString("S10_Name", "Test");
         $this->RegisterPropertyString("S10_Wert", "10");      
     }
-
     public function ApplyChanges()
     {
         parent::ApplyChanges();
@@ -745,7 +744,7 @@ class TSKodi extends IPSModule {
 		if(!isset($registerVariableID)) {
 			$scriptsCatID = @IPS_GetObjectIDByIdent("TSKodi_scripts", $this->InstanceID);
 			$newRegisterVariableID = IPS_CreateInstance("{F3855B3C-7CD6-47CA-97AB-E66D346C037F}");	
-print_r($newRegisterVariableID); 
+//print_r($newRegisterVariableID); 
 			IPS_SetName($newRegisterVariableID,"TSKodi RegisterVariable");
 			IPS_ConnectInstance($newRegisterVariableID, $jsonRpcSocketID);
 			IPS_SetProperty($newRegisterVariableID, "RXObjectID", $rxScriptID);
