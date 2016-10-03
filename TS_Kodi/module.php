@@ -733,6 +733,7 @@ print_r($name);
 			if($name == "TSKodi RegisterVariable") {
 				$registerVariable = IPS_GetInstance($moduleID);
 				$registerVariableID = $registerVariable["InstanceID"];
+print_r($registerVariableID);        
 				if($registerVariable['ConnectionID'] == 0) {
 					IPS_ConnectInstance($registerVariableID, $jsonRpcSocketID);
 					IPS_SetProperty($registerVariableID, "RXObjectID", $rxScriptID);
@@ -744,6 +745,7 @@ print_r($name);
 		if(!isset($registerVariableID)) {
 			$scriptsCatID = @IPS_GetObjectIDByIdent("TSKodi_scripts", $this->InstanceID);
 			$newRegisterVariableID = IPS_CreateInstance("{F3855B3C-7CD6-47CA-97AB-E66D346C037F}");	
+print_r($newRegisterVariableID); 
 			IPS_SetName($newRegisterVariableID,"TSKodi RegisterVariable");
 			IPS_ConnectInstance($newRegisterVariableID, $jsonRpcSocketID);
 			IPS_SetProperty($newRegisterVariableID, "RXObjectID", $rxScriptID);
