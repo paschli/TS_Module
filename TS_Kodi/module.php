@@ -298,6 +298,7 @@ class TSKodi extends IPSModule {
         if ($_steuer === 23)($_befehl="9" );
         if ($_steuer === 24)($_befehl="0" );
 */
+			  SetValue($this->GetIDForIdent("FB"), $_steuer);	
 		$sendJson = '{"jsonrpc": "2.0", "method": '.$_befehl.', "id": "1"}';
 		$jsonRpcSocketID = IPS_GetInstance($this->InstanceID)["ConnectionID"];
 		$kodiSend 		 = CSCK_SendText($jsonRpcSocketID, $sendJson);
