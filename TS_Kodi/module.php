@@ -321,6 +321,7 @@ class TSKodi extends IPSModule {
         if ($_steuer === 8)($_befehl=$this->ReadPropertyString("S8_Wert")); //disc
         if ($_steuer === 9)($_befehl=$this->ReadPropertyString("S9_Wert")); //Film
         if ($_steuer === 10)($_befehl=$this->ReadPropertyString("S10_Wert")); //Action
+			  SetValue($this->GetIDForIdent("Station"), $_steuer);			
     		$sendJson = '{"jsonrpc":"2.0","id":"1","method":"Player.Open","params":{"item":{"channelid": '.$_befehl.'}}}';
     		$jsonRpcSocketID = IPS_GetInstance($this->InstanceID)["ConnectionID"];
     		$kodiSend 		 = CSCK_SendText($jsonRpcSocketID, $sendJson);
