@@ -1,0 +1,14 @@
+{
+    "id": "{43a1a37c-9e74-11e6-80f5-76304dec7eb7}",
+    "name": "TS_HostMonitor",
+    "type": 3,
+    "vendor": "",
+    "aliases": 
+    [
+        "TS_HostMonitor"
+    ],
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "TSHMON"
+}
