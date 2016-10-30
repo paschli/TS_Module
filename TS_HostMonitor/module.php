@@ -1,5 +1,5 @@
 <?
-class HostMonitor extends IPSModule
+class TS_HostMonitor extends IPSModule
 {
 
     public function Create()
