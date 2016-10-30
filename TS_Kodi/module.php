@@ -660,7 +660,7 @@ class TSKodi extends IPSModule {
 		$script .= '	TSKodi_GetChannelInfo('.$this->InstanceID.');'."\n";
 		$script .= '	TSKodi_GetDuration('.$this->InstanceID.');'."\n";
 		$script .= '} else {'."\n";
-		$script .= '   IPS_SetHidden($id2, true);'."\n";
+		$script .= '   // IPS_SetHidden($id2, true);'."\n";
 		$script .= '}'."\n";
 		$script .= '?>';
 		
