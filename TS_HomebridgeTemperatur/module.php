@@ -22,7 +22,7 @@ class TS_HomebridgeTemperatur extends IPSModule {
       for($count = 1; $count-1 < $anzahl; $count++) {
         $DeviceNameID = "DeviceName{$count}";
         $HBName =  $this->ReadPropertyString("DeviceName{$count}");
-        
+        $steuer_id =$this->ReadPropertyInteger("VariableTemp{$count}");
 /////////////////////////////////////////////////
 $alarmskript= '<? 
 
@@ -33,9 +33,9 @@ WSC_SendText(39016, $data)
 ?>';
   $alarmskript_ID = $this->RegisterScript($HBName, $HBName, $alarmskript);
   IPS_SetHidden($alarmskript_ID,true);
-//  $this->Registerevent2($alarmskript_ID,$steuer_id); 
+  $this->Registerevent2($alarmskript_ID,$steuer_id); 
 
-  $sk_id=$alarmskript_ID;
+  $sk_id=IPS_GetObjectIDByIdent($HBName, $this->InstanceID);;
   if ( IPS_ScriptExists($sk_id)){
       IPS_SetScriptContent ( $sk_id, $alarmskript);
   }
@@ -114,5 +114,24 @@ WSC_SendText(39016, $data)
     $Data = json_encode($JSON);
     $this->SendDataToParent($Data);
   }
+		private function Registerevent($TargetID,$Ziel_id)
+		{ 
+      if(!isset($_IPS))
+      global $_IPS;  
+      $EreignisID = @IPS_GetEventIDByName("E_true",  $TargetID);
+      if ($EreignisID == true){
+      if (IPS_EventExists(IPS_GetEventIDByName ( "E_true", $TargetID)))
+      {
+       IPS_DeleteEvent(IPS_GetEventIDByName ( "E_true", $TargetID));
+      }
+      }       
+      $eid = IPS_CreateEvent(0);                  //Ausgelöstes Ereignis
+      IPS_SetName($eid, "E_true");
+      IPS_SetEventTrigger($eid, 1, $Ziel_id);        //Bei Änderung von Variable 
+//      IPS_SetEventTrigger($eid, 4, $Ziel_id);        //Bei bestimmten Wert
+      IPS_SetEventTriggerValue($eid, true);       
+      IPS_SetParent($eid, $TargetID);         //Ereignis zuordnen
+      IPS_SetEventActive($eid, true);             //Ereignis aktivieren
+    }
 }
 ?>
