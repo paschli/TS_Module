@@ -3,7 +3,7 @@ class TS_HomebridgeTemperatur extends IPSModule {
   public function Create() {
       //Never delete this line!
       parent::Create();
-      $this->ConnectParent("{86C2DE8C-FB21-44B3-937A-9B09BB66FB76}");
+      $this->ConnectParent("{86C2DE8C-FB21-44B3-937A-9B09BB66FB76}");   //IPS-HomebridgeSplitter
         $this->RegisterPropertyInteger("Anzahl",1);
 
       for($count = 1; $count -1 < 99; $count++) {
@@ -74,7 +74,7 @@ class TS_HomebridgeTemperatur extends IPSModule {
       //Prüfen ob der übergebene Name aus dem Hook zu einem Namen aus der Konfirgurationsform passt
       if ($DeviceName == $this->ReadPropertyString("DeviceName{$count}")) {
         //IPS Variable abfragen
-        $result = GetValue($this->ReadPropertyFloat($VariableTemp));
+        $result = GetValue($this->ReadPropertyInteger($VariableTemp));
         $result = number_format($result, 2, '.', '');
         $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
         $JSON['Buffer'] = utf8_encode('{"topic": "callback", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
