@@ -35,7 +35,7 @@ WSC_SendText(39016, $data)
   IPS_SetHidden($alarmskript_ID,true);
 //  $this->Registerevent2($alarmskript_ID,$steuer_id); 
 
-  $sk_id=$this->ReadPropertyString("VariableTemp{$count}");
+  $sk_id=$HBName;
   if ( IPS_ScriptExists($sk_id)){
       IPS_SetScriptContent ( $sk_id, $alarmskript);
   }
