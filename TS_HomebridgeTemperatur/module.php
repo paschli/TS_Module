@@ -60,7 +60,7 @@ class TS_HomebridgeTemperatur extends IPSModule {
     // Und Diese dann wieder dekodieren
     $HomebridgeData = json_decode($Buffer);
     IPS_LogMessage("Temperatur ReceiveData", $JSONString);
-      if ($HomebridgeData->Action == "get" && $HomebridgeData->Service == "Temperatur") {
+      if ($HomebridgeData->Action == "get" && $HomebridgeData->Service == "CurrentTemperature") {
         $this->getVar($HomebridgeData->Device, $HomebridgeData->Characteristic);
       }
   }
@@ -87,7 +87,7 @@ class TS_HomebridgeTemperatur extends IPSModule {
 
   private function addAccessory($DeviceName) {
     $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
-    $JSON['Buffer'] = utf8_encode('{"topic": "add", "name": "'.$DeviceName.'", "service": "Temperatur"}');
+    $JSON['Buffer'] = utf8_encode('{"topic": "add", "name": "'.$DeviceName.'", "service": "TemperatureSensor"}');
     $Data = json_encode($JSON);
     $this->SendDataToParent($Data);
   }
