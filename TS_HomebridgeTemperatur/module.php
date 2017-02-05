@@ -21,6 +21,27 @@ class TS_HomebridgeTemperatur extends IPSModule {
       $anzahl = $this->ReadPropertyInteger("Anzahl");
       for($count = 1; $count-1 < $anzahl; $count++) {
         $DeviceNameID = "DeviceName{$count}";
+        $DeviceName == $this->ReadPropertyString("DeviceName{$count}")
+/////////////////////////////////////////////////
+$alarmskript= '<? 
+$value = ($_IPS["VALUE"]); //Wert vom Ereigniss holen...
+$value = str_replace(',', '.', $value);  
+$data =\'{"topic": "setValue", "payload": {"name": \'.$DeviceName.\', "characteristic": "CurrentTemperature", "value": \'.$value.\'}}\'; 
+WSC_SendText(39016, $data)
+?>';
+  $alarmskript_ID = $this->RegisterScript("Rückmeldung", "Rückmeldung", $alarmskript);
+  IPS_SetHidden($alarmskript_ID,true);
+//  $this->Registerevent2($alarmskript_ID,$steuer_id); 
+
+  $sk_id=$this->ReadPropertyString("VariableTemp{$count}");
+  if ( IPS_ScriptExists($sk_id)){
+      IPS_SetScriptContent ( $sk_id, $alarmskript);
+  }
+
+/////////////////////////////////////////////////
+
+
+
         if ($this->ReadPropertyString($DeviceNameID) != "") {
           $this->addAccessory($this->ReadPropertyString($DeviceNameID));
         }
