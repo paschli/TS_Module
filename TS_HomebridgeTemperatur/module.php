@@ -28,7 +28,7 @@ $alarmskript= '<?
 $DeviceName = IPS_GetName($_IPS["SELF"]);
 $value = ($_IPS["VALUE"]); //Wert vom Ereigniss holen...
 $value = str_replace(\',\', \'.\', $value);  
-$data =\'{"topic": "setValue", "payload": {"name": \'.$DeviceName.\', "characteristic": "CurrentTemperature", "value": \'.$value.\'}}\'; 
+$data =\'{"topic": "setValue", "payload": {"name": "\'.$DeviceName.\'", "characteristic": "CurrentTemperature", "value": \'.$value.\'}}\'; 
 WSC_SendText(39016, $data)
 ?>';
   $alarmskript_ID = $this->RegisterScript($HBName, $HBName, $alarmskript);
