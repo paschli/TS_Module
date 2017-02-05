@@ -25,7 +25,7 @@ class TS_HomebridgeTemperatur extends IPSModule {
         $steuer_id =$this->ReadPropertyInteger("VariableTemp{$count}");
 /////////////////////////////////////////////////
 $alarmskript= '<? 
-
+$DeviceName = IPS_GetName($_IPS["SELF"]);
 $value = ($_IPS["VALUE"]); //Wert vom Ereigniss holen...
 $value = str_replace(\',\', \'.\', $value);  
 $data =\'{"topic": "setValue", "payload": {"name": \'.$DeviceName.\', "characteristic": "CurrentTemperature", "value": \'.$value.\'}}\'; 
