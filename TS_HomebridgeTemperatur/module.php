@@ -21,7 +21,7 @@ class TS_HomebridgeTemperatur extends IPSModule {
       $anzahl = $this->ReadPropertyInteger("Anzahl");
       for($count = 1; $count-1 < $anzahl; $count++) {
         $DeviceNameID = "DeviceName{$count}";
-        $DeviceName == $this->ReadPropertyString("DeviceName{$count}")
+        $DeviceName == $this->ReadPropertyString("DeviceName{$count}");
 /////////////////////////////////////////////////
 $alarmskript= '<? 
 $value = ($_IPS["VALUE"]); //Wert vom Ereigniss holen...
