@@ -118,15 +118,15 @@ WSC_SendText(39016, $data)
 		{ 
       if(!isset($_IPS))
       global $_IPS;  
-      $EreignisID = @IPS_GetEventIDByName("E_true",  $TargetID);
+      $EreignisID = @IPS_GetEventIDByName("Trigger",  $TargetID);
       if ($EreignisID == true){
-      if (IPS_EventExists(IPS_GetEventIDByName ( "E_true", $TargetID)))
+      if (IPS_EventExists(IPS_GetEventIDByName ( "Trigger", $TargetID)))
       {
-       IPS_DeleteEvent(IPS_GetEventIDByName ( "E_true", $TargetID));
+       IPS_DeleteEvent(IPS_GetEventIDByName ( "Trigger", $TargetID));
       }
       }       
       $eid = IPS_CreateEvent(0);                  //Ausgelöstes Ereignis
-      IPS_SetName($eid, "E_true");
+      IPS_SetName($eid, "Trigger");
       IPS_SetEventTrigger($eid, 1, $Ziel_id);        //Bei Änderung von Variable 
 //      IPS_SetEventTrigger($eid, 4, $Ziel_id);        //Bei bestimmten Wert
       IPS_SetEventTriggerValue($eid, true);       
