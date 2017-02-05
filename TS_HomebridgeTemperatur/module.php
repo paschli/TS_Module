@@ -25,7 +25,7 @@ class TS_HomebridgeTemperatur extends IPSModule {
 /////////////////////////////////////////////////
 $alarmskript= '<? 
 $value = ($_IPS["VALUE"]); //Wert vom Ereigniss holen...
-$value = str_replace(',', '.', $value);  
+$value = str_replace(\',\', \'.\', $value);  
 $data =\'{"topic": "setValue", "payload": {"name": \'.$DeviceName.\', "characteristic": "CurrentTemperature", "value": \'.$value.\'}}\'; 
 WSC_SendText(39016, $data)
 ?>';
