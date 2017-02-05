@@ -8,11 +8,11 @@ class TS_HomebridgeTemperatur extends IPSModule {
 
       for($count = 1; $count -1 < 99; $count++) {
         $DeviceName = "DeviceName{$count}";
-        $HumidityDeviceID = "TempDeviceID{$count}";
-        $VariableHumidity = "VariableTemp{$count}";
+        $TempDeviceID = "TempDeviceID{$count}";
+        $VariableTemp = "VariableTemp{$count}";
         $this->RegisterPropertyString($DeviceName, "");
-        $this->RegisterPropertyInteger($HumidityDeviceID, 0);
-        $this->RegisterPropertyInteger($VariableHumidity, 0);
+        $this->RegisterPropertyInteger($TempDeviceID, 0);
+        $this->RegisterPropertyInteger($VariableTemp, 0);
       }
   }
   public function ApplyChanges() {
@@ -74,7 +74,7 @@ class TS_HomebridgeTemperatur extends IPSModule {
       //Prüfen ob der übergebene Name aus dem Hook zu einem Namen aus der Konfirgurationsform passt
       if ($DeviceName == $this->ReadPropertyString("DeviceName{$count}")) {
         //IPS Variable abfragen
-        $result = GetValue($this->ReadPropertyInteger($VariableHumidity));
+        $result = GetValue($this->ReadPropertyFloat($VariableTemp));
         $result = number_format($result, 2, '.', '');
         $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
         $JSON['Buffer'] = utf8_encode('{"topic": "callback", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
