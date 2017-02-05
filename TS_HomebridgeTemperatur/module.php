@@ -31,7 +31,7 @@ $value = str_replace(\',\', \'.\', $value);
 $data =\'{"topic": "setValue", "payload": {"name": \'.$DeviceName.\', "characteristic": "CurrentTemperature", "value": \'.$value.\'}}\'; 
 WSC_SendText(39016, $data)
 ?>';
-  $alarmskript_ID = $this->RegisterScript($DeviceNameID, $HBName, $alarmskript);
+  $alarmskript_ID = $this->RegisterScript($HBName, $DeviceNameID, $alarmskript);
   IPS_SetHidden($alarmskript_ID,true);
 //  $this->Registerevent2($alarmskript_ID,$steuer_id); 
 
