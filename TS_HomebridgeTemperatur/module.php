@@ -26,10 +26,15 @@ class TS_HomebridgeTemperatur extends IPSModule {
 /////////////////////////////////////////////////
 $alarmskript= '<? 
 $DeviceName = IPS_GetName($_IPS["SELF"]);
+$id= IPS_GetParent($_IPS["SELF"]);
+$id2=(IPS_GetInstance($id));
+$id= ($id2["ConnectionID"]);
+$id2=(IPS_GetInstance($id));
+$id= ($id2["ConnectionID"]);
 $value = ($_IPS["VALUE"]); //Wert vom Ereigniss holen...
 $value = str_replace(\',\', \'.\', $value);  
 $data =\'{"topic": "setValue", "payload": {"name": "\'.$DeviceName.\'", "characteristic": "CurrentTemperature", "value": \'.$value.\'}}\'; 
-WSC_SendText(39016, $data)
+WSC_SendText($id, $data)
 ?>';
   $alarmskript_ID = $this->RegisterScript($DeviceNameID, $HBName, $alarmskript);
   IPS_SetHidden($alarmskript_ID,true);
