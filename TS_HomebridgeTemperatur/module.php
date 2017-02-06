@@ -51,7 +51,7 @@ WSC_SendText($id, $data)
 
         if ($this->ReadPropertyString($DeviceNameID) != "") {
           $this->addAccessory($this->ReadPropertyString($DeviceNameID));
-          $this->RegisterMessage($this->ReadPropertyInteger($VariableTemp) /* InstanzID */, 10603 /* IM_CHANGESTATUS */);
+          $this->RegisterMessage($this->ReadPropertyInteger($steuer_id), 10603 /* IM_CHANGESTATUS */);
         }
         else {
           return;
