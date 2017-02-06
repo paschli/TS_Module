@@ -39,9 +39,8 @@ class TS_HomebridgeTemperatur extends IPSModule {
   public function Destroy() {
   }
 
- // 06.02.2017 14:27:29 | Splitter JSON ForwardData | {"DataID":"{018EF6B5-AB94-40C6-AA53-46943E824ACF}","Buffer":"{\"topic\": \"setValue\", \"payload\": {\"name\": \"Temperatur Wohnen\", \"characteristic\": \"CurrentTemperature\", \"value\": \"21.80\"}"}
   public function MessageSink($TimeStamp, $SenderID, $Message, $Data) {
-      IPS_LogMessage("MessageSink", "Message from SenderID Temp ".$SenderID." with Message ".$Message."\r\n Data: ".print_r($Data, true));
+//      IPS_LogMessage("MessageSink", "Message from SenderID Temp ".$SenderID." with Message ".$Message."\r\n Data: ".print_r($Data, true));
       $anzahl = $this->ReadPropertyInteger("Anzahl");
       for($count = 1; $count-1 < $anzahl; $count++) {
         $VariableState = $this->ReadPropertyInteger("VariableTemp{$count}");
@@ -51,8 +50,6 @@ class TS_HomebridgeTemperatur extends IPSModule {
           $data = $Data[0];
           $result = number_format($data, 2, '.', '');
           $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
-//      {"topic": "setValue", "payload": {"name": "Temperatur Buero", "characteristic": "CurrentTemperature", "value": 23.9}}
-          //$JSON['Buffer'] = utf8_encode('{"topic": "setValue", "payload": {"name": "'.$DeviceName.'", "characteristic": "'.$Characteristic.'", "value": "'.$result.'"}');
           $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
           $Data = json_encode($JSON);
           $this->SendDataToParent($Data);
