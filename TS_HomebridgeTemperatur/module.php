@@ -51,7 +51,8 @@ class TS_HomebridgeTemperatur extends IPSModule {
           $data = $Data[0];
           $result = number_format($data, 2, '.', '');
           $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
-          $JSON['Buffer'] = utf8_encode('{"topic": "set", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
+//      {"topic": "setValue", "payload": {"name": "Temperatur Buero", "characteristic": "CurrentTemperature", "value": 23.9}}
+          $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "payload": {"name": "'.$DeviceName.'", "characteristic": "'.$Characteristic.'", "value": "'.$result.'"}');
           $Data = json_encode($JSON);
           $this->SendDataToParent($Data);
         }
