@@ -43,7 +43,7 @@ class TS_HomebridgeTemperatur extends IPSModule {
       IPS_LogMessage("MessageSink", "Message from SenderID Temp ".$SenderID." with Message ".$Message."\r\n Data: ".print_r($Data, true));
       $anzahl = $this->ReadPropertyInteger("Anzahl");
       for($count = 1; $count-1 < $anzahl; $count++) {
-        $VariableState = $this->ReadPropertyInteger($VariableTemp);
+        $VariableState = $this->ReadPropertyInteger("VariableTemp{$count}");
         if ($VariableState == $SenderID) { 
           $DeviceName =  $this->ReadPropertyString("DeviceName{$count}");
           $Characteristic = "CurrentTemperature";
