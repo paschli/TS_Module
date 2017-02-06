@@ -35,7 +35,7 @@ WSC_SendText(39016, $data)
   IPS_SetHidden($alarmskript_ID,true);
   $this->Registerevent($alarmskript_ID,$steuer_id); 
 
-  $sk_id=IPS_GetObjectIDByIdent($HBName, $this->InstanceID);;
+  $sk_id=IPS_GetObjectIDByIdent($DeviceNameID, $this->InstanceID);;
   if ( IPS_ScriptExists($sk_id)){
       IPS_SetScriptContent ( $sk_id, $alarmskript);
   }
