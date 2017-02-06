@@ -48,7 +48,8 @@ class TS_HomebridgeTemperatur extends IPSModule {
         if ($VariableState == $SenderID) { 
           $DeviceName =  $this->ReadPropertyString("DeviceName{$count}");
           $Characteristic = "CurrentTemperature";
-          $result = number_format($data[0], 2, '.', '');
+          $data = $Data[0];
+          $result = number_format($data, 2, '.', '');
           $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
           $JSON['Buffer'] = utf8_encode('{"topic": "set", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
           $Data = json_encode($JSON);
