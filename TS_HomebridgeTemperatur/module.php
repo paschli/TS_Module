@@ -25,31 +25,6 @@ class TS_HomebridgeTemperatur extends IPSModule {
         $HBName =  $this->ReadPropertyString("DeviceName{$count}");
         $steuer_id =$this->ReadPropertyInteger("VariableTemp{$count}");
 
-/////////////////////////////////////////////////
-$alarmskript= '<? 
-$DeviceName = IPS_GetName($_IPS["SELF"]);
-$id= IPS_GetParent($_IPS["SELF"]);
-$id2=(IPS_GetInstance($id));
-$id= ($id2["ConnectionID"]);
-$id2=(IPS_GetInstance($id));
-$id= ($id2["ConnectionID"]);
-$value = ($_IPS["VALUE"]); //Wert vom Ereigniss holen...
-$value = str_replace(\',\', \'.\', $value);  
-$data =\'{"topic": "setValue", "payload": {"name": "\'.$DeviceName.\'", "characteristic": "CurrentTemperature", "value": \'.$value.\'}}\'; 
-WSC_SendText($id, $data)
-?>';
-  $alarmskript_ID = $this->RegisterScript($DeviceNameID, $HBName, $alarmskript);
-  IPS_SetHidden($alarmskript_ID,true);
-  $this->Registerevent($alarmskript_ID,$steuer_id); 
-
-  $sk_id=IPS_GetObjectIDByIdent($DeviceNameID, $this->InstanceID);;
-  if ( IPS_ScriptExists($sk_id)){
-      IPS_SetScriptContent ( $sk_id, $alarmskript);
-  }
-
-/////////////////////////////////////////////////
-
-       
         if ($this->ReadPropertyString($DeviceNameID) != "") {
           $this->addAccessory($this->ReadPropertyString($DeviceNameID));
           $this->RegisterMessage($this->ReadPropertyInteger($VariableState) /* InstanzID */, 10603 /* IM_CHANGESTATUS */);
@@ -65,8 +40,11 @@ WSC_SendText($id, $data)
   }
 
   public function MessageSink($TimeStamp, $SenderID, $Message, $Data) {
-
   	IPS_LogMessage("MessageSink", "Message from SenderID Temp ".$SenderID." with Message ".$Message."\r\n Data: ".print_r($Data, true));
+    $value = $data[0];
+    $DeviceName = $HBName;
+    $data = \'{"topic": "setValue", "payload": {"name": "\'.$DeviceName.\'", "characteristic": "CurrentTemperature", "value": \'.$value.\'}}\'; 
+    IPS_LogMessage(  $data);
   }
 
   public function GetConfigurationForm() {
@@ -127,24 +105,5 @@ WSC_SendText($id, $data)
     $Data = json_encode($JSON);
     $this->SendDataToParent($Data);
   }
-		private function Registerevent($TargetID,$Ziel_id)
-		{ 
-      if(!isset($_IPS))
-      global $_IPS;  
-      $EreignisID = @IPS_GetEventIDByName("Trigger",  $TargetID);
-      if ($EreignisID == true){
-      if (IPS_EventExists(IPS_GetEventIDByName ( "Trigger", $TargetID)))
-      {
-       IPS_DeleteEvent(IPS_GetEventIDByName ( "Trigger", $TargetID));
-      }
-      }       
-      $eid = IPS_CreateEvent(0);                  //Ausgelöstes Ereignis
-      IPS_SetName($eid, "Trigger");
-      IPS_SetEventTrigger($eid, 1, $Ziel_id);        //Bei Änderung von Variable 
-//      IPS_SetEventTrigger($eid, 4, $Ziel_id);        //Bei bestimmten Wert
-      IPS_SetEventTriggerValue($eid, true);       
-      IPS_SetParent($eid, $TargetID);         //Ereignis zuordnen
-      IPS_SetEventActive($eid, true);             //Ereignis aktivieren
-    }
 }
 ?>
