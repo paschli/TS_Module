@@ -39,6 +39,7 @@ class TS_HomebridgeTemperatur extends IPSModule {
   public function Destroy() {
   }
 
+
   public function MessageSink($TimeStamp, $SenderID, $Message, $Data) {
       IPS_LogMessage("MessageSink", "Message from SenderID Temp ".$SenderID." with Message ".$Message."\r\n Data: ".print_r($Data, true));
       $anzahl = $this->ReadPropertyInteger("Anzahl");
