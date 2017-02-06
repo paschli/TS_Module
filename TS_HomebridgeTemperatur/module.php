@@ -41,10 +41,14 @@ class TS_HomebridgeTemperatur extends IPSModule {
 
   public function MessageSink($TimeStamp, $SenderID, $Message, $Data) {
   	IPS_LogMessage("MessageSink", "Message from SenderID Temp ".$SenderID." with Message ".$Message."\r\n Data: ".print_r($Data, true));
-    $value = $data[0];
-    $DeviceName = $HBName;
-    $data = \'{"topic": "setValue", "payload": {"name": "\'.$DeviceName.\'", "characteristic": "CurrentTemperature", "value": \'.$value.\'}}\'; 
-    IPS_LogMessage(  $data);
+    $DeviceName = " ";
+    $Characteristic = " ";
+    $result = number_format($data[0], 2, '.', '');
+    $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
+    $JSON['Buffer'] = utf8_encode('{"topic": "set", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
+    $Data = json_encode($JSON);
+    //$this->SendDataToParent($Data);
+    IPS_LogMessage($data);
   }
 
   public function GetConfigurationForm() {
