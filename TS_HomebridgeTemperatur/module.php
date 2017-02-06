@@ -64,7 +64,7 @@ WSC_SendText($id, $data)
 
  public function MessageSink($TimeStamp, $SenderID, $Message, $Data) {
  
-	IPS_LogMessage("MessageSink", "Message from SenderID ".$SenderID." with Message ".$Message."\r\n Data: ".print_r($Data, true));
+	IPS_LogMessage("MessageSink", "Message from SenderID Temperatur ".$SenderID." with Message ".$Message."\r\n Data: ".print_r($Data, true));
 }
   public function GetConfigurationForm() {
     $anzahl = $this->ReadPropertyInteger("Anzahl");
