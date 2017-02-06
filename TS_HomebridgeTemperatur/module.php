@@ -24,10 +24,12 @@ class TS_HomebridgeTemperatur extends IPSModule {
         $VariableState = "VariableTemp{$count}";
         $HBName =  $this->ReadPropertyString("DeviceName{$count}");
         $steuer_id =$this->ReadPropertyInteger("VariableTemp{$count}");
-
+        //$this->UnregisterMessage($this->ReadPropertyInteger($VariableState), 10603); // VM_UPDATE rauswerfen
+        $this->UnregisterMessage($this->GetBuffer($DeviceNameID." VariableTemp{$count}"), 10603)
         if ($this->ReadPropertyString($DeviceNameID) != "") {
           $this->addAccessory($this->ReadPropertyString($DeviceNameID));
-          $this->RegisterMessage($this->ReadPropertyInteger($VariableState) /* InstanzID */, 10603 /* IM_CHANGESTATUS */);
+          $this->RegisterMessage($this->ReadPropertyInteger($VariableState), 10603); // VM_UPDATE
+          $this->SetBuffer($DeviceNameID." VariableTemp{$count}"; 
 
         }
         else {
