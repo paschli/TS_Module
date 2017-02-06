@@ -29,7 +29,7 @@ class TS_HomebridgeTemperatur extends IPSModule {
         if ($this->ReadPropertyString($DeviceNameID) != "") {
           $this->addAccessory($this->ReadPropertyString($DeviceNameID));
           $this->RegisterMessage($this->ReadPropertyInteger($VariableState), 10603); // VM_UPDATE
-          $this->SetBuffer($DeviceNameID." VariableTemp{$count}"; 
+          $this->SetBuffer($DeviceNameID." VariableTemp{$count}"); 
 
         }
         else {
