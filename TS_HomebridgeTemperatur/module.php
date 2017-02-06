@@ -23,6 +23,7 @@ class TS_HomebridgeTemperatur extends IPSModule {
         $DeviceNameID = "DeviceName{$count}";
         $HBName =  $this->ReadPropertyString("DeviceName{$count}");
         $steuer_id =$this->ReadPropertyInteger("VariableTemp{$count}");
+        
 /////////////////////////////////////////////////
 $alarmskript= '<? 
 $DeviceName = IPS_GetName($_IPS["SELF"]);
@@ -47,7 +48,7 @@ WSC_SendText($id, $data)
 
 /////////////////////////////////////////////////
 
-
+        $this->RegisterMessage($steuer_id, 10505 /* IM_CHANGESTATUS */);
 
         if ($this->ReadPropertyString($DeviceNameID) != "") {
           $this->addAccessory($this->ReadPropertyString($DeviceNameID));
@@ -61,6 +62,10 @@ WSC_SendText($id, $data)
   public function Destroy() {
   }
 
+ public function MessageSink($TimeStamp, $SenderID, $Message, $Data) {
+ 
+	IPS_LogMessage("MessageSink", "Message from SenderID ".$SenderID." with Message ".$Message."\r\n Data: ".print_r($Data, true));
+}
   public function GetConfigurationForm() {
     $anzahl = $this->ReadPropertyInteger("Anzahl");
     $form = '{"elements":
