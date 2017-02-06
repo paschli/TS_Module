@@ -51,7 +51,7 @@ WSC_SendText($id, $data)
 
         if ($this->ReadPropertyString($DeviceNameID) != "") {
           $this->addAccessory($this->ReadPropertyString($DeviceNameID));
-          $this->RegisterMessage($this->ReadPropertyInteger($steuer_id), 10603 /* IM_CHANGESTATUS */);
+          $this->RegisterMessage($this->ReadPropertyInteger($steuer_id), 10603);
         }
         else {
           return;
@@ -62,10 +62,11 @@ WSC_SendText($id, $data)
   public function Destroy() {
   }
 
- public function MessageSink($TimeStamp, $SenderID, $Message, $Data) {
- 
-	IPS_LogMessage("MessageSink", "Message from SenderID Temperatur ".$SenderID." with Message ".$Message."\r\n Data: ".print_r($Data, true));
-}
+  public function MessageSink($TimeStamp, $SenderID, $Message, $Data) {
+
+  	IPS_LogMessage("MessageSink", "Message from SenderID Temp ".$SenderID." with Message ".$Message."\r\n Data: ".print_r($Data, true));
+  }
+
   public function GetConfigurationForm() {
     $anzahl = $this->ReadPropertyInteger("Anzahl");
     $form = '{"elements":
