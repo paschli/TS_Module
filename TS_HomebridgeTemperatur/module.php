@@ -54,7 +54,6 @@ class TS_HomebridgeTemperatur extends IPSModule {
           $JSON['Buffer'] = utf8_encode('{"topic": "set", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
           $Data = json_encode($JSON);
           $this->SendDataToParent($Data);
-          IPS_LogMessage($Data);
         }
       }
   }
