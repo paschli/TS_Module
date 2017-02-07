@@ -1,0 +1,14 @@
+{
+	"id": "{855a3afc-ed40-11e6-bc64-92361f002671}",
+	"name": "TS_Dummy",
+	"type": 3,
+	"vendor": "",
+	"aliases": 
+	[
+		"TS_Dummy"
+	],
+	"parentRequirements": [],
+	"childRequirements": [],
+	"implemented": [],
+	"prefix": ""
+}
