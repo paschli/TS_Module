@@ -47,7 +47,7 @@ class TS_Dummy extends IPSModule
         switch ($Ident)
         {
             case "Schalter":
-                $result = $this->Schalter($Value);
+                $result = $this->SetSwitch($Value);
             break;
 
 
