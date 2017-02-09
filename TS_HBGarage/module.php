@@ -62,7 +62,7 @@ class TS_HBGarage extends IPSModule {
       //Prüfen ob die SenderID gleich der State Variable ist, dann den aktuellen Wert an die Bridge senden
       if ($GarageState == $SenderID) {
         $DeviceName = $this->ReadPropertyString($DeviceNameCount);
-        $Characteristic = "CurrentDoorState";
+        $Characteristic = "TargetDoorState";
         $data = $Data[0];
 //        $result = ($data) ? 'true' : 'false';
         $result = intval($data);
@@ -116,6 +116,7 @@ Characteristic.CurrentDoorState.CLOSED = 1;
 Characteristic.CurrentDoorState.OPENING = 2;
 Characteristic.CurrentDoorState.CLOSING = 3;
 Characteristic.CurrentDoorState.STOPPED = 4;
+TargetDoorState
 */
   public function getState($DeviceName, $Characteristic) {
     $anzahl = $this->ReadPropertyInteger("Anzahl");
