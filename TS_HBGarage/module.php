@@ -103,14 +103,20 @@ class TS_HBGarage extends IPSModule {
     // Und Diese dann wieder dekodieren
     $HomebridgeData = json_decode($Buffer);
     //Prüfen ob die ankommenden Daten für den Garage sind wenn ja, Status abfragen oder setzen
-    if ($HomebridgeData->Action == "get" && $HomebridgeData->Service == "Garage") {
+    if ($HomebridgeData->Action == "get" && $HomebridgeData->Service == "GarageDoorOpener") {
       $this->getState($HomebridgeData->Device, $HomebridgeData->Characteristic);
     }
-    if ($HomebridgeData->Action == "set" && $HomebridgeData->Service == "Garage") {
+    if ($HomebridgeData->Action == "set" && $HomebridgeData->Service == "GarageDoorOpener") {
       $this->setState($HomebridgeData->Device, $HomebridgeData->Value, $HomebridgeData->Characteristic);
     }
   }
-
+/*
+Characteristic.CurrentDoorState.OPEN = 0;
+Characteristic.CurrentDoorState.CLOSED = 1;
+Characteristic.CurrentDoorState.OPENING = 2;
+Characteristic.CurrentDoorState.CLOSING = 3;
+Characteristic.CurrentDoorState.STOPPED = 4;
+*/
   public function getState($DeviceName, $Characteristic) {
     $anzahl = $this->ReadPropertyInteger("Anzahl");
 
@@ -166,7 +172,7 @@ class TS_HBGarage extends IPSModule {
 
   private function addAccessory($DeviceName) {
     $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
-    $JSON['Buffer'] = utf8_encode('{"topic": "add", "name": "'.$DeviceName.'", "service": "GarageDoorOpener "}');
+    $JSON['Buffer'] = utf8_encode('{"topic": "add", "name": "'.$DeviceName.'", "service": "GarageDoorOpener"}');
     $Data = json_encode($JSON);
     @$this->SendDataToParent($Data);
   }
