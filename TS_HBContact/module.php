@@ -62,7 +62,7 @@ class TS_HBContact extends IPSModule {
       //Prüfen ob die SenderID gleich der State Variable ist, dann den aktuellen Wert an die Bridge senden
       if ($ContactState == $SenderID) {
         $DeviceName = $this->ReadPropertyString($DeviceNameCount);
-        $Characteristic = "ContactSensorState ";
+        $Characteristic = "ContactSensorState";
         $data = $Data[0];
         //$result = ($data) ? 'true' : 'false';
         $result = ($data);
