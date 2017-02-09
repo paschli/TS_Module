@@ -182,7 +182,7 @@ TargetDoorState
     $SendData = json_encode(Array("DataID" => "{018EF6B5-AB94-40C6-AA53-46943E824ACF}", "Buffer" => $data));
     @$this->SendDataToParent($SendData);
   }
-}  public function ConvertVariable($variable, $state) {
+  public function ConvertVariable($variable, $state) {
       switch ($variable["VariableType"]) {
         case 0: // boolean
           return boolval($state);
