@@ -64,8 +64,8 @@ class TS_HBContact extends IPSModule {
         $DeviceName = $this->ReadPropertyString($DeviceNameCount);
         $Characteristic = "ContactSensorState";
         $data = $Data[0];
-        //$result = ($data) ? 'true' : 'false';
-        $result = ($data);
+        $result = ($data) ? 'true' : 'false';
+//        $result = ($data);
         $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
         $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
         $Data = json_encode($JSON);
@@ -125,7 +125,7 @@ class TS_HBContact extends IPSModule {
         //IPS Variable abfragen
         $ContactStateID = $this->ReadPropertyInteger($ContactStateCount);
         $result = GetValue($ContactStateID);
-        //$result = ($result) ? 'true' : 'false';
+        $result = ($result) ? 'true' : 'false';
         $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
         $JSON['Buffer'] = utf8_encode('{"topic": "callback", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
         $Data = json_encode($JSON);
