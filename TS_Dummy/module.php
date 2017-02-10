@@ -22,7 +22,7 @@ class TS_Dummy extends IPSModule
 
             $this->RegisterVariableBoolean("Schalter","Schalter", "Switch", 1);
             $this->EnableAction("Schalter");
-            $this->RegisterVariableInteger("Dimmer","Dimmer", "~Intensity.100", 2);
+            $this->RegisterVariableInteger("Dimmer","Dimmer", "", 1);
             $this->EnableAction("Dimmer");
         
         // Start create profiles
@@ -41,6 +41,7 @@ class TS_Dummy extends IPSModule
     {
         if ($this->ReadPropertyBoolean("Schalter")) SetValue($this->GetIDForIdent("Schalter"), $switch);
     }
+
     public function SetDimmer($dim)
     {
         if ($this->ReadPropertyInteger("Dimmer")) SetValue($this->GetIDForIdent("Dimmer"), $dim);
@@ -58,7 +59,6 @@ class TS_Dummy extends IPSModule
             case "Dimmer":
                 $result = $this->SetDimmer($Value);
             break;
-
 
             default:
                 throw new Exception("Invalid ident");
