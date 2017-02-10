@@ -1,7 +1,8 @@
 {
 	"elements":
 	[
-		{ "name": "Schalter",      "type": "ValidationTextBox", "caption": "Schalter" }
+		{ "name": "Schalter",      "type": "ValidationTextBox", "caption": "Schalter" },
+    { "name": "Dimmer",        "type": "ValidationTextBox", "caption": "Dimmerr" }
 	],
 	"actions":
 	[
