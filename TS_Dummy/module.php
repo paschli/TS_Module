@@ -23,7 +23,7 @@ class TS_Dummy extends IPSModule
             $this->RegisterVariableBoolean("Schalter","Schalter", "Switch", 1);
             $this->EnableAction("Schalter");
             $this->RegisterVariableInteger("Dimmer","Dimmer", "~Intensity.100", 2);
-            $this->EnableAction("Schalter");
+            $this->EnableAction("Dimmer");
         
         // Start create profiles
          
