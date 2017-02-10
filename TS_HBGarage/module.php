@@ -140,13 +140,13 @@ TargetDoorState
       
         if ($result == 1 ) {
           $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
-          $JSON['Buffer'] = utf8_encode('{"topic": "callback", "Characteristic": "CurrentPosition", "Device": "'.$DeviceName.'", "value": "100"}');
+          $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "CurrentPosition", "Device": "'.$DeviceName.'", "value": "100"}');
           $Data = json_encode($JSON);
           $this->SendDataToParent($Data);
         }
         if ($result == 0 ) {
           $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
-          $JSON['Buffer'] = utf8_encode('{"topic": "callback", "Characteristic": "CurrentPosition", "Device": "'.$DeviceName.'", "value": "0"}');
+          $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "CurrentPosition", "Device": "'.$DeviceName.'", "value": "0"}');
           $Data = json_encode($JSON);
           $this->SendDataToParent($Data);
         }
