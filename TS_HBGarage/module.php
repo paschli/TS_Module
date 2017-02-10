@@ -162,21 +162,21 @@ TargetDoorState
 
         $Characteristic ="ObstructionDetected";
         $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
-        $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "0"}');
+        $JSON['Buffer'] = utf8_encode('{"topic": "callback", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "0"}');
         $Data = json_encode($JSON);
         $this->SendDataToParent($Data);
 
         if ($result == "1" ) {
           $Characteristic = "CurrentDoorState";
           $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
-          $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'","value": "1"}');
+          $JSON['Buffer'] = utf8_encode('{"topic": "callback", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'","value": "1"}');
           $Data = json_encode($JSON);
           $this->SendDataToParent($Data);
         }
         if ($result == "0" ) {
           $Characteristic = "CurrentDoorState";
           $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
-          $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'","value": "0"}');
+          $JSON['Buffer'] = utf8_encode('{"topic": "callback", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'","value": "0"}');
           $Data = json_encode($JSON);
           $this->SendDataToParent($Data);
         }
