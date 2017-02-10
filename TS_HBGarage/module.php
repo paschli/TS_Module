@@ -49,7 +49,6 @@ class TS_HBGarage extends IPSModule {
       }
     }
 
-    }
   public function Destroy() {
   }
 
@@ -71,7 +70,7 @@ class TS_HBGarage extends IPSModule {
         $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
         $Data = json_encode($JSON);
         $this->SendDataToParent($Data);
-/*
+
         if ($result == "1" ) {
           $Characteristic = "CurrentDoorState";
           $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
@@ -86,7 +85,7 @@ class TS_HBGarage extends IPSModule {
           $Data = json_encode($JSON);
           $this->SendDataToParent($Data);
         }
-*/
+
       }
     }
 }
