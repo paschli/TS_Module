@@ -29,7 +29,7 @@ class TS_HBGarage extends IPSModule {
       for($count = 1; $count-1 < $anzahl; $count++) {
         $DeviceNameCount = "DeviceName{$count}";
         $GarageStateCount = "GarageState{$count}";
-        $BufferName = $DeviceNameCount." State ".$GarageStateCount;
+        $BufferName = $DeviceNameCount." Garage ".$GarageStateCount;
 
         $GarageStateBuffer = $this->GetBuffer($BufferName);
 
@@ -71,20 +71,22 @@ class TS_HBGarage extends IPSModule {
         $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
         $Data = json_encode($JSON);
         $this->SendDataToParent($Data);
+/*
         if ($result == "1" ) {
           $Characteristic = "CurrentDoorState";
-          $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'","value": 0}');
+          $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
+          $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'","value": "0"}');
           $Data = json_encode($JSON);
           $this->SendDataToParent($Data);
         }
         if ($result == "0" ) {
           $Characteristic = "CurrentDoorState";
-//          $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
-          $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'","value": 1}');
+          $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
+          $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'","value": "1"}');
           $Data = json_encode($JSON);
           $this->SendDataToParent($Data);
         }
-
+*/
       }
     }
 }
