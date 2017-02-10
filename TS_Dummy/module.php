@@ -11,8 +11,8 @@ class TS_Dummy extends IPSModule
         //You cannot use variables here. Just static values.
 
         $this->RegisterPropertyBoolean("Schalter", "false");      
-
-    }
+        $this->RegisterPropertyInteger("Dimmer", 0);
+    }                
 
 //*********************************************************************************************************
     public function ApplyChanges()
@@ -21,6 +21,8 @@ class TS_Dummy extends IPSModule
         parent::ApplyChanges();
 
             $this->RegisterVariableBoolean("Schalter","Schalter", "Switch", 1);
+            $this->EnableAction("Schalter");
+            $this->RegisterVariableInteger("Dimmer","Dimmer", "~Intensity.100", 2);
             $this->EnableAction("Schalter");
         
         // Start create profiles
@@ -39,6 +41,10 @@ class TS_Dummy extends IPSModule
     {
         if ($this->ReadPropertyBoolean("Schalter")) SetValue($this->GetIDForIdent("Schalter"), $switch);
     }
+    public function SetDimmer($dim)
+    {
+        if ($this->ReadPropertyInteger("Dimmer")) SetValue($this->GetIDForIdent("Dimmer"), $dim);
+    }
 
     public function RequestAction($Ident, $Value)
     {
@@ -48,6 +54,9 @@ class TS_Dummy extends IPSModule
         {
             case "Schalter":
                 $result = $this->SetSwitch($Value);
+            break;
+            case "Dimmer":
+                $result = $this->SetDimmer($Value);
             break;
 
 
