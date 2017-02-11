@@ -139,7 +139,7 @@ alles andere 0-100
         break;
         case $WindowTarget:
           $result = intval($data);
-          $result = "2"
+          $result = "2";
           $Characteristic ="PositionState";
           $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
           $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
