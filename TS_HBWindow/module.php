@@ -12,7 +12,12 @@ Service.Window = function(displayName, subtype) {
   // Optional Characteristics
   this.addOptionalCharacteristic(Characteristic.HoldPosition);
   this.addOptionalCharacteristic(Characteristic.ObstructionDetected);
-this.addOptionalCharacteristic(Characteristic.Name);
+  this.addOptionalCharacteristic(Characteristic.Name);
+  // The value property of PositionState must be one of the following:
+Characteristic.PositionState.DECREASING = 0;
+Characteristic.PositionState.INCREASING = 1;
+Characteristic.PositionState.STOPPED = 2;
+alles andere 0-100
 */
   public function Create() {
       //Never delete this line!
@@ -125,6 +130,7 @@ this.addOptionalCharacteristic(Characteristic.Name);
         break;
         case $WindowCurrent:
           $result = intval($data);
+          $result = ($data) ? '"1"' : '"0"'; //
           $Characteristic ="CurrentPosition";
           $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
           $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
@@ -133,6 +139,7 @@ this.addOptionalCharacteristic(Characteristic.Name);
         break;
         case $WindowTarget:
           $result = intval($data);
+          $result = "2"
           $Characteristic ="PositionState";
           $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
           $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
