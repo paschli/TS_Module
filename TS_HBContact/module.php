@@ -53,6 +53,7 @@ class TS_HBContact extends IPSModule {
   }
 
   public function MessageSink($TimeStamp, $SenderID, $Message, $Data) {
+   if ($Data[1] == true) {
     $anzahl = $this->ReadPropertyInteger("Anzahl");
 
     for($count = 1; $count-1 < $anzahl; $count++) {
@@ -72,8 +73,8 @@ class TS_HBContact extends IPSModule {
         $this->SendDataToParent($Data);
       }
     }
-}
-
+   }
+  }
   public function GetConfigurationForm() {
     $anzahl = $this->ReadPropertyInteger("Anzahl");
     $form = '{"elements":
