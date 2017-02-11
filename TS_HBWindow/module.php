@@ -73,7 +73,7 @@ this.addOptionalCharacteristic(Characteristic.Name);
 //          $BrightnessBoolean = $this->ReadPropertyBoolean($VariableBrightnessOptionalCount);
 
           //Regestriere State Variable auf Veränderungen
-          $NewVariableID = $this->ReadPropertyInteger($VariableStateCount);
+          $NewVariableID = $this->ReadPropertyInteger($WindowStateCount);
           $this->RegisterMessage($NewVariableID, 10603);
 
           //Regestriere Brightness Variable auf Veränderungen
@@ -84,7 +84,7 @@ this.addOptionalCharacteristic(Characteristic.Name);
           $this->RegisterMessage($NewVariableID, 10603);
 
           //Buffer mit den aktuellen Variablen IDs befüllen für State und Brightness
-          $this->SetBuffer($BufferNameState,$this->ReadPropertyInteger($VariableStateCount));
+          $this->SetBuffer($BufferNameState,$this->ReadPropertyInteger($WindowStateCount));
           $this->SetBuffer($BufferNameTarget,$this->ReadPropertyInteger($WindowTargetCount));
           $this->SetBuffer($BufferNameCurrent,$this->ReadPropertyInteger($WindowCurrentCount));
 
