@@ -89,7 +89,7 @@ this.addOptionalCharacteristic(Characteristic.Name);
           $this->SetBuffer($BufferNameCurrent,$this->ReadPropertyInteger($WindowCurrentCount));
 
 //          $this->addAccessory($this->ReadPropertyString($DeviceNameCount),$BrightnessBoolean);
-          $this->addAccessory($this->ReadPropertyString($DeviceNameCount);
+          $this->addAccessory($this->ReadPropertyString($DeviceNameCount));
         } else {
           return;
         }
