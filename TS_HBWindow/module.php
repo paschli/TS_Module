@@ -258,7 +258,7 @@ alles andere 0-100
             $VariableID = $this->ReadPropertyInteger($WindowCurrentCount);
             $variable = IPS_GetVariable($VariableID);
             $variableObject = IPS_GetObject($VariableID);
-            if ($SDummyOptionalValue == true) {
+            if ($DummyOptionalValue == true) {
               $this->SendDebug('setState Dummy CurrentPosition',$VariableID, 0);
               SetValue($VariableID, $result);
             } else {
@@ -293,7 +293,7 @@ alles andere 0-100
             //den übgergebenen Wert in den VariablenTyp für das IPS-Gerät umwandeln
             $result = $this->ConvertVariable($variable, $value);
             //Geräte Variable setzen
-            if ($SDummyOptionalValue == true) {
+            if ($DummyOptionalValue == true) {
               $this->SendDebug('setState Dummy CurrentPosition',$VariableID, 0);
               SetValue($VariableID, $result);
             } else {
@@ -308,7 +308,7 @@ alles andere 0-100
             //den übgergebenen Wert in den VariablenTyp für das IPS-Gerät umwandeln
             $result = $this->ConvertVariable($variable, $value);
             //Geräte Variable setzen
-            if ($SDummyOptionalValue == true) {
+            if ($DummyOptionalValue == true) {
               $this->SendDebug('setState Dummy CurrentPosition',$VariableID, 0);
               SetValue($VariableID, $result);
             } else {
