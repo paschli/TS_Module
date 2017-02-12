@@ -236,7 +236,7 @@ alles andere 0-100
     }
   }
 
-  public function setState($DeviceName, $state, $variable) {
+  public function setState($DeviceName, $value, $Characteristic) {
     $anzahl = $this->ReadPropertyInteger("Anzahl");
 
     for($count = 1; $count -1 < $anzahl; $count++) {
