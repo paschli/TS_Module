@@ -122,7 +122,7 @@ alles andere 0-100
       //Prüfen ob die SenderID gleich der State Variable ist, dann den aktuellen Wert an die Bridge senden
       switch ($SenderID) {
        case $WindowState:
-        $Characteristic = "TargetPosition";
+        $Characteristic = "PositionState";
 //        $result = ($data) ? 'true' : 'false';
         $result = intval($data);
         $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
@@ -141,7 +141,7 @@ alles andere 0-100
         break;
         case $WindowTarget:
           $result = intval($data);
-          $Characteristic ="PositionState";
+          $Characteristic ="TargetPosition";      
           $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
           $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
           $Data = json_encode($JSON);
@@ -260,31 +260,11 @@ alles andere 0-100
             $variable = IPS_GetVariable($VariableID);
             $variableObject = IPS_GetObject($VariableID);
             if ($DummyOptionalValue == true) {
-              $this->SendDebug('setState Dummy CurrentPosition',$VariableID, 0);
+//              $this->SendDebug('setState Dummy CurrentPosition',$VariableID, 0);
               SetValue($VariableID, $result);
             } else {
               IPS_RequestAction($variableObject["ParentID"], $variableObject['ObjectIdent'], $result);
             }
-/*
-            $result = ($result) ? 'true' : 'false';
-            if ($result == true && $value == 0) {
-              $variable = IPS_GetVariable($VariableStateID);
-              $variableObject = IPS_GetObject($VariableStateID);
-              //den übgergebenen Wert in den VariablenTyp für das IPS-Gerät umwandeln
-              $result = $this->ConvertVariable($variable, $value);
-              //Geräte Variable setzen
-              IPS_RequestAction($variableObject["ParentID"], $variableObject['ObjectIdent'], $result);
-            }
-
-            if ($result == "false" && $value == 1) {
-              $variable = IPS_GetVariable($VariableStateID);
-              $variableObject = IPS_GetObject($VariableStateID);
-              //den übgergebenen Wert in den VariablenTyp für das IPS-Gerät umwandeln
-              $result = $this->ConvertVariable($variable, $value);
-              //Geräte Variable setzen
-              IPS_RequestAction($variableObject["ParentID"], $variableObject['ObjectIdent'], $result);
-            }
-*/
             break;
           case 'TargetPosition':
             //Lightbulb Brightness abfragen
@@ -295,7 +275,7 @@ alles andere 0-100
             $result = $this->ConvertVariable($variable, $value);
             //Geräte Variable setzen
             if ($DummyOptionalValue == true) {
-              $this->SendDebug('setState Dummy CurrentPosition',$VariableID, 0);
+//              $this->SendDebug('setState Dummy CurrentPosition',$VariableID, 0);
               SetValue($VariableID, $result);
             } else {
               IPS_RequestAction($variableObject["ParentID"], $variableObject['ObjectIdent'], $result);
@@ -310,7 +290,7 @@ alles andere 0-100
             $result = $this->ConvertVariable($variable, $value);
             //Geräte Variable setzen
             if ($DummyOptionalValue == true) {
-              $this->SendDebug('setState Dummy CurrentPosition',$VariableID, 0);
+ //             $this->SendDebug('setState Dummy CurrentPosition',$VariableID, 0);
               SetValue($VariableID, $result);
             } else {
               IPS_RequestAction($variableObject["ParentID"], $variableObject['ObjectIdent'], $result);
