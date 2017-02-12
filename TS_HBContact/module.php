@@ -104,10 +104,10 @@ class TS_HBContact extends IPSModule {
     // Und Diese dann wieder dekodieren
     $HomebridgeData = json_decode($Buffer);
     //Prüfen ob die ankommenden Daten für den Contact sind wenn ja, Status abfragen oder setzen
-    if ($HomebridgeData->Action == "get" && $HomebridgeData->Service == "Contact") {
+    if ($HomebridgeData->Action == "get" && $HomebridgeData->Service == "ContactSensor") {
       $this->getState($HomebridgeData->Device, $HomebridgeData->Characteristic);
     }
-    if ($HomebridgeData->Action == "set" && $HomebridgeData->Service == "Contact") {
+    if ($HomebridgeData->Action == "set" && $HomebridgeData->Service == "ContactSensor") {
       $this->setState($HomebridgeData->Device, $HomebridgeData->Value, $HomebridgeData->Characteristic);
     }
   }
