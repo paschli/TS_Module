@@ -161,9 +161,9 @@ alles andere 0-100
     for($count = 1; $count-1 < $anzahl; $count++) {
       $form .= '{ "type": "ValidationTextBox", "name": "DeviceName'.$count.'", "caption": "Gerätename für die Homebridge" },';
       $form .= '{ "type": "SelectInstance", "name": "WindowID'.$count.'", "caption": "Gerät" },';
-      $form .= '{ "type": "SelectVariable", "name": "WindowState'.$count.'", "caption": "Status (Characteristic .State )" },';
-      $form .= '{ "type": "SelectVariable", "name": "WindowTarget'.$count.'", "caption": "Target (Characteristic .State )" },';
-      $form .= '{ "type": "SelectVariable", "name": "WindowCurrent'.$count.'", "caption": "Current (Characteristic .State )" },';
+      $form .= '{ "type": "SelectVariable", "name": "WindowState'.$count.'", "caption": "Status " },';
+      $form .= '{ "type": "SelectVariable", "name": "WindowTarget'.$count.'", "caption": "Target " },';
+      $form .= '{ "type": "SelectVariable", "name": "WindowCurrent'.$count.'", "caption": "Current" },';
       $form .= '{ "type": "Label", "label": "Soll eine eigene Variable geschaltet werden?" },';
       $form .= '{ "type": "CheckBox", "name": "WindowDummyOptional'.$count.'", "caption": "Ja" },';
       if ($count == $anzahl) {
@@ -216,12 +216,12 @@ alles andere 0-100
           case 'TargetPosition':
             // abfragen
             $VariableID = $this->ReadPropertyInteger($WindowTargetCount);
-            $result = GetValue($WindowTargetCount);
+            $result = GetValue($VariableID);
             break;
           case 'PositionState':
             // abfragen
             $VariableID = $this->ReadPropertyInteger($WindowStateCount);
-            $result = GetValue($WindowStateCount);
+            $result = GetValue($VariableID);
             break;
             
         }
