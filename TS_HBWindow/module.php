@@ -146,7 +146,7 @@ alles andere 0-100
           $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
           $Data = json_encode($JSON);
           $this->SendDataToParent($Data);
-        brake;
+        break;
 
       }
     }
