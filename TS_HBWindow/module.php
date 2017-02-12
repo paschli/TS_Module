@@ -193,7 +193,7 @@ alles andere 0-100
 
   public function getState($DeviceName, $Characteristic) {
     $anzahl = $this->ReadPropertyInteger("Anzahl");
-$this->SendDebug('Dummy ',$anzahl, 0);
+//$this->SendDebug('Dummy ',$anzahl, 0);
     for($count = 1; $count -1 < $anzahl; $count++) {
 
       //Hochzählen der Konfirgurationsform Variablen
@@ -203,14 +203,14 @@ $this->SendDebug('Dummy ',$anzahl, 0);
       $WindowCurrentCount = "WindowCurrent{$count}";
       //Prüfen ob der übergebene Name aus dem Hook zu einem Namen aus der Konfirgurationsform passt
       $name = $this->ReadPropertyString($DeviceNameCount);
-$this->SendDebug('Dummy ',$name, 0);
+//$this->SendDebug('Dummy ',$name, 0);
       if ($DeviceName == $name) {
   //IPS Variable abfragen
          switch ($Characteristic) {
           case 'CurrentPosition':
             //abfragen
             $VariableID = $this->ReadPropertyInteger($WindowCurrentCount);
-            $result = intval(GetValue($VariableID));
+            $result = GetValue($VariableID);
             //$result = ($result) ? 'true' : 'false';
             break;
           case 'TargetPosition':
