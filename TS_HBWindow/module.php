@@ -190,14 +190,7 @@ alles andere 0-100
       $this->setState($HomebridgeData->Device, $HomebridgeData->Value, $HomebridgeData->Characteristic);
     }
   }
-/*
-Characteristic.CurrentDoorState.OPEN = 0;
-Characteristic.CurrentDoorState.CLOSED = 1;
-Characteristic.CurrentDoorState.OPENING = 2;
-Characteristic.CurrentDoorState.CLOSING = 3;
-Characteristic.CurrentDoorState.STOPPED = 4;
-TargetDoorState
-*/
+
   public function getState($DeviceName, $Characteristic) {
     $anzahl = $this->ReadPropertyInteger("Anzahl");
 
@@ -208,11 +201,10 @@ TargetDoorState
       $WindowStateCount = "WindowState{$count}";
       $WindowTargetCount = "WindowTarget{$count}";
       $WindowCurrentCount = "WindowCurrent{$count}";
-
       //Prüfen ob der übergebene Name aus dem Hook zu einem Namen aus der Konfirgurationsform passt
       $name = $this->ReadPropertyString($DeviceNameCount);
       if ($DeviceName == $name) {
- //IPS Variable abfragen
+  //IPS Variable abfragen
          switch ($Characteristic) {
           case 'CurrentPosition':
             //abfragen
@@ -253,15 +245,24 @@ TargetDoorState
       $WindowStateCount = "WindowState{$count}";
       $WindowTargetCount = "WindowTarget{$count}";
       $WindowCurrentCount = "WindowCurrent{$count}";
-      $WindowDummyOptional = "WindowDummyOptional{$count}";
+      $DummyOptional = "WindowDummyOptional{$count}";
       //Prüfen ob der übergebene Name aus dem Hook zu einem Namen aus der Konfirgurationsform passt
       $name = $this->ReadPropertyString($DeviceNameCount);
       if ($DeviceName == $name) {
+        $DummyOptionalValue = $this->ReadPropertyBoolean($DummyOptional);
+
         switch ($Characteristic) {
           case 'CurrentPosition':
             //Lightbulb State abfragen
-            $VariableID = $this->ReadPropertyInteger($WindowCurrentCount);
-            $result = intval(GetValue($VariableID));
+            $VariableID = $this->ReadPropertyInteger($WindowTargetCount);
+            $variable = IPS_GetVariable($VariableID);
+            $variableObject = IPS_GetObject($VariableID);
+            if ($SDummyOptionalValue == true) {
+              $this->SendDebug('setState Dummy CurrentPosition',$VariableID, 0);
+              SetValue($VariableID, $result);
+            } else {
+              IPS_RequestAction($variableObject["ParentID"], $variableObject['ObjectIdent'], $result);
+            }
 /*
             $result = ($result) ? 'true' : 'false';
             if ($result == true && $value == 0) {
@@ -291,7 +292,12 @@ TargetDoorState
             //den übgergebenen Wert in den VariablenTyp für das IPS-Gerät umwandeln
             $result = $this->ConvertVariable($variable, $value);
             //Geräte Variable setzen
-            IPS_RequestAction($variableObject["ParentID"], $variableObject['ObjectIdent'], $result);
+            if ($SDummyOptionalValue == true) {
+              $this->SendDebug('setState Dummy CurrentPosition',$VariableID, 0);
+              SetValue($VariableID, $result);
+            } else {
+              IPS_RequestAction($variableObject["ParentID"], $variableObject['ObjectIdent'], $result);
+            }
             break;
           case 'PositionState':
             //Lightbulb Brightness abfragen
@@ -301,7 +307,12 @@ TargetDoorState
             //den übgergebenen Wert in den VariablenTyp für das IPS-Gerät umwandeln
             $result = $this->ConvertVariable($variable, $value);
             //Geräte Variable setzen
-            IPS_RequestAction($variableObject["ParentID"], $variableObject['ObjectIdent'], $result);
+            if ($SDummyOptionalValue == true) {
+              $this->SendDebug('setState Dummy CurrentPosition',$VariableID, 0);
+              SetValue($VariableID, $result);
+            } else {
+              IPS_RequestAction($variableObject["ParentID"], $variableObject['ObjectIdent'], $result);
+            }
             break;
 
         }
