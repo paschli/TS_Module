@@ -196,17 +196,19 @@ class TS_HBSmoke  extends IPSModule {
             //abfragen
             $VariableID = $this->ReadPropertyInteger($StatusLowBatteryCount);
             $result = GetValue($VariableID);
-            //$result = ($result) ? 'true' : 'false';
+            $result = ($result) ? '1' : '0';
             break;
           case 'StatusTampered':
             // abfragen
             $VariableID = $this->ReadPropertyInteger($StatusTamperedCount);
             $result = GetValue($VariableID);
+            $result = ($result) ? '1' : '0';
             break;
           case 'SmokeDetected':
             // abfragen
             $VariableID = $this->ReadPropertyInteger($SmokeDetectedCount);
             $result = GetValue($VariableID);
+            $result = ($result) ? '1' : '0';
             break;
             
         }
