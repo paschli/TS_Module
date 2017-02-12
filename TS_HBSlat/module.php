@@ -59,9 +59,9 @@ Characteristic.CurrentSlatState.SWINGING = 2;
         $CurrentSlatStateCount = "CurrentSlatState{$count}";
         $SwingModeCount = "SwingMode{$count}";
 
-        $BufferNameState = $DeviceNameCount." state ".$SlatTypeCount;
-        $BufferNameTarget = $DeviceNameCount." Target ".$CurrentSlatStateCount;
-        $BufferNameCurrent = $DeviceNameCount." Current ".$SwingModeCount;
+        $BufferNameState = $DeviceNameCount." SlatType ".$SlatTypeCount;
+        $BufferNameTarget = $DeviceNameCount." CurrentSlatState ".$CurrentSlatStateCount;
+        $BufferNameCurrent = $DeviceNameCount." SwingMode ".$SwingModeCount;
 
         $VariableIDStateBuffer = $this->GetBuffer($BufferNameState);
         $VariableIDTargetBuffer = $this->GetBuffer($BufferNameTarget);
