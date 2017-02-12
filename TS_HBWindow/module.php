@@ -113,6 +113,8 @@ alles andere 0-100
       $DeviceNameCount = "DeviceName{$count}";
       $DeviceName = $this->ReadPropertyString($DeviceNameCount);
       $WindowStateCount = "WindowState{$count}";
+      $WindowTargetCount= "WindowTarget{$count}";
+      $WindowCurrentCount= "WindowCurrent{$count}";      
       $WindowState = $this->ReadPropertyInteger($WindowStateCount);
       $WindowTarget = $this->ReadPropertyInteger($WindowTargetCount);
       $WindowCurrent = $this->ReadPropertyInteger($WindowCurrentCount);
@@ -130,7 +132,7 @@ alles andere 0-100
         break;
         case $WindowCurrent:
           $result = intval($data);
-          $result = ($data) ? '"1"' : '"0"'; //
+//          $result = ($data) ? '"1"' : '"0"'; //
           $Characteristic ="CurrentPosition";
           $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
           $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
@@ -139,7 +141,6 @@ alles andere 0-100
         break;
         case $WindowTarget:
           $result = intval($data);
-          $result = "2";
           $Characteristic ="PositionState";
           $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
           $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
