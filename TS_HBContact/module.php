@@ -13,10 +13,13 @@ class TS_HBContact extends IPSModule {
         $ContaktID = "ContaktID{$count}";
         $ContactState = "ContactState{$count}";
         $ContactDummyOptional = "ContactDummyOptional{$count}";
+        $ContactInverse = "ContactInverse{$count}";
+
         $this->RegisterPropertyString($DeviceName, "");
         $this->RegisterPropertyInteger($ContaktID, 0);
         $this->RegisterPropertyInteger($ContactState, 0);
         $this->RegisterPropertyBoolean($ContactDummyOptional, false);
+        $this->RegisterPropertyBoolean(ContactInverse, false);
         $this->SetBuffer($DeviceName." Contact ".$ContactState,"");
       }
   }
@@ -59,13 +62,18 @@ class TS_HBContact extends IPSModule {
     for($count = 1; $count-1 < $anzahl; $count++) {
       $DeviceNameCount = "DeviceName{$count}";
       $ContactStateCount = "ContactState{$count}";
+      $ContactInverseCount = "ContactInverse{$count}"; // ContactInverse
       $ContactState = $this->ReadPropertyInteger($ContactStateCount);
+      $ContactInverse = $this->ReadPropertyBoolean($ContactInverseCount);
+      
       //Prüfen ob die SenderID gleich der State Variable ist, dann den aktuellen Wert an die Bridge senden
       if ($ContactState == $SenderID) {
         $DeviceName = $this->ReadPropertyString($DeviceNameCount);
         $Characteristic = "ContactSensorState";
         $data = $Data[0];
-//        $result = ($data) ? 'true' : 'false';
+        if ($ContactInverse == true) {
+         $result = ($data) ? '0' : '1';
+        }
         $result = intval($data);
         $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
         $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
@@ -87,6 +95,9 @@ class TS_HBContact extends IPSModule {
       $form .= '{ "type": "SelectVariable", "name": "ContactState'.$count.'", "caption": "Status (Characteristic .ContactSensorState )" },';
       $form .= '{ "type": "Label", "label": "Soll eine eigene Variable geschaltet werden?" },';
       $form .= '{ "type": "CheckBox", "name": "ContactDummyOptional'.$count.'", "caption": "Ja" },';
+      $form .= '{ "type": "Label", "label": "Contact invertieren?" },';
+      $form .= '{ "type": "CheckBox", "name": "ContactInverse'.$count.'", "caption": "Nein" },';
+
       if ($count == $anzahl) {
         $form .= '{ "type": "Label", "label": "------------------" }';
       } else {
@@ -120,13 +131,18 @@ class TS_HBContact extends IPSModule {
       //Hochzählen der Konfirgurationsform Variablen
       $DeviceNameCount = "DeviceName{$count}";
       $ContactStateCount = "ContactState{$count}";
+      $ContactInverseCount = "ContactInverse{$count}"; // ContactInverse
       //Prüfen ob der übergebene Name aus dem Hook zu einem Namen aus der Konfirgurationsform passt
       $name = $this->ReadPropertyString($DeviceNameCount);
       if ($DeviceName == $name) {
         //IPS Variable abfragen
         $ContactStateID = $this->ReadPropertyInteger($ContactStateCount);
+        $ContactInverse = $this->ReadPropertyBoolean($ContactInverseCount);
         $result = intval(GetValue($ContactStateID));
-//        $result = ($result) ? 'true' : 'false';
+
+        if ($ContactInverse == true) {
+         $result = ($result) ? '0' : '1';
+        }
         $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
         $JSON['Buffer'] = utf8_encode('{"topic": "callback", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
         $Data = json_encode($JSON);
