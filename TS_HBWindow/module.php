@@ -183,10 +183,10 @@ alles andere 0-100
     // Und Diese dann wieder dekodieren
     $HomebridgeData = json_decode($Buffer);
     //Prüfen ob die ankommenden Daten für den Window sind wenn ja, Status abfragen oder setzen
-    if ($HomebridgeData->Action == "get" && $HomebridgeData->Service == "WindowDoorOpener") {
+    if ($HomebridgeData->Action == "get" && $HomebridgeData->Service == "Window") {
       $this->getState($HomebridgeData->Device, $HomebridgeData->Characteristic);
     }
-    if ($HomebridgeData->Action == "set" && $HomebridgeData->Service == "WindowDoorOpener") {
+    if ($HomebridgeData->Action == "set" && $HomebridgeData->Service == "Window") {
       $this->setState($HomebridgeData->Device, $HomebridgeData->Value, $HomebridgeData->Characteristic);
     }
   }
