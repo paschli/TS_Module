@@ -255,7 +255,7 @@ alles andere 0-100
         switch ($Characteristic) {
           case 'CurrentPosition':
             //Lightbulb State abfragen
-            $VariableID = $this->ReadPropertyInteger($WindowTargetCount);
+            $VariableID = $this->ReadPropertyInteger($WindowCurrentCount);
             $variable = IPS_GetVariable($VariableID);
             $variableObject = IPS_GetObject($VariableID);
             if ($SDummyOptionalValue == true) {
