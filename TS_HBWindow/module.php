@@ -203,6 +203,7 @@ alles andere 0-100
       $WindowCurrentCount = "WindowCurrent{$count}";
       //Prüfen ob der übergebene Name aus dem Hook zu einem Namen aus der Konfirgurationsform passt
       $name = $this->ReadPropertyString($DeviceNameCount);
+$this->SendDebug('Dummy ',$name, 0);
       if ($DeviceName == $name) {
   //IPS Variable abfragen
          switch ($Characteristic) {
@@ -210,7 +211,7 @@ alles andere 0-100
             //abfragen
             $VariableID = $this->ReadPropertyInteger($WindowCurrentCount);
             $result = intval(GetValue($VariableID));
-            $result = ($result) ? 'true' : 'false';
+            //$result = ($result) ? 'true' : 'false';
             break;
           case 'TargetPosition':
             // abfragen
