@@ -1,0 +1,11 @@
+{
+	"id": "{d1ac4e38-f112-11e6-bc64-92361f002671}",
+	"name": "TS_HBSlat",
+	"type": 3,
+	"vendor": "",
+	"aliases": ["TS_HBSlat"],
+	"parentRequirements": ["{018EF6B5-AB94-40C6-AA53-46943E824ACF}", "{79827379-F36E-4ADA-8A95-5F8D1DC92FA9}"],
+	"childRequirements": [],
+	"implemented": ["{018EF6B5-AB94-40C6-AA53-46943E824ACF}"],
+	"prefix": "TSHBsla"
+}
