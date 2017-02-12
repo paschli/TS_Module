@@ -19,7 +19,7 @@ class TS_HBContact extends IPSModule {
         $this->RegisterPropertyInteger($ContaktID, 0);
         $this->RegisterPropertyInteger($ContactState, 0);
         $this->RegisterPropertyBoolean($ContactDummyOptional, false);
-        $this->RegisterPropertyBoolean(ContactInverse, false);
+        $this->RegisterPropertyBoolean($ContactInverse, false);
         $this->SetBuffer($DeviceName." Contact ".$ContactState,"");
       }
   }
@@ -95,8 +95,8 @@ class TS_HBContact extends IPSModule {
       $form .= '{ "type": "SelectVariable", "name": "ContactState'.$count.'", "caption": "Status (Characteristic .ContactSensorState )" },';
       $form .= '{ "type": "Label", "label": "Soll eine eigene Variable geschaltet werden?" },';
       $form .= '{ "type": "CheckBox", "name": "ContactDummyOptional'.$count.'", "caption": "Ja" },';
-      $form .= '{ "type": "Label", "label": "Contact invertieren?" },';
-      $form .= '{ "type": "CheckBox", "name": "ContactInverse'.$count.'", "caption": "Nein" },';
+      $form .= '{ "type": "Label", "label": "Contact invertieren ?" },';
+      $form .= '{ "type": "CheckBox", "name": "ContactInverse'.$count.'", "caption": "Ja" },';
 
       if ($count == $anzahl) {
         $form .= '{ "type": "Label", "label": "------------------" }';
