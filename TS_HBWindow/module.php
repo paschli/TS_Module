@@ -193,7 +193,7 @@ alles andere 0-100
 
   public function getState($DeviceName, $Characteristic) {
     $anzahl = $this->ReadPropertyInteger("Anzahl");
-
+$this->SendDebug('Dummy ',$anzahl, 0);
     for($count = 1; $count -1 < $anzahl; $count++) {
 
       //Hochzählen der Konfirgurationsform Variablen
