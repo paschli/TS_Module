@@ -1,7 +1,18 @@
 <?
 class TS_HBSmoke  extends IPSModule {
 /*
+Service.SmokeSensor = function(displayName, subtype) {
+  Service.call(this, displayName, '00000087-0000-1000-8000-0026BB765291', subtype);
 
+  // Required Characteristics
+  this.addCharacteristic(Characteristic.SmokeDetected);
+
+  // Optional Characteristics
+  this.addOptionalCharacteristic(Characteristic.StatusActive);
+  this.addOptionalCharacteristic(Characteristic.StatusFault);
+  this.addOptionalCharacteristic(Characteristic.StatusTampered);
+  this.addOptionalCharacteristic(Characteristic.StatusLowBattery);
+this.addOptionalCharacteristic(Characteristic.Name);
 */
   public function Create() {
       //Never delete this line!
