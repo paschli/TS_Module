@@ -1,26 +1,6 @@
 <?
 class TS_HBSmoke  extends IPSModule {
 /*
-Service.Smoke = function(displayName, subtype) {
-  Service.call(this, displayName, '000000B9-0000-1000-8000-0026BB765291', subtype);
-
-  // Required Characteristics
-  this.addCharacteristic(Characteristic.SmokeDetected);
-  this.addCharacteristic(Characteristic.StatusTampered);
-
-  // Optional Characteristics
-  this.addOptionalCharacteristic(Characteristic.Name);
-  this.addOptionalCharacteristic(Characteristic.CurrentTiltAngle);
-  this.addOptionalCharacteristic(Characteristic.TargetTiltAngle);
-  this.addOptionalCharacteristic(Characteristic.StatusLowBattery);
-
-Characteristic.TargetSmokeState.MANUAL = 0;
-Characteristic.TargetSmokeState.AUTO = 1;
-Characteristic.SmokeDetected.HORIZONTAL = 0;
-Characteristic.SmokeDetected.VERTICAL = 1;
-Characteristic.StatusTampered.FIXED = 0;
-Characteristic.StatusTampered.JAMMED = 1;
-Characteristic.StatusTampered.SWINGING = 2;
 
 */
   public function Create() {
@@ -188,10 +168,10 @@ Characteristic.StatusTampered.SWINGING = 2;
     // Und Diese dann wieder dekodieren
     $HomebridgeData = json_decode($Buffer);
     //Prüfen ob die ankommenden Daten für den Smoke sind wenn ja, Status abfragen oder setzen
-    if ($HomebridgeData->Action == "get" && $HomebridgeData->Service == "Smoke") {
+    if ($HomebridgeData->Action == "get" && $HomebridgeData->Service == "SmokeSensor") {
       $this->getState($HomebridgeData->Device, $HomebridgeData->Characteristic);
     }
-    if ($HomebridgeData->Action == "set" && $HomebridgeData->Service == "Smoke") {
+    if ($HomebridgeData->Action == "set" && $HomebridgeData->Service == "SmokeSensor") {
       $this->setState($HomebridgeData->Device, $HomebridgeData->Value, $HomebridgeData->Characteristic);
     }
   }
@@ -309,7 +289,7 @@ Characteristic.StatusTampered.SWINGING = 2;
   private function addAccessory($DeviceName) {
     //Payload bauen
     $payload["name"] = $DeviceName;
-    $payload["service"] = "Smoke";
+    $payload["service"] = "SmokeSensor";
 
     $array["topic"] ="add";
     $array["payload"] = $payload;
