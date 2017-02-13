@@ -307,8 +307,8 @@ this.addOptionalCharacteristic(Characteristic.Name);
     //Payload bauen
     $payload["name"] = $DeviceName;
     $payload["service"] = "SmokeSensor";
-    $payload["StatusTampered"] = 0;
-    $payload["StatusLowBattery"] = 0;
+    $payload["StatusTampered"];
+    $payload["StatusLowBattery"];
     
     $array["topic"] ="add";
     $array["payload"] = $payload;
