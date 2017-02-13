@@ -299,12 +299,17 @@ this.addOptionalCharacteristic(Characteristic.Name);
       }
     }
   }
-
+ /*
+         $StatusTampered = "StatusTampered{$count}";
+        $StatusLowBattery = "StatusLowBattery{$count}";
+*/
   private function addAccessory($DeviceName) {
     //Payload bauen
     $payload["name"] = $DeviceName;
     $payload["service"] = "SmokeSensor";
-
+    $payload["StatusTampered"] = 0;
+    $payload["StatusLowBattery"] = 0;
+    
     $array["topic"] ="add";
     $array["payload"] = $payload;
     $data = json_encode($array);
