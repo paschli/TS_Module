@@ -146,8 +146,8 @@ class TS_HBAirQualitySensor extends IPSModule {
     for($count = 1; $count-1 < $anzahl; $count++) {
       $form .= '{ "type": "ValidationTextBox", "name": "DeviceName'.$count.'", "caption": "Gerätename für die Homebridge" },';
       $form .= '{ "type": "SelectInstance", "name": "AirQualitySensorID'.$count.'", "caption": "Gerät" },';
-      $form .= '{ "type": "SelectVariable", "name": "VOCDensity'.$count.'", "caption": "Status " },';
-      $form .= '{ "type": "SelectVariable", "name": "AirQuality'.$count.'", "caption": "Target " },';
+      $form .= '{ "type": "SelectVariable", "name": "VOCDensity'.$count.'", "caption": "VOCDensity " },';
+      $form .= '{ "type": "SelectVariable", "name": "AirQuality'.$count.'", "caption": "AirQuality " },';
       $form .= '{ "type": "Label", "label": "Soll eine eigene Variable geschaltet werden?" },';
       $form .= '{ "type": "CheckBox", "name": "AirQualitySensorDummyOptional'.$count.'", "caption": "Ja" },';
       $form .= '{ "type": "Button", "label": "Löschen", "onClick": "echo TSHBair_removeAccessory('.$this->InstanceID.','.$count.');" },';
