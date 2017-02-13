@@ -76,7 +76,7 @@ class TS_HBLightSensor extends IPSModule {
       //Prüfen ob die SenderID gleich der State Variable ist, dann den aktuellen Wert an die Bridge senden
       if ($CurrentAmbientLightLevel == $SenderID) {
         $DeviceName = $this->ReadPropertyString($DeviceNameCount);
-        $Characteristic = "LightSensorSensorState";
+        $Characteristic = "CurrentAmbientLightLevel";
         $data = $Data[0];
         $result = intval($data);
         $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
@@ -96,7 +96,7 @@ class TS_HBLightSensor extends IPSModule {
     for($count = 1; $count-1 < $anzahl; $count++) {
       $form .= '{ "type": "ValidationTextBox", "name": "DeviceName'.$count.'", "caption": "Gerätename für die Homebridge" },';
       $form .= '{ "type": "SelectInstance", "name": "LightSensorID'.$count.'", "caption": "Gerät" },';
-      $form .= '{ "type": "SelectVariable", "name": "CurrentAmbientLightLevel'.$count.'", "caption": "Status (Characteristic .LightSensorSensorState )" },';
+      $form .= '{ "type": "SelectVariable", "name": "CurrentAmbientLightLevel'.$count.'", "caption": "Status (Characteristic .CurrentAmbientLightLevel )" },';
       $form .= '{ "type": "Label", "label": "Soll eine eigene Variable geschaltet werden?" },';
       $form .= '{ "type": "CheckBox", "name": "LightSensorDummyOptional'.$count.'", "caption": "Ja" },';
       $form .= '{ "type": "Label", "label": "LightSensor invertieren ?" },';
