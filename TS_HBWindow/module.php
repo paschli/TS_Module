@@ -167,7 +167,7 @@ alles andere 0-100
       $form .= '{ "type": "SelectVariable", "name": "WindowCurrent'.$count.'", "caption": "Current" },';
       $form .= '{ "type": "Label", "label": "Soll eine eigene Variable geschaltet werden?" },';
       $form .= '{ "type": "CheckBox", "name": "WindowDummyOptional'.$count.'", "caption": "Ja" },';
-      $form .= '{ "type": "Button", "label": "Löschen", "onClick": "echo HBContact_removeAccessory('.$this->InstanceID.','.$count.');" },';
+      $form .= '{ "type": "Button", "label": "Löschen", "onClick": "echo TSHBwin_removeAccessory('.$this->InstanceID.','.$count.');" },';
       
       if ($count == $anzahl) {
         $form .= '{ "type": "Label", "label": "------------------" }';

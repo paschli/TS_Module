@@ -97,7 +97,7 @@ class TS_HBContact extends IPSModule {
       $form .= '{ "type": "CheckBox", "name": "ContactDummyOptional'.$count.'", "caption": "Ja" },';
       $form .= '{ "type": "Label", "label": "Contact invertieren ?" },';
       $form .= '{ "type": "CheckBox", "name": "ContactInverse'.$count.'", "caption": "Ja" },';
-      $form .= '{ "type": "Button", "label": "Löschen", "onClick": "echo HBContact_removeAccessory('.$this->InstanceID.','.$count.');" },';
+      $form .= '{ "type": "Button", "label": "Löschen", "onClick": "echo TSHBCon_removeAccessory('.$this->InstanceID.','.$count.');" },';
 
       if ($count == $anzahl) {
         $form .= '{ "type": "Label", "label": "------------------" }';
