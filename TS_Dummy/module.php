@@ -10,9 +10,9 @@ class TS_Dummy extends IPSModule
         //These lines are parsed on Symcon Startup or Instance creation
         //You cannot use variables here. Just static values.
 
-        $this->RegisterPropertyBoolean("Schalter", "false");      
-        $this->RegisterPropertyInteger("Dimmer", 0);
-        $this->RegisterPropertyFloat("Float", 0);
+        $this->RegisterPropertyBoolean("Schalter", "true");      
+        $this->RegisterPropertyInteger("Dimmer", 1);
+        $this->RegisterPropertyFloat("Float", 1);
 
     }                
 

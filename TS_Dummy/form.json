@@ -1,9 +1,9 @@
 {
 	"elements":
 	[
-		{ "name": "Schalter",      "type": "ValidationTextBox", "caption": "Schalter" },
-    { "name": "Dimmer",        "type": "ValidationTextBox", "caption": "Dimmer" },
-    { "name": "Float",        "type": "ValidationTextBox", "caption": "Float" }
+		{ "name": "Schalter",      "type": "CheckBox", "caption": "Schalter" },
+    { "name": "Dimmer",        "type": "CheckBox", "caption": "Dimmer" },
+    { "name": "Float",        "type": "CheckBox", "caption": "Float" }
 	],
 	"actions":
 	[
