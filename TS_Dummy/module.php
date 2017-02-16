@@ -12,6 +12,8 @@ class TS_Dummy extends IPSModule
 
         $this->RegisterPropertyBoolean("Schalter", "false");      
         $this->RegisterPropertyInteger("Dimmer", 0);
+        $this->RegisterPropertyInteger("float", 0);
+
     }                
 
 //*********************************************************************************************************
@@ -24,6 +26,8 @@ class TS_Dummy extends IPSModule
             $this->EnableAction("Schalter");
             $this->RegisterVariableInteger("Dimmer","Dimmer", "", 1);
             $this->EnableAction("Dimmer");
+            $this->RegisterVariableFloat("Float","Float", "", 1);
+            $this->EnableAction("Float");
         
         // Start create profiles
          
@@ -46,6 +50,10 @@ class TS_Dummy extends IPSModule
     {
         if ($this->ReadPropertyInteger("Dimmer")) SetValue($this->GetIDForIdent("Dimmer"), $dim);
     }
+    public function SetFloat($dim)
+    {
+        if ($this->ReadPropertyFloat("Float")) SetValue($this->GetIDForIdent("Float"), $dim);
+    }
 
     public function RequestAction($Ident, $Value)
     {
@@ -58,6 +66,9 @@ class TS_Dummy extends IPSModule
             break;
             case "Dimmer":
                 $result = $this->SetDimmer($Value);
+            break;
+            case "Float":
+                $result = $this->SetFloat($Value);
             break;
 
             default:
