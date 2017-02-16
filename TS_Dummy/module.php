@@ -12,7 +12,7 @@ class TS_Dummy extends IPSModule
 
         $this->RegisterPropertyBoolean("Schalter", "false");      
         $this->RegisterPropertyInteger("Dimmer", 0);
-        $this->RegisterPropertyInteger("float", 0);
+        $this->RegisterPropertyInteger("Float", 0);
 
     }                
 
