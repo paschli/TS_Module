@@ -183,7 +183,7 @@ class TS_HBAirQualitySensor extends HomeKitService {
       }
     }
   }
-
+}
   public function setVar($DeviceName, $value, $Characteristic) {
     $Devices = unserialize($this->getBuffer("AirQualitySensor Config"));
     for($count = 1; $count -1 < $this->ReadPropertyInteger("Anzahl"); $count++) {
