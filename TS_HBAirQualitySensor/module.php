@@ -49,15 +49,13 @@ class TS_HBAirQualitySensor extends HomeKitService {
         //Buffernamen
         $BufferNameVOCDensity = $Devices[$count]["DeviceName"]." VOCDensity";
         $BufferNameAirQuality = $Devices[$count]["DeviceName"]." AirQuality";
-        $BufferNameAirQualitySensorCurrent = $Devices[$count]["DeviceName"]." AirQualitySensorCurrent";
-        $BufferNameTargetTemperature = $Devices[$count]["DeviceName"]." TargetTemperature";
+//        $BufferNameAirQualitySensorCurrent = $Devices[$count]["DeviceName"]." AirQualitySensorCurrent";
 
         //Alte Registrierungen auf Variablen Veränderung aufheben
         $UnregisterBufferIDs = [];
         array_push($UnregisterBufferIDs,$this->GetBuffer($BufferNameVOCDensity));
         array_push($UnregisterBufferIDs,$this->GetBuffer($BufferNameAirQuality));
-        array_push($UnregisterBufferIDs,$this->GetBuffer($BufferNameAirQualitySensorCurrent));
-        array_push($UnregisterBufferIDs,$this->GetBuffer($BufferNameTargetTemperature));
+//        array_push($UnregisterBufferIDs,$this->GetBuffer($BufferNameAirQualitySensorCurrent));
         $this->UnregisterMessages($UnregisterBufferIDs, 10603);
 
         if ($Devices[$count]["DeviceName"] != "") {
@@ -65,13 +63,13 @@ class TS_HBAirQualitySensor extends HomeKitService {
           $RegisterBufferIDs = [];
           array_push($RegisterBufferIDs,$Devices[$count]["VOCDensity"]);
           array_push($RegisterBufferIDs,$Devices[$count]["AirQuality"]);
-          array_push($RegisterBufferIDs,$Devices[$count]["AirQualitySensorCurrent"]);
+//          array_push($RegisterBufferIDs,$Devices[$count]["AirQualitySensorCurrent"]);
           $this->RegisterMessages($RegisterBufferIDs, 10603);
 
           //Buffer mit den aktuellen Variablen IDs befüllen
           $this->SetBuffer($BufferNameVOCDensity,$Devices[$count]["VOCDensity"]);
           $this->SetBuffer($BufferNameAirQuality,$Devices[$count]["AirQuality"]);
-          $this->SetBuffer($BufferNameAirQualitySensorCurrent,$Devices[$count]["AirQualitySensorCurrent"]);
+//          $this->SetBuffer($BufferNameAirQualitySensorCurrent,$Devices[$count]["AirQualitySensorCurrent"]);
 
           //Accessory anlegen
           $this->addAccessory($Devices[$count]["DeviceName"]);
@@ -83,6 +81,7 @@ class TS_HBAirQualitySensor extends HomeKitService {
       $DevicesConfig = serialize($Devices);
       $this->SetBuffer("AirQualitySensor Config",$DevicesConfig);
     }
+
   public function Destroy() {
   }
 
@@ -107,10 +106,12 @@ class TS_HBAirQualitySensor extends HomeKitService {
             $result = $data;
             $VariableAirQualityID = $Device["AirQuality"];
             break;
+/*
           case $Device["AirQualitySensorCurrent"]:
             $Characteristic = "AirQualitySensorCurrent";
             $result = number_format($data, 2, '.', '');
             break;
+*/
         }
         $this->sendJSONToParent("setValue", $Characteristic, $DeviceName, $result);
       }
@@ -159,12 +160,13 @@ class TS_HBAirQualitySensor extends HomeKitService {
             $VariableAirQualityID = $Device["AirQuality"];
             $result = intval(GetValue($VariableAirQualityID));
             break;
+/*
           case 'AirQualitySensorCurrent':
             $VariableAirQualitySensorCurrentID = $Device["AirQualitySensorCurrent"];
             $result = GetValue($VariableAirQualitySensorCurrentID);
             $result = number_format($result, 2, '.', '');
             break;
-
+*/
         $this->sendJSONToParent("callback", $Characteristic, $DeviceName, $result);
         return;
       }
@@ -202,12 +204,8 @@ class TS_HBAirQualitySensor extends HomeKitService {
             //den übgergebenen Wert in den VariablenTyp für das IPS-Gerät umwandeln
             $result = $this->ConvertVariable($variable, $luftgüte);
             $this->SetValueToIPS($variable,$variableObject,$result);
-
-
-
-
-
             break;
+
           case 'AirQuality':
             $VariableAirQualityID = $Device["AirQuality"];
             $variable = IPS_GetVariable($VariableAirQualityID);
@@ -216,6 +214,7 @@ class TS_HBAirQualitySensor extends HomeKitService {
             $result = $this->ConvertVariable($variable, $result);
             $this->SetValueToIPS($variable,$variableObject,$result);
             break;
+/*
           case 'AirQualitySensorCurrent':
             $VariableAirQualitySensorCurrentID = $Device["AirQualitySensorCurrent"];
             $variable = IPS_GetVariable($VariableAirQualitySensorCurrentID);
@@ -223,6 +222,7 @@ class TS_HBAirQualitySensor extends HomeKitService {
             $result = $this->ConvertVariable($variable, $value);
             $this->SetValueToIPS($variable,$variableObject,$result);
             break;
+*/
         }
       }
     }
