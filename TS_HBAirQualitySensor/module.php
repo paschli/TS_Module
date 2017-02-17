@@ -1,10 +1,13 @@
 <?
-require_once(__DIR__ . "/../HomeKitService.php");
-
-//class TS_HBAirQualitySensor extends IPSModule {
-class TS_HBAirQualitySensor extends HomeKitService {
-
-//class IPS_HomebridgeAirQualitySensor extends HomeKitService {
+class TS_HBAirQualitySensor extends IPSModule {
+/*
+>2100 	Sehr Schlecht (stark verschmutzte Raumluft; Lüftung erfolderlich)
+2100 ... 1501 	Schlecht (stark verschmutzte Raumluft; Lüftung erforderlich)
+1500 ... 1001 	Mittel (verschmutzte Raumluft; Lüftung empfohlen)
+1000 ... 801 	Befriedigend
+800 ... 601 	Gut
+600 ... 450 	Hervorragend
+*/
   public function Create() {
       //Never delete this line!
       parent::Create();
@@ -19,122 +22,125 @@ class TS_HBAirQualitySensor extends HomeKitService {
         $AirQuality = "AirQuality{$count}";
         $AirQualitySensorCurrent = "AirQualitySensorCurrent{$count}";
 
+        $AirQualitySensorDummyOptional = "AirQualitySensorDummyOptional{$count}";
         $this->RegisterPropertyString($DeviceName, "");
         $this->RegisterPropertyInteger($AirQualitySensorID, 0);
-        //VOCDensity
         $this->RegisterPropertyInteger($VOCDensity, 0);
-        //AirQuality
         $this->RegisterPropertyInteger($AirQuality, 0);
-
         $this->RegisterPropertyInteger($AirQualitySensorCurrent, 0);
-
-        $this->SetBuffer($DeviceName." VOCDensity ".$VOCDensity,"");
-        $this->SetBuffer($DeviceName." AirQuality ".$AirQuality,"");
-        $this->SetBuffer($DeviceName." AirQualitySensorCurrent ".$AirQualitySensorCurrent,"");
+        $this->RegisterPropertyBoolean($AirQualitySensorDummyOptional, false);
+        $this->SetBuffer($DeviceName." AirQualitySensor ".$VOCDensity,"");
       }
   }
   public function ApplyChanges() {
       //Never delete this line!
       parent::ApplyChanges();
-      //Setze Filter für ReceiveData
-      $this->SetReceiveDataFilter(".*AirQualitySensor.*");
+      $this->ConnectParent("{86C2DE8C-FB21-44B3-937A-9B09BB66FB76}");
       $anzahl = $this->ReadPropertyInteger("Anzahl");
 
       for($count = 1; $count-1 < $anzahl; $count++) {
-        $Devices[$count]["DeviceName"] = $this->ReadPropertyString("DeviceName{$count}");
-        $Devices[$count]["VOCDensity"] = $this->ReadPropertyInteger("VOCDensity{$count}");
-        $Devices[$count]["AirQuality"] = $this->ReadPropertyInteger("AirQuality{$count}");
-        $Devices[$count]["AirQualitySensorCurrent"] = $this->ReadPropertyInteger("AirQualitySensorCurrent{$count}");
+        $DeviceNameCount = "DeviceName{$count}";
+        $VOCDensityCount = "VOCDensity{$count}";
+        $AirQualityCount = "AirQuality{$count}";
+        $AirQualitySensorCurrentCount = "AirQualitySensorCurrent{$count}";
 
-        //Buffernamen
-        $BufferNameVOCDensity = $Devices[$count]["DeviceName"]." VOCDensity";
-        $BufferNameAirQuality = $Devices[$count]["DeviceName"]." AirQuality";
-//        $BufferNameAirQualitySensorCurrent = $Devices[$count]["DeviceName"]." AirQualitySensorCurrent";
+        $BufferNameState = $DeviceNameCount." state ".$VOCDensityCount;
+        $BufferNameTarget = $DeviceNameCount." Target ".$AirQualityCount;
+        $BufferNameCurrent = $DeviceNameCount." Current ".$AirQualitySensorCurrentCount;
 
-        //Alte Registrierungen auf Variablen Veränderung aufheben
-        $UnregisterBufferIDs = [];
-        array_push($UnregisterBufferIDs,$this->GetBuffer($BufferNameVOCDensity));
-        array_push($UnregisterBufferIDs,$this->GetBuffer($BufferNameAirQuality));
-//        array_push($UnregisterBufferIDs,$this->GetBuffer($BufferNameAirQualitySensorCurrent));
-        $this->UnregisterMessages($UnregisterBufferIDs, 10603);
+        $VariableIDStateBuffer = $this->GetBuffer($BufferNameState);
+        $VariableIDTargetBuffer = $this->GetBuffer($BufferNameTarget);
+        $VariableIDCurrentBuffer = $this->GetBuffer($BufferNameCurrent);
 
-        if ($Devices[$count]["DeviceName"] != "") {
-          //Regestriere State Variable auf Veränderungen
-          $RegisterBufferIDs = [];
-          array_push($RegisterBufferIDs,$Devices[$count]["VOCDensity"]);
-          array_push($RegisterBufferIDs,$Devices[$count]["AirQuality"]);
-//          array_push($RegisterBufferIDs,$Devices[$count]["AirQualitySensorCurrent"]);
-          $this->RegisterMessages($RegisterBufferIDs, 10603);
-
-          //Buffer mit den aktuellen Variablen IDs befüllen
-          $this->SetBuffer($BufferNameVOCDensity,$Devices[$count]["VOCDensity"]);
-          $this->SetBuffer($BufferNameAirQuality,$Devices[$count]["AirQuality"]);
-//          $this->SetBuffer($BufferNameAirQualitySensorCurrent,$Devices[$count]["AirQualitySensorCurrent"]);
-
-          //Accessory anlegen
-          $this->addAccessory($Devices[$count]["DeviceName"]);
+        //Alte Registrierung auf Variablen Veränderung aufheben
+        if (is_int($VariableIDStateBuffer)) {
+          $this->UnregisterMessage(intval($VariableIDStateBuffer), 10603);
         }
-        else {
+        if (is_int($VariableIDTargetBuffer)) {
+          $this->UnregisterMessage(intval($VariableIDTargetBuffer), 10603);
+        }
+        if (is_int($VariableIDCurrentBuffer)) {
+          $this->UnregisterMessage(intval($VariableIDCurrentBuffer), 10603);
+        }
+
+        if ($this->ReadPropertyString($DeviceNameCount) != "") {
+//          $BrightnessBoolean = $this->ReadPropertyBoolean($VariableBrightnessOptionalCount);
+
+          //Regestriere State Variable auf Veränderungen
+          $NewVariableID = $this->ReadPropertyInteger($VOCDensityCount);
+          $this->RegisterMessage($NewVariableID, 10603);
+
+          //Regestriere Brightness Variable auf Veränderungen
+          $NewVariableID = $this->ReadPropertyInteger($AirQualityCount);
+          $this->RegisterMessage($NewVariableID, 10603);
+
+          $NewVariableID = $this->ReadPropertyInteger($AirQualitySensorCurrentCount);
+          $this->RegisterMessage($NewVariableID, 10603);
+
+          //Buffer mit den aktuellen Variablen IDs befüllen für State und Brightness
+          $this->SetBuffer($BufferNameState,$this->ReadPropertyInteger($VOCDensityCount));
+          $this->SetBuffer($BufferNameTarget,$this->ReadPropertyInteger($AirQualityCount));
+          $this->SetBuffer($BufferNameCurrent,$this->ReadPropertyInteger($AirQualitySensorCurrentCount));
+
+//          $this->addAccessory($this->ReadPropertyString($DeviceNameCount),$BrightnessBoolean);
+          $this->addAccessory($this->ReadPropertyString($DeviceNameCount));
+        } else {
           return;
         }
       }
-      $DevicesConfig = serialize($Devices);
-      $this->SetBuffer("AirQualitySensor Config",$DevicesConfig);
+
     }
 
   public function Destroy() {
   }
 
   public function MessageSink($TimeStamp, $SenderID, $Message, $Data) {
-    $Devices = unserialize($this->getBuffer("AirQualitySensor Config"));
     if ($Data[1] == true) {
-      $anzahl = $this->ReadPropertyInteger("Anzahl");
+    $anzahl = $this->ReadPropertyInteger("Anzahl");
 
-      for($count = 1; $count-1 < $anzahl; $count++) {
-        $Device = $Devices[$count];
+    for($count = 1; $count-1 < $anzahl; $count++) {
+      $DeviceNameCount = "DeviceName{$count}";
+      $DeviceName = $this->ReadPropertyString($DeviceNameCount);
+      $VOCDensityCount = "VOCDensity{$count}";
+      $AirQualityCount= "AirQuality{$count}";
+      $AirQualitySensorCurrentCount= "AirQualitySensorCurrent{$count}";      
+      $VOCDensity = $this->ReadPropertyInteger($VOCDensityCount);
+      $AirQuality = $this->ReadPropertyInteger($AirQualityCount);
+      $AirQualitySensorCurrent = $this->ReadPropertyInteger($AirQualitySensorCurrentCount);
+      $data = $Data[0]; 
+      //Prüfen ob die SenderID gleich der State Variable ist, dann den aktuellen Wert an die Bridge senden
+      switch ($SenderID) {
+       case $VOCDensity:
+        $Characteristic = "VOCDensity";
+//        $result = ($data) ? 'true' : 'false';
+        $result = intval($data);
+        $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
+        $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
+        $Data = json_encode($JSON);
+        $this->SendDataToParent($Data);
+        break;
+        case $AirQualitySensorCurrent:
+          $result = intval($data);
+//          $result = ($data) ? '"1"' : '"0"'; //
+          $Characteristic ="CurrentPosition";
+          $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
+          $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
+          $Data = json_encode($JSON);
+          $this->SendDataToParent($Data);
+        break;
+        case $AirQuality:
+          $result = intval($data);
+          $Characteristic ="AirQuality";      
+          $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
+          $JSON['Buffer'] = utf8_encode('{"topic": "setValue", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
+          $Data = json_encode($JSON);
+          $this->SendDataToParent($Data);
+        break;
 
-        $DeviceName = $Device["DeviceName"];
-        $data = $Data[0];
-        //Prüfen ob die SenderID gleich der Temperatur Variable ist, dann den aktuellen Wert an die Bridge senden
-        switch ($SenderID) {
-          case $Device["VOCDensity"]:
-            $Characteristic = "VOCDensity";
-            $result = $data;
-            //den übgergebenen Wert in den VariablenTyp für das IPS-Gerät umwandeln
-//            $result = $this->ConvertVariable($variable, $result);
-//            $this->SetValueToIPS($variable,$variableObject,$result);
-            break;
-
-          case $Device["AirQuality"]:
-            $Characteristic = "AirQuality";
-            $result = $data;
-            $VariableAirQualityID = $Device["AirQuality"];
-            break;
-/*
-          case $Device["AirQualitySensorCurrent"]:
-            $Characteristic = "AirQualitySensorCurrent";
-            $result = number_format($data, 2, '.', '');
-            break;
-
-            $wert = $result;
-            if ( $wert >= 450 && $wert <= 600 ) {   $luftgüte= 1; }
-            if ( $wert >= 601 && $wert <= 800 ) {   $luftgüte= 2; }
-            if ( $wert >= 801 && $wert <= 1000 ) {   $luftgüte= 3; }
-            if ( $wert >= 1001 && $wert <= 1500 ) {   $luftgüte= 4; }
-            if ( $wert >= 1501 && $wert <= 2000 ) {   $luftgüte= 5; }
-            if ( $wert >= 2101) {   $luftgüte= 5; }
-            $Characteristic = "AirQuality";
-             $VariableAirQualityID = $Device["AirQuality"];
-            $variable = IPS_GetVariable($VariableAirQualityID);
-            $variableObject = IPS_GetObject($VariableAirQualityID);
-
-
-*/
-        }
-        $this->sendJSONToParent("setValue", $Characteristic, $DeviceName, $result);
       }
     }
-  }
+    }
+}
 
   public function GetConfigurationForm() {
     $anzahl = $this->ReadPropertyInteger("Anzahl");
@@ -145,12 +151,12 @@ class TS_HBAirQualitySensor extends HomeKitService {
     for($count = 1; $count-1 < $anzahl; $count++) {
       $form .= '{ "type": "ValidationTextBox", "name": "DeviceName'.$count.'", "caption": "Gerätename für die Homebridge" },';
       $form .= '{ "type": "SelectInstance", "name": "AirQualitySensorID'.$count.'", "caption": "Gerät" },';
-      $form .= '{ "type": "SelectVariable", "name": "VOCDensity'.$count.'", "caption": "VOCDensity" },';
-
-      $form .= '{ "type": "SelectVariable", "name": "AirQuality'.$count.'", "caption": "AirQuality" },';
-
-      $form .= '{ "type": "SelectVariable", "name": "AirQualitySensorCurrent'.$count.'", "caption": "AirQualitySensorCurrent" },';
-      $form .= '{ "type": "Button", "label": "Löschen", "onClick": "echo TS_HBAirQualitySensor_removeAccessory('.$this->InstanceID.','.$count.');" },';
+      $form .= '{ "type": "SelectVariable", "name": "VOCDensity'.$count.'", "caption": "VOCDensity " },';
+      $form .= '{ "type": "SelectVariable", "name": "AirQuality'.$count.'", "caption": "AirQuality " },';
+      $form .= '{ "type": "Label", "label": "Soll eine eigene Variable geschaltet werden?" },';
+      $form .= '{ "type": "CheckBox", "name": "AirQualitySensorDummyOptional'.$count.'", "caption": "Ja" },';
+      $form .= '{ "type": "Button", "label": "Löschen", "onClick": "echo TSHBair_removeAccessory('.$this->InstanceID.','.$count.');" },';
+      
       if ($count == $anzahl) {
         $form .= '{ "type": "Label", "label": "------------------" }';
       } else {
@@ -161,71 +167,108 @@ class TS_HBAirQualitySensor extends HomeKitService {
     return $form;
   }
 
-  public function getVar($DeviceName, $Characteristic) {
-    $Devices = unserialize($this->getBuffer("AirQualitySensor Config"));
+  public function ReceiveData($JSONString) {
+    $data = json_decode($JSONString);
+    // Buffer decodieren und in eine Variable schreiben
+    $Buffer = utf8_decode($data->Buffer);
+    // Und Diese dann wieder dekodieren
+    $HomebridgeData = json_decode($Buffer);
+    //Prüfen ob die ankommenden Daten für den AirQualitySensor sind wenn ja, Status abfragen oder setzen
+    if ($HomebridgeData->Action == "get" && $HomebridgeData->Service == "AirQualitySensor") {
+      $this->getState($HomebridgeData->Device, $HomebridgeData->Characteristic);
+    }
+    if ($HomebridgeData->Action == "set" && $HomebridgeData->Service == "AirQualitySensor") {
+      $this->setState($HomebridgeData->Device, $HomebridgeData->Value, $HomebridgeData->Characteristic);
+    }
+  }
+
+  public function getState($DeviceName, $Characteristic) {
     $anzahl = $this->ReadPropertyInteger("Anzahl");
+//$this->SendDebug('Dummy ',$anzahl, 0);
     for($count = 1; $count -1 < $anzahl; $count++) {
-      $Device = $Devices[$count];
-      $name = $Device["DeviceName"];
-      //Prüfen ob der übergebene Name zu einem Namen aus der Konfirgurationsform passt wenn ja Wert an die Bridge senden
+
+      //Hochzählen der Konfirgurationsform Variablen
+      $DeviceNameCount = "DeviceName{$count}";
+      $VOCDensityCount = "VOCDensity{$count}";
+      $AirQualityCount = "AirQuality{$count}";
+
+      //Prüfen ob der übergebene Name aus dem Hook zu einem Namen aus der Konfirgurationsform passt
+      $name = $this->ReadPropertyString($DeviceNameCount);
+//$this->SendDebug('Dummy ',$name, 0);
       if ($DeviceName == $name) {
-        switch ($Characteristic) {
-          case 'VOCDensity':
-            $VariableVOCDensityID = $Device["VOCDensity"];
-            $result = intval(GetValue($VariableVOCDensityID));
-            break;
+  //IPS Variable abfragen
+         switch ($Characteristic) {
           case 'AirQuality':
-            $VariableAirQualityID = $Device["AirQuality"];
-            $result = intval(GetValue($VariableAirQualityID));
+            // abfragen
+            $VariableID = $this->ReadPropertyInteger($AirQualityCount);
+            $result = GetValue($VariableID);
             break;
-/*
-          case 'AirQualitySensorCurrent':
-            $VariableAirQualitySensorCurrentID = $Device["AirQualitySensorCurrent"];
-            $result = GetValue($VariableAirQualitySensorCurrentID);
-            $result = number_format($result, 2, '.', '');
+          case 'VOCDensity':
+            // abfragen
+            $VariableID = $this->ReadPropertyInteger($VOCDensityCount);
+            $result = GetValue($VariableID);
             break;
-*/
-        $this->sendJSONToParent("callback", $Characteristic, $DeviceName, $result);
+            
+        }
+//        $result = ($result) ? 'true' : 'false';
+        $JSON['DataID'] = "{018EF6B5-AB94-40C6-AA53-46943E824ACF}";
+        $JSON['Buffer'] = utf8_encode('{"topic": "callback", "Characteristic": "'.$Characteristic.'", "Device": "'.$DeviceName.'", "value": "'.$result.'"}');
+        $Data = json_encode($JSON);
+        $this->SendDataToParent($Data);
+
         return;
       }
     }
   }
-}
-  public function setVar($DeviceName, $value, $Characteristic) {
-    $Devices = unserialize($this->getBuffer("AirQualitySensor Config"));
-    for($count = 1; $count -1 < $this->ReadPropertyInteger("Anzahl"); $count++) {
-      $Device = $Devices[$count];
-      //Prüfen ob der übergebene Name zu einem Namen aus der Konfirgurationsform passt
-      $name = $Device["DeviceName"];
+
+  public function setState($DeviceName, $value, $Characteristic) {
+    $anzahl = $this->ReadPropertyInteger("Anzahl");
+
+    for($count = 1; $count -1 < $anzahl; $count++) {
+
+      //Hochzählen der Konfirgurationsform Variablen
+      $DeviceNameCount = "DeviceName{$count}";
+      $VOCDensityCount = "VOCDensity{$count}";
+      $AirQualityCount = "AirQuality{$count}";
+      $AirQualitySensorCurrentCount = "AirQualitySensorCurrent{$count}";
+      $DummyOptional = "AirQualitySensorDummyOptional{$count}";
+      //Prüfen ob der übergebene Name aus dem Hook zu einem Namen aus der Konfirgurationsform passt
+      $name = $this->ReadPropertyString($DeviceNameCount);
       if ($DeviceName == $name) {
+        $DummyOptionalValue = $this->ReadPropertyBoolean($DummyOptional);
+
         switch ($Characteristic) {
-          case 'VOCDensity':
-            $VariableVOCDensityID = $Device["VOCDensity"];
-            $variable = IPS_GetVariable($VariableVOCDensityID);
-            $variableObject = IPS_GetObject($VariableVOCDensityID);
-          //den übgergebenen Wert in den VariablenTyp für das IPS-Gerät umwandeln
-            $result = $this->ConvertVariable($variable, $result);
+          case 'AirQuality':
+            //Lightbulb Brightness abfragen
+            $VariableID = $this->ReadPropertyInteger($AirQualityCount);
+            $variable = IPS_GetVariable($VariableID);
+            $variableObject = IPS_GetObject($VariableID);
+            //den übgergebenen Wert in den VariablenTyp für das IPS-Gerät umwandeln
+            $result = $this->ConvertVariable($variable, $value);
             //Geräte Variable setzen
-            $this->SetValueToIPS($variable,$variableObject,$result);
+            if ($DummyOptionalValue == true) {
+//              $this->SendDebug('setState Dummy CurrentPosition',$VariableID, 0);
+              SetValue($VariableID, $result);
+            } else {
+              IPS_RequestAction($variableObject["ParentID"], $variableObject['ObjectIdent'], $result);
+            }
+            break;
+          case 'VOCDensity':
+            //Lightbulb Brightness abfragen
+            $VariableID = $this->ReadPropertyInteger($VOCDensityCount);
+            $variable = IPS_GetVariable($VariableID);
+            $variableObject = IPS_GetObject($VariableID);
+            //den übgergebenen Wert in den VariablenTyp für das IPS-Gerät umwandeln
+            $result = $this->ConvertVariable($variable, $value);
+            //Geräte Variable setzen
+            if ($DummyOptionalValue == true) {
+ //             $this->SendDebug('setState Dummy CurrentPosition',$VariableID, 0);
+              SetValue($VariableID, $result);
+            } else {
+              IPS_RequestAction($variableObject["ParentID"], $variableObject['ObjectIdent'], $result);
+            }
             break;
 
-          case 'AirQuality':
-            $VariableAirQualityID = $Device["AirQuality"];
-            $variable = IPS_GetVariable($VariableAirQualityID);
-            $variableObject = IPS_GetObject($VariableAirQualityID);
-            //den übgergebenen Wert in den VariablenTyp für das IPS-Gerät umwandeln
-            $result = $this->ConvertVariable($variable, $result);
-            $this->SetValueToIPS($variable,$variableObject,$result);
-            break;
-/*
-          case 'AirQualitySensorCurrent':
-            $VariableAirQualitySensorCurrentID = $Device["AirQualitySensorCurrent"];
-            $variable = IPS_GetVariable($VariableAirQualitySensorCurrentID);
-            $variableObject = IPS_GetObject($VariableAirQualitySensorCurrentID);
-            $result = $this->ConvertVariable($variable, $value);
-            $this->SetValueToIPS($variable,$variableObject,$result);
-            break;
-*/
         }
       }
     }
@@ -236,11 +279,53 @@ class TS_HBAirQualitySensor extends HomeKitService {
     $payload["name"] = $DeviceName;
     $payload["service"] = "AirQualitySensor";
 
+    $AirQuality["UNKNOWN "] = 0;
+    $AirQuality["EXCELLENT"] = 1;
+    $AirQuality["GOOD"] = 2;
+    $AirQuality["FAIR"] = 3;
+    $AirQuality["INFERIOR"] = 4;
+    $AirQuality["POOR"] = 5;
+
+    $VOCDensity["minValue"] = 0;
+    $VOCDensity["maxValue"] = 5000;
+    $VOCDensity["minStep"] = 1;
+    
     $array["topic"] ="add";
+
+    $payload["AirQuality"] = $AirQuality;
+    $payload["VOCDensity"] = $VOCDensity;
+
     $array["payload"] = $payload;
+    
     $data = json_encode($array);
     $SendData = json_encode(Array("DataID" => "{018EF6B5-AB94-40C6-AA53-46943E824ACF}", "Buffer" => $data));
     @$this->SendDataToParent($SendData);
+  }
+  public function removeAccessory($DeviceCount) {
+    //Payload bauen
+    $DeviceName = $this->ReadPropertyString("DeviceName{$DeviceCount}");
+    $payload["name"] = $DeviceName;
+
+    $array["topic"] ="remove";
+    $array["payload"] = $payload;
+    $data = json_encode($array);
+    $SendData = json_encode(Array("DataID" => "{018EF6B5-AB94-40C6-AA53-46943E824ACF}", "Buffer" => $data));
+    $this->SendDebug('Remove',$SendData,0);
+    $this->SendDataToParent($SendData);
+    return "Gelöscht!";
+  }
+
+  public function ConvertVariable($variable, $state) {
+      switch ($variable["VariableType"]) {
+        case 0: // boolean
+          return boolval($state);
+        case 1: // integer
+          return intval($state);
+        case 2: // float
+          return floatval($state);
+        case 3: // string
+          return strval($state);
+    }
   }
 }
 ?>
