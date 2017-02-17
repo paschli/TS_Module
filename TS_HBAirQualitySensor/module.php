@@ -100,6 +100,16 @@ class TS_HBAirQualitySensor extends HomeKitService {
           case $Device["VOCDensity"]:
             $Characteristic = "VOCDensity";
             $result = $data;
+            $this->sendJSONToParent("setValue", $Characteristic, $DeviceName, $result);
+            
+            $wert = $result;
+            if ( $wert >= 450 && $wert <= 600 ) {   $luftgüte= 1; }
+            if ( $wert >= 601 && $wert <= 800 ) {   $luftgüte= 2; }
+            if ( $wert >= 801 && $wert <= 1000 ) {   $luftgüte= 3; }
+            if ( $wert >= 1001 && $wert <= 1500 ) {   $luftgüte= 4; }
+            if ( $wert >= 1501 && $wert <= 2000 ) {   $luftgüte= 5; }
+            if ( $wert >= 2101) {   $luftgüte= 5; }
+
             break;
           case $Device["AirQuality"]:
             $Characteristic = "AirQuality";
@@ -159,9 +169,6 @@ class TS_HBAirQualitySensor extends HomeKitService {
           case 'AirQuality':
             $VariableAirQualityID = $Device["AirQuality"];
             $result = intval(GetValue($VariableAirQualityID));
-            $VariableVOCDensityID = $Device["VOCDensity"];
-            $result = intval(GetValue($VariableVOCDensityID));
-
             break;
 /*
           case 'AirQualitySensorCurrent':
