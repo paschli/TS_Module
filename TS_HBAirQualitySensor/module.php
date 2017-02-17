@@ -132,7 +132,7 @@ class TS_HBAirQualitySensor extends HomeKitService {
       $form .= '{ "type": "SelectVariable", "name": "AirQuality'.$count.'", "caption": "AirQuality" },';
 
       $form .= '{ "type": "SelectVariable", "name": "AirQualitySensorCurrent'.$count.'", "caption": "AirQualitySensorCurrent" },';
-      $form .= '{ "type": "Button", "label": "Löschen", "onClick": "echo HBAirQualitySensor_removeAccessory('.$this->InstanceID.','.$count.');" },';
+      $form .= '{ "type": "Button", "label": "Löschen", "onClick": "echo removeAccessory('.$this->InstanceID.','.$count.');" },';
       if ($count == $anzahl) {
         $form .= '{ "type": "Label", "label": "------------------" }';
       } else {
