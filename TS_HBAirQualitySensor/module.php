@@ -1,6 +1,5 @@
 <?
-require_once(__DIR__ . "HomeKitService.php");
-//require_once(__DIR__ . "/../HomeKitService.php");
+require_once(__DIR__ . "/../HomeKitService.php");
 
 //class TS_HBAirQualitySensor extends IPSModule {
 class TS_HBAirQualitySensor extends HomeKitService {
