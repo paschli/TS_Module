@@ -129,7 +129,7 @@ class TS_HBAirQualitySensor extends IPSModule {
             $variable = IPS_GetVariable($VariableID);
             $variableObject = IPS_GetObject($VariableID);
             //den übgergebenen Wert in den VariablenTyp für das IPS-Gerät umwandeln
-            $result = $this->ConvertVariable($variable, $value);
+            $result = $this->ConvertVariable($variable, $result);
             //Geräte Variable setzen
             if ($DummyOptionalValue == true) {
 //              $this->SendDebug('setState Dummy CurrentPosition',$VariableID, 0);
