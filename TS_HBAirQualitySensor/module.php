@@ -31,7 +31,6 @@ class TS_HBAirQualitySensor extends HomeKitService {
         $this->SetBuffer($DeviceName." VOCDensity ".$VOCDensity,"");
         $this->SetBuffer($DeviceName." AirQuality ".$AirQuality,"");
         $this->SetBuffer($DeviceName." AirQualitySensorCurrent ".$AirQualitySensorCurrent,"");
-        $this->SetBuffer($DeviceName." TargetTemperature ".$TargetTemperature,"");
       }
   }
   public function ApplyChanges() {
@@ -46,15 +45,6 @@ class TS_HBAirQualitySensor extends HomeKitService {
         $Devices[$count]["VOCDensity"] = $this->ReadPropertyInteger("VOCDensity{$count}");
         $Devices[$count]["AirQuality"] = $this->ReadPropertyInteger("AirQuality{$count}");
         $Devices[$count]["AirQualitySensorCurrent"] = $this->ReadPropertyInteger("AirQualitySensorCurrent{$count}");
-        $Devices[$count]["TargetTemperature"] = $this->ReadPropertyInteger("TargetTemperature{$count}");
-
-        $Devices[$count]["CurrentHeatingCoolingOff"] = $this->ReadPropertyInteger("CurrentHeatingCoolingOff{$count}");
-        $Devices[$count]["CurrentHeatingCoolingHeating"] = $this->ReadPropertyInteger("CurrentHeatingCoolingHeating{$count}");
-        $Devices[$count]["CurrentHeatingCoolingCooling"] = $this->ReadPropertyInteger("CurrentHeatingCoolingCooling{$count}");
-        $Devices[$count]["TargetHeatingCoolingOff"] = $this->ReadPropertyInteger("TargetHeatingCoolingOff{$count}");
-        $Devices[$count]["TargetHeatingCoolingHeating"] = $this->ReadPropertyInteger("TargetHeatingCoolingHeating{$count}");
-        $Devices[$count]["TargetHeatingCoolingCooling"] = $this->ReadPropertyInteger("TargetHeatingCoolingCooling{$count}");
-        $Devices[$count]["TargetHeatingCoolingAuto"] = $this->ReadPropertyInteger("TargetHeatingCoolingAuto{$count}");
 
         //Buffernamen
         $BufferNameVOCDensity = $Devices[$count]["DeviceName"]." VOCDensity";
@@ -76,14 +66,12 @@ class TS_HBAirQualitySensor extends HomeKitService {
           array_push($RegisterBufferIDs,$Devices[$count]["VOCDensity"]);
           array_push($RegisterBufferIDs,$Devices[$count]["AirQuality"]);
           array_push($RegisterBufferIDs,$Devices[$count]["AirQualitySensorCurrent"]);
-          array_push($RegisterBufferIDs,$Devices[$count]["TargetTemperature"]);
           $this->RegisterMessages($RegisterBufferIDs, 10603);
 
           //Buffer mit den aktuellen Variablen IDs befüllen
           $this->SetBuffer($BufferNameVOCDensity,$Devices[$count]["VOCDensity"]);
           $this->SetBuffer($BufferNameAirQuality,$Devices[$count]["AirQuality"]);
           $this->SetBuffer($BufferNameAirQualitySensorCurrent,$Devices[$count]["AirQualitySensorCurrent"]);
-          $this->SetBuffer($BufferNameTargetTemperature,$Devices[$count]["TargetTemperature"]);
 
           //Accessory anlegen
           $this->addAccessory($Devices[$count]["DeviceName"]);
