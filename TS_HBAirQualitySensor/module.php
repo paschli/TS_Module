@@ -159,6 +159,9 @@ class TS_HBAirQualitySensor extends HomeKitService {
           case 'AirQuality':
             $VariableAirQualityID = $Device["AirQuality"];
             $result = intval(GetValue($VariableAirQualityID));
+            $VariableVOCDensityID = $Device["VOCDensity"];
+            $result = intval(GetValue($VariableVOCDensityID));
+
             break;
 /*
           case 'AirQualitySensorCurrent':
