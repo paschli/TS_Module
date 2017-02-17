@@ -100,7 +100,7 @@ class TS_HBAirQualitySensor extends HomeKitService {
           case $Device["VOCDensity"]:
  
             $result = $data;
-           
+          
             $wert = $result;
             if ( $wert >= 450 && $wert <= 600 ) {   $luftgüte= 1; }
             if ( $wert >= 601 && $wert <= 800 ) {   $luftgüte= 2; }
@@ -115,9 +115,9 @@ class TS_HBAirQualitySensor extends HomeKitService {
             //den übgergebenen Wert in den VariablenTyp für das IPS-Gerät umwandeln
             $result = $this->ConvertVariable($variable, $luftgüte);
             $this->SetValueToIPS($variable,$variableObject,$result);
-
             $Characteristic = "VOCDensity";
             break;
+
           case $Device["AirQuality"]:
             $Characteristic = "AirQuality";
             $result = $data;
@@ -205,21 +205,6 @@ class TS_HBAirQualitySensor extends HomeKitService {
           //den übgergebenen Wert in den VariablenTyp für das IPS-Gerät umwandeln
             $result = $this->ConvertVariable($variable, $result);
             //Geräte Variable setzen
-            $this->SetValueToIPS($variable,$variableObject,$result);
-
-    $wert = $result;
-    if ( $wert >= 450 && $wert <= 600 ) {   $luftgüte= 1; }
-    if ( $wert >= 601 && $wert <= 800 ) {   $luftgüte= 2; }
-    if ( $wert >= 801 && $wert <= 1000 ) {   $luftgüte= 3; }
-    if ( $wert >= 1001 && $wert <= 1500 ) {   $luftgüte= 4; }
-    if ( $wert >= 1501 && $wert <= 2000 ) {   $luftgüte= 5; }
-    if ( $wert >= 2101) {   $luftgüte= 5; }
-
-            $VariableAirQualityID = $Device["AirQuality"];
-            $variable = IPS_GetVariable($VariableAirQualityID);
-            $variableObject = IPS_GetObject($VariableAirQualityID);
-            //den übgergebenen Wert in den VariablenTyp für das IPS-Gerät umwandeln
-            $result = $this->ConvertVariable($variable, $luftgüte);
             $this->SetValueToIPS($variable,$variableObject,$result);
             break;
 
