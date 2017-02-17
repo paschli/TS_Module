@@ -98,6 +98,7 @@ class TS_HBAirQualitySensor extends HomeKitService {
         //Prüfen ob die SenderID gleich der Temperatur Variable ist, dann den aktuellen Wert an die Bridge senden
         switch ($SenderID) {
           case $Device["VOCDensity"]:
+            $Characteristic = "VOCDensity";
             $result = $data;
             //den übgergebenen Wert in den VariablenTyp für das IPS-Gerät umwandeln
             $result = $this->ConvertVariable($variable, $result);
