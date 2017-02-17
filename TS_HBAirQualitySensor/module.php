@@ -101,7 +101,7 @@ class TS_HBAirQualitySensor extends HomeKitService {
             $Characteristic = "VOCDensity";
             $result = $data;
             //den übgergebenen Wert in den VariablenTyp für das IPS-Gerät umwandeln
-            $result = $this->ConvertVariable($variable, $result);
+ //           $result = $this->ConvertVariable($variable, $result);
             $this->SetValueToIPS($variable,$variableObject,$result);
             break;
 
