@@ -30,7 +30,7 @@ class IPS_HomebridgeLightSensor extends HomeKitService {
         $Devices[$count]["CurrentAmbientLightLevel"] = $this->ReadPropertyInteger("CurrentAmbientLightLevel{$count}");
 
 
-        $BufferName = $Devices[$count]["DeviceName"]." Temperatur";
+        $BufferName = $Devices[$count]["DeviceName"]." CurrentAmbientLightLevel";
 
         //Alte Registrierungen auf Variablen Veränderung aufheben
         $UnregisterBufferIDs = [];
