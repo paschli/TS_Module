@@ -68,7 +68,7 @@ class IPS_HomebridgeLightSensor extends HomeKitService {
         //Prüfen ob die SenderID gleich der Temperatur Variable ist, dann den aktuellen Wert an die Bridge senden
         if ($Device["CurrentAmbientLightLevel"] == $SenderID) {
           $DeviceName = $Device["DeviceName"];
-          $Characteristic = "CurrentLight";
+          $Characteristic = "CurrentAmbientLightLevel";
           $data = $Data[0];
           $result = number_format($data, 2, '.', '');
           $this->sendJSONToParent("setValue", $Characteristic, $DeviceName, $result);
@@ -86,7 +86,7 @@ class IPS_HomebridgeLightSensor extends HomeKitService {
     for($count = 1; $count-1 < $anzahl; $count++) {
       $form .= '{ "type": "ValidationTextBox", "name": "DeviceName'.$count.'", "caption": "Gerätename für die Homebridge" },';
       $form .= '{ "type": "SelectInstance", "name": "LightSensorID'.$count.'", "caption": "Gerät" },';
-      $form .= '{ "type": "SelectVariable", "name": "CurrentAmbientLightLevel'.$count.'", "caption": "Light" },';
+      $form .= '{ "type": "SelectVariable", "name": "CurrentAmbientLightLevel'.$count.'", "caption": "CurrentAmbientLightLevel" },';
       $form .= '{ "type": "Button", "label": "Löschen", "onClick": "echo HBLightSensor_removeAccessory('.$this->InstanceID.','.$count.');" },';
       if ($count == $anzahl) {
         $form .= '{ "type": "Label", "label": "------------------" }';
@@ -120,7 +120,7 @@ class IPS_HomebridgeLightSensor extends HomeKitService {
     //Payload bauen
     $payload["name"] = $DeviceName;
     $payload["service"] = "LightSensor";
-    $payload["CurrentAmbientLightLevel"] = $CurrentAmbientLightLevel;
+//    $payload["CurrentAmbientLightLevel"] = $CurrentAmbientLightLevel;
 
     $array["topic"] ="add";
     $array["payload"] = $payload;
