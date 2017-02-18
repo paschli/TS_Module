@@ -87,7 +87,7 @@ class IPS_HomebridgeContact extends HomeKitService {
       $form .= '{ "type": "SelectVariable", "name": "ContactState'.$count.'", "caption": "ContactState" },';
       $form .= '{ "type": "Label", "label": "Contact invertieren ?" },';
       $form .= '{ "type": "CheckBox", "name": "ContactInverse'.$count.'", "caption": "Ja" },';
-      $form .= '{ "type": "Button", "label": "Löschen", "onClick": "echo HBContactInverseSensor_removeAccessory('.$this->InstanceID.','.$count.');" },';
+      $form .= '{ "type": "Button", "label": "Löschen", "onClick": "echo HBContact_removeAccessory('.$this->InstanceID.','.$count.');" },';
       if ($count == $anzahl) {
         $form .= '{ "type": "Label", "label": "------------------" }';
       } else {
