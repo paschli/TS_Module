@@ -100,6 +100,7 @@ class IPS_HomebridgeAirQualitySensor extends HomeKitService {
         if ($SenderID == $Device["AirQuality"]) {
           $Characteristic = "AirQuality";
           $data = $Data[0];
+          $result = intval($data);
           $this->sendJSONToParent("setValue", $Characteristic, $DeviceName, $result);
         }
       }
