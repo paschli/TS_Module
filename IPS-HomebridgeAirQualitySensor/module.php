@@ -73,7 +73,7 @@ class IPS_HomebridgeAirQualitySensor extends HomeKitService {
           $data = $Data[0];
           $result = intval($data);
           $this->sendJSONToParent("setValue", $Characteristic, $DeviceName, $result);
-          
+//////////////////////////////////////////////////////////////////////////////////////          
             $wert = $result;
             if ( $wert >= 450 && $wert <= 600 ) {   $result= 1; }
             if ( $wert >= 601 && $wert <= 800 ) {   $result= 2; }
@@ -81,19 +81,15 @@ class IPS_HomebridgeAirQualitySensor extends HomeKitService {
             if ( $wert >= 1001 && $wert <= 1500 ) {   $result= 4; }
             if ( $wert >= 1501 && $wert <= 2000 ) {   $result= 5; }
             if ( $wert >= 2101) {   $result= 5; }
+
             $VariableID = $this->ReadPropertyInteger($AirQualityCount);
             $variable = IPS_GetVariable($VariableID);
             $variableObject = IPS_GetObject($VariableID);
             //den übgergebenen Wert in den VariablenTyp für das IPS-Gerät umwandeln
             $result = $this->ConvertVariable($variable, $result);
             //Geräte Variable setzen
-//            if ($DummyOptionalValue == true) {
-//              $this->SendDebug('setState Dummy CurrentPosition',$VariableID, 0);
-              SetValue($VariableID, $result);
-//            } else {
-              IPS_RequestAction($variableObject["ParentID"], $variableObject['ObjectIdent'], $result);
-//            }          
-          
+            $this->SetValueToIPS($variable,$variableObject,$result);
+//////////////////////////////////////////////////////////////////////////////////////          
           
         }
 
