@@ -6,28 +6,13 @@ git commit -am "Initial"
 Anlegen als User git !!!!!:
 git --bare init
 git update-server-info
-
-
-TS_DBox
-TS_LCN2Sonos
-TS_Sonos
-git://icy.my-router.de/TS_DBox
-git://icy.my-router.de/TS_DBox
-git://icy.my-router.de/TS_DBox
-git://icy.my-router.de/TS_DBox
-git://icy.my-router.de/TS_DBox
-git://icy.my-router.de/TS_DBox
 ------------------------------------------------------------------
 in IPS
 git://192.168.1.93/Ts_Module
 git://icy.my-router.de/Ts_Module
 
-
 ------------------------------------------------------------------
 git clone git@192.168.1.93:/home/git/Ts_Module
-
-
-
 
 ------------------------------------------------------------------
 git init
