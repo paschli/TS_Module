@@ -65,7 +65,7 @@ class IPS_HomebridgeLightSensor extends HomeKitService {
       for($count = 1; $count-1 < $anzahl; $count++) {
         $Device = $Devices[$count];
 
-        //Prüfen ob die SenderID gleich der Temperatur Variable ist, dann den aktuellen Wert an die Bridge senden
+        //Prüfen ob die SenderID gleich der Licht Variable ist, dann den aktuellen Wert an die Bridge senden
         if ($Device["CurrentAmbientLightLevel"] == $SenderID) {
           $DeviceName = $Device["DeviceName"];
           $Characteristic = "CurrentAmbientLightLevel";
@@ -120,7 +120,6 @@ class IPS_HomebridgeLightSensor extends HomeKitService {
     //Payload bauen
     $payload["name"] = $DeviceName;
     $payload["service"] = "LightSensor";
-//    $payload["CurrentAmbientLightLevel"] = $CurrentAmbientLightLevel;
 
     $array["topic"] ="add";
     $array["payload"] = $payload;
