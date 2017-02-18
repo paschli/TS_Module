@@ -52,13 +52,13 @@ class IPS_HomebridgeLightSensor extends HomeKitService {
         }
       }
       $DevicesConfig = serialize($Devices);
-      $this->SetBuffer("TemperaturSensor Config",$DevicesConfig);
+      $this->SetBuffer("LightSensor Config",$DevicesConfig);
     }
   public function Destroy() {
   }
 
   public function MessageSink($TimeStamp, $SenderID, $Message, $Data) {
-    $Devices = unserialize($this->getBuffer("TemperaturSensor Config"));
+    $Devices = unserialize($this->getBuffer("LightSensor Config"));
     if ($Data[1] == true) {
       $anzahl = $this->ReadPropertyInteger("Anzahl");
 
@@ -86,7 +86,7 @@ class IPS_HomebridgeLightSensor extends HomeKitService {
     for($count = 1; $count-1 < $anzahl; $count++) {
       $form .= '{ "type": "ValidationTextBox", "name": "DeviceName'.$count.'", "caption": "Gerätename für die Homebridge" },';
       $form .= '{ "type": "SelectInstance", "name": "LightSensorID'.$count.'", "caption": "Gerät" },';
-      $form .= '{ "type": "SelectVariable", "name": "CurrentAmbientLightLevel'.$count.'", "caption": "Temperatur" },';
+      $form .= '{ "type": "SelectVariable", "name": "CurrentAmbientLightLevel'.$count.'", "caption": "CurrentAmbientLightLevel" },';
       $form .= '{ "type": "Button", "label": "Löschen", "onClick": "echo HBLightSensor_removeAccessory('.$this->InstanceID.','.$count.');" },';
       if ($count == $anzahl) {
         $form .= '{ "type": "Label", "label": "------------------" }';
