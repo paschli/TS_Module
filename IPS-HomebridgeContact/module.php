@@ -125,7 +125,7 @@ class IPS_HomebridgeContact extends HomeKitService {
     }
   }
 
-  private function addAccessory($DeviceName,$ContactInverse) {
+  private function addAccessory($DeviceName) {
     //Payload bauen
     $payload["name"] = $DeviceName;
     $payload["service"] = "ContactSensor";
