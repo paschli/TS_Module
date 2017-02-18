@@ -170,7 +170,7 @@ class IPS_HomebridgeAirQualitySensor extends HomeKitService {
               $result = $this->ConvertVariable($variable, $value);
               //Geräte Variable setzen
               $this->SetValueToIPS($variable,$variableObject,$result);
-            }
+       
             break;
           case 'AirQuality':
             //Umrechnung
