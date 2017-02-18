@@ -42,7 +42,7 @@ class IPS_HomebridgeContact extends HomeKitService {
           $this->RegisterMessages($RegisterBufferIDs, 10603);
           //Buffer mit den aktuellen Variablen IDs befüllen für ContactState und ContactInverse
           $this->SetBuffer($BufferNameContactState,$Devices[$count]["ContactState"]);
-          $this->addAccessory($Devices[$count]["DeviceName"],$Devices[$count]["ContactState"]);
+          $this->addAccessory($Devices[$count]["DeviceName"]);
         } else {
           return;
         }
