@@ -23,17 +23,16 @@ class IPS_HomebridgeContact extends HomeKitService {
       //Never delete this line!
       parent::ApplyChanges();
       //Setze Filter für ReceiveData
-      $this->SetReceiveDataFilter(".*ContactInverseSensor.*");
+      $this->SetReceiveDataFilter(".*ContactSensor.*");
       $anzahl = $this->ReadPropertyInteger("Anzahl");
       $Devices = [];
       for($count = 1; $count-1 < $anzahl; $count++) {
         $Devices[$count]["DeviceName"] = $this->ReadPropertyString("DeviceName{$count}");
         $Devices[$count]["ContactState"] = $this->ReadPropertyInteger("ContactState{$count}");
-        $Devices[$count]["ContactInverse"] = $this->ReadPropertyBoolean("ContactInverse{$count}");
-        $BufferNameContactState = $Devices[$count]["DeviceName"]." ContactState";
+        $BufferName = $Devices[$count]["DeviceName"]." ContactState";
         //Alte Registrierungen auf Variablen Veränderung aufheben
         $UnregisterBufferIDs = [];
-        array_push($UnregisterBufferIDs,$this->GetBuffer($BufferNameContactState));
+        array_push($UnregisterBufferIDs,$this->GetBuffer($BufferName));
         $this->UnregisterMessages($UnregisterBufferIDs, 10603);
         if ($Devices[$count]["DeviceName"] != "") {
           //Regestriere ContactState Variable auf Veränderungen
@@ -41,7 +40,7 @@ class IPS_HomebridgeContact extends HomeKitService {
           array_push($RegisterBufferIDs,$Devices[$count]["ContactState"]);
           $this->RegisterMessages($RegisterBufferIDs, 10603);
           //Buffer mit den aktuellen Variablen IDs befüllen für ContactState und ContactInverse
-          $this->SetBuffer($BufferNameContactState,$Devices[$count]["ContactState"]);
+          $this->SetBuffer($BufferName,$Devices[$count]["ContactState"]);
           $this->addAccessory($Devices[$count]["DeviceName"]);
         } else {
           return;
@@ -129,7 +128,8 @@ class IPS_HomebridgeContact extends HomeKitService {
     //Payload bauen
     $payload["name"] = $DeviceName;
     $payload["service"] = "ContactSensor";
-
+   
+    $array["topic"] ="add";
     $array["payload"] = $payload;
     $data = json_encode($array);
     $SendData = json_encode(Array("DataID" => "{018EF6B5-AB94-40C6-AA53-46943E824ACF}", "Buffer" => $data));
