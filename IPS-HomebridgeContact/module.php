@@ -11,11 +11,11 @@ class IPS_HomebridgeContact extends HomeKitService {
       for($count = 1; $count -1 < 99; $count++) {
         $DeviceName = "DeviceName{$count}";
         $ContaktID = "ContaktID{$count}";
-        $ContactState = "ContactState{$count}";
+        $ContactSensorState = "ContactSensorState{$count}";
         $ContactInverse = "ContactInverse{$count}";
         $this->RegisterPropertyString($DeviceName, "");
         $this->RegisterPropertyInteger($ContaktID, 0);
-        $this->RegisterPropertyInteger($ContactState, 0);
+        $this->RegisterPropertyInteger($ContactSensorState, 0);
         $this->RegisterPropertyBoolean($ContactInverse, false);
       }
   }
@@ -28,19 +28,19 @@ class IPS_HomebridgeContact extends HomeKitService {
       $Devices = [];
       for($count = 1; $count-1 < $anzahl; $count++) {
         $Devices[$count]["DeviceName"] = $this->ReadPropertyString("DeviceName{$count}");
-        $Devices[$count]["ContactState"] = $this->ReadPropertyInteger("ContactState{$count}");
-        $BufferName = $Devices[$count]["DeviceName"]." ContactState";
+        $Devices[$count]["ContactSensorState"] = $this->ReadPropertyInteger("ContactSensorState{$count}");
+        $BufferName = $Devices[$count]["DeviceName"]." ContactSensorState";
         //Alte Registrierungen auf Variablen Veränderung aufheben
         $UnregisterBufferIDs = [];
         array_push($UnregisterBufferIDs,$this->GetBuffer($BufferName));
         $this->UnregisterMessages($UnregisterBufferIDs, 10603);
         if ($Devices[$count]["DeviceName"] != "") {
-          //Regestriere ContactState Variable auf Veränderungen
+          //Regestriere ContactSensorState Variable auf Veränderungen
           $RegisterBufferIDs = [];
-          array_push($RegisterBufferIDs,$Devices[$count]["ContactState"]);
+          array_push($RegisterBufferIDs,$Devices[$count]["ContactSensorState"]);
           $this->RegisterMessages($RegisterBufferIDs, 10603);
-          //Buffer mit den aktuellen Variablen IDs befüllen für ContactState und ContactInverse
-          $this->SetBuffer($BufferName,$Devices[$count]["ContactState"]);
+          //Buffer mit den aktuellen Variablen IDs befüllen für ContactSensorState und ContactInverse
+          $this->SetBuffer($BufferName,$Devices[$count]["ContactSensorState"]);
           $this->addAccessory($Devices[$count]["DeviceName"]);
         } else {
           return;
@@ -59,10 +59,10 @@ class IPS_HomebridgeContact extends HomeKitService {
         $Device = $Devices[$count];
         $DeviceName = $Device["DeviceName"];
         $ContactInverseCount= "ContactInverse{$count}";
-        //Prüfen ob die SenderID gleich der ContactState oder ContactInverse Variable ist, dann den aktuellen Wert an die Bridge senden
-        if ($SenderID == $Device["ContactState"]) {
+        //Prüfen ob die SenderID gleich der ContactSensorState oder ContactInverse Variable ist, dann den aktuellen Wert an die Bridge senden
+        if ($SenderID == $Device["ContactSensorState"]) {
           $ContactInverse = $this->ReadPropertyBoolean($ContactInverseCount);
-          $Characteristic = "ContactState";
+          $Characteristic = "ContactSensorState";
           $data = $Data[0];
           $result = intval($data);
           if ($ContactInverse == true) {
@@ -83,7 +83,7 @@ class IPS_HomebridgeContact extends HomeKitService {
     for($count = 1; $count-1 < $anzahl; $count++) {
       $form .= '{ "type": "ValidationTextBox", "name": "DeviceName'.$count.'", "caption": "Gerätename für die Homebridge" },';
       $form .= '{ "type": "SelectInstance", "name": "ContaktID'.$count.'", "caption": "Gerät" },';
-      $form .= '{ "type": "SelectVariable", "name": "ContactState'.$count.'", "caption": "ContactState" },';
+      $form .= '{ "type": "SelectVariable", "name": "ContactSensorState'.$count.'", "caption": "ContactSensorState" },';
       $form .= '{ "type": "Label", "label": "Contact invertieren ?" },';
       $form .= '{ "type": "CheckBox", "name": "ContactInverse'.$count.'", "caption": "Ja" },';
       $form .= '{ "type": "Button", "label": "Löschen", "onClick": "echo HBContact_removeAccessory('.$this->InstanceID.','.$count.');" },';
@@ -108,10 +108,10 @@ class IPS_HomebridgeContact extends HomeKitService {
       if ($DeviceName == $name) {
         //IPS Variable abfragen
         switch ($Characteristic) {
-          case 'ContactState':
+          case 'ContactSensorState':
             $ContactInverse = $this->ReadPropertyBoolean($ContactInverseCount);
-            //ContactInverseSensor ContactState abfragen
-            $result = intval(GetValue($Device["ContactState"]));
+            //ContactInverseSensor ContactSensorState abfragen
+            $result = intval(GetValue($Device["ContactSensorState"]));
             if ($ContactInverse == true) {
              $result = ($result) ? '0' : '1';
             }
