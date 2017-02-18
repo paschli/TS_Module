@@ -166,6 +166,7 @@ class IPS_HomebridgeAirQualitySensor extends HomeKitService {
       $name = $Device["DeviceName"];
       if ($DeviceName == $name) {
         switch ($Characteristic) {
+/*
           case 'VOCDensity':
              $variable = IPS_GetVariable($Device["VOCDensity"]);
              $variableObject = IPS_GetObject($Device["VOCDensity"]);
@@ -175,6 +176,7 @@ class IPS_HomebridgeAirQualitySensor extends HomeKitService {
               $this->SetValueToIPS($variable,$variableObject,$result);
        
             break;
+*/
           case 'AirQuality':
             //Umrechnung
             $variable = IPS_GetVariable($Device["AirQuality"]);
