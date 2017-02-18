@@ -139,8 +139,7 @@ class IPS_HomebridgeAirQualitySensor extends HomeKitService {
         switch ($Characteristic) {
           case 'VOCDensity':
             //AirQualitySensor VOCDensity abfragen
-            $result = floatval(GetValue($Device["VOCDensity"]));
-            $result = $Device["VOCDensityTrue"];
+            $result = intval(GetValue($Device["VOCDensity"]));
             break;
           case 'AirQuality':
             //AirQualitySensor AirQuality abfragen
