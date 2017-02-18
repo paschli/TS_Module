@@ -66,7 +66,7 @@ class IPS_HomebridgeAirQualitySensor extends HomeKitService {
       for($count = 1; $count-1 < $anzahl; $count++) {
         $Device = $Devices[$count];
         $DeviceName = $Device["DeviceName"];
-
+        $AirQualityCount= "AirQuality{$count}";
         //Prüfen ob die SenderID gleich der VOCDensity oder AirQuality Variable ist, dann den aktuellen Wert an die Bridge senden
         if ($SenderID == $Device["VOCDensity"]) {
           $Characteristic = "VOCDensity";
