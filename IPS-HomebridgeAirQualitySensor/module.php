@@ -95,7 +95,7 @@ class IPS_HomebridgeAirQualitySensor extends HomeKitService {
             //Geräte Variable setzen
             $this->SetValueToIPS($variable,$variableObject,$result);
          }
-        }
+
 //////////////////////////////////////////////////////////////////////////////////////          
           
         }
