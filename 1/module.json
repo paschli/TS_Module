@@ -1,11 +1,11 @@
 {
-	"id": "{3341ea04-eec5-11e6-bc64-92361f002671}",
-	"name": "TS_HBContact",
+	"id": "{7dda095a-f1f1-11e6-bc64-92361f002671}",
+	"name": "IPS_HomebridgeLightSensor",
 	"type": 3,
 	"vendor": "",
-	"aliases": ["TS_HBContact"],
+	"aliases": ["IPS_HomebridgeLightSensor"],
 	"parentRequirements": ["{018EF6B5-AB94-40C6-AA53-46943E824ACF}", "{79827379-F36E-4ADA-8A95-5F8D1DC92FA9}"],
 	"childRequirements": [],
 	"implemented": ["{018EF6B5-AB94-40C6-AA53-46943E824ACF}"],
-	"prefix": "TSHBCon"
+	"prefix": "HBLightSensor"
 }
