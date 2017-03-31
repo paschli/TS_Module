@@ -173,7 +173,7 @@ class TSKodi extends IPSModule {
 		$Json = '{"jsonrpc": "2.0", "method": "Application.GetProperties", "params": {"properties": ["volume"]}, "id": 1}';
 		$this->Send($Json);
 	}
-	public function UpdateVolume($data){
+	public function UpdateVolume(int $data){
 		if(isset($data["result"]["volume"])){
 			$parent = IPS_GetParent(IPS_GetParent($_IPS['SELF']));
 			$daten = $data["result"]["volume"];
@@ -226,7 +226,7 @@ class TSKodi extends IPSModule {
 	}
 	
 	
-	public function SetActuatorsByCatIdent($ident){
+	public function SetActuatorsByCatIdent(string $ident){
 		foreach(IPS_GetChildrenIDs($this->GetIDForIdent($ident)) as $actuatorLinkID) {
 		//Prüfe auf Links
 			if(IPS_LinkExists($actuatorLinkID)) {
