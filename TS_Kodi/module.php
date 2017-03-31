@@ -161,7 +161,7 @@ class TSKodi extends IPSModule {
 	}
 
 
-	public function UpdateDuration($data){
+	public function UpdateDuration(Integer $data){
 		if(isset($data["result"]["percentage"])){
 			$parent = IPS_GetParent(IPS_GetParent($_IPS['SELF']));
 			$percentage = round($data["result"]["percentage"]);
@@ -181,7 +181,7 @@ class TSKodi extends IPSModule {
 		}
 	}
 
-	public function UpdateState($data){
+	public function UpdateState(Integer $data){
 		//Play
 		if(isset($data["method"]) && $data["method"] == "Player.OnPlay"){
 			SetValue($this->GetIDForIdent("TSKodi_state"), 1);
@@ -261,7 +261,7 @@ class TSKodi extends IPSModule {
 		}
 	}
 
-    public function FB($_steuer)
+    public function FB(Integer $_steuer)
     {
 
 //{ "jsonrpc": "2.0", "method": "GUI.SetFullscreen", "params": {"fullscreen": true}, "id": "1"}"
@@ -310,7 +310,7 @@ class TSKodi extends IPSModule {
   
 }
  
-    public function Station($_steuer)
+    public function Station(Integer $_steuer)
     {
         if ($_steuer === 1)($_befehl=$this->ReadPropertyString("S1_Wert"));   //Sport1
         if ($_steuer === 2)($_befehl=$this->ReadPropertyString("S2_Wert")); //RTL
@@ -377,7 +377,7 @@ class TSKodi extends IPSModule {
  
 	}
 	
-	public function Send($sendJson){
+	public function Send(String $sendJson){
 		$jsonRpcSocketID = IPS_GetInstance($this->InstanceID)["ConnectionID"];
 //    $fehler = (IPS_GetInstance($this->InstanceID)['InstanceStatus']);
 //    print_r ($fehler.chr(10));
@@ -413,7 +413,7 @@ class TSKodi extends IPSModule {
 		}
 	}
 	
-	public function SendKey($key){
+	public function SendKey(Integer $key){
 		$sendJson = '{"jsonrpc":"2.0","method":"Input.'.$key.'","id":1}';
 		$jsonRpcSocketID = IPS_GetInstance($this->InstanceID)["ConnectionID"];
 		$kodiSend 		 = CSCK_SendText($jsonRpcSocketID, $sendJson);
@@ -424,7 +424,7 @@ class TSKodi extends IPSModule {
 		}
 	}
 	
-	public function SetVolume($value){
+	public function SetVolume(Integer $value){
 		$sendJson = '{"jsonrpc": "2.0", "method": "Application.SetVolume", "params": { "volume": '.$value.'}, "id": 1}';
 		$jsonRpcSocketID = IPS_GetInstance($this->InstanceID)["ConnectionID"];
 		$kodiSend 		 = CSCK_SendText($jsonRpcSocketID, $sendJson);
@@ -435,7 +435,7 @@ class TSKodi extends IPSModule {
 		}
 	}
 	
-	public function SetMute($value){
+	public function SetMute(Boolean $value){
 		$sendJson = '{"jsonrpc": "2.0", "method": "Application.SetMute", "params": {"mute": "toggle"}, "id": "1"}';
 		//$value = '".$value."';
     $jsonRpcSocketID = IPS_GetInstance($this->InstanceID)["ConnectionID"];
@@ -481,20 +481,20 @@ class TSKodi extends IPSModule {
 	}
 	
 	// Update Funktionen (Prüft Rückgabewerte)
-	public function UpdateVolumeVar($data){
+	public function UpdateVolumeVar(Integer $data){
 		if(isset($data["params"]["data"]["volume"])){
 			$volume 	= $data["params"]["data"]["volume"];
 			SetValue($this->GetIDForIdent("TSKodi_volume"), $volume);			
 		}
 	}
-	public function UpdateMuteVar($data){
+	public function UpdateMuteVar(Boolean $data){
 		if(isset($data["params"]["data"]["muted"])){
 			$mute 	= $data["params"]["data"]["muted"];
 			SetValue($this->GetIDForIdent("TSKodi_mute"), $mute);			
 		}
 	}
 	
-	public function UpdatePlayerItemVars($data){
+	public function UpdatePlayerItemVars(String $data){
 		if(isset($data["result"]["item"]["label"]) && isset($data["result"]["item"]["title"])){
 			$parent = IPS_GetParent(IPS_GetParent($_IPS['SELF']));
 			
@@ -506,7 +506,7 @@ class TSKodi extends IPSModule {
 		}
 	}
 	
-	private function GetProfileAction($variable) 
+	private function GetProfileAction(String $variable) 
 	{
 		if($variable['VariableCustomAction'] != ""){
 			return $variable['VariableCustomAction'];
