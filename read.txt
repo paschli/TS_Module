@@ -10,9 +10,11 @@ git update-server-info
 in IPS
 git://192.168.1.93/Ts_Module
 git://icy.my-router.de/Ts_Module
+git://icy.my-router.de/TS_SmarterCoffee
 
 ------------------------------------------------------------------
 git clone git@192.168.1.93:/home/git/Ts_Module
+git clone git@192.168.1.93:/home/git/TS_SmarterCoffee
 
 ------------------------------------------------------------------
 git init
