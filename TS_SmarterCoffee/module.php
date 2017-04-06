@@ -14,20 +14,20 @@ class TS_SmarterCoffee extends IPSModule {
     parent::ApplyChanges();
     // Start create profiles
 
-    $this->RegisterProfileIntegerEx("Coffee_Strength", "Information", "", "", Array(
+    $this->RegisterProfileIntegerEx("Coffee_Strength", "Move", "", "", Array(
                                          Array(0, "Schwach",  "", -1),
                                          Array(1, "Mittel",  "", -1),
                                          Array(2, "Stark", "", -1),
      ));
 
 
-     $this->RegisterProfileIntegerEx("Coffee_water", "Information", "", "", Array(
+     $this->RegisterProfileIntegerEx("Coffee_water", "Drops", "", "", Array(
                                          Array(0, "leer",  "", -1),
                                          Array(1, "niedrig",  "", -1),
                                          Array(2, "halb", "", -1),
                                          Array(3, "voll", "", -1),
      ));
-     $this->RegisterProfileIntegerEx("Coffee_Warmhalten", "Information", "", "", Array(
+     $this->RegisterProfileIntegerEx("Coffee_Warmhalten", "Clock", "", "", Array(
                                          Array(0, "0 Min.",  "", -1),
                                          Array(5, "5 Min.",  "", -1),
                                          Array(10, "10 Min.", "", -1),
