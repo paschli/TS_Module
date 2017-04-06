@@ -1,0 +1,10 @@
+{
+	"elements":
+	[
+		{ "name": "CupsSoll",             "type": "NumberSpinner",     "caption": "Tassen Soll (Stk)" }
+	],
+	"actions":
+	[
+
+  ]
+}
