@@ -74,12 +74,12 @@ class TS_SmarterCoffee extends IPSModule {
     $data = json_decode($JSONString);
     // Buffer decodieren und in eine Variable schreiben
     $Buffer = utf8_decode($data->Buffer);
-    $this->SendDebug('ReceiveData',$Buffer, 0);
+//    $this->SendDebug('ReceiveData',$Buffer, 0);
 //    $this->SendDebug('Status Tassen',$this->parseStatus($Buffer)["cups"], 0);
     SetValue($this->GetIDForIdent("Cups"),$this->parseStatus($Buffer)["cups"]);
     SetValue($this->GetIDForIdent("CupsSoll"),$this->parseStatus($Buffer)["cups_soll"]);
     SetValue($this->GetIDForIdent("Status"),$this->parseStatus($Buffer)["status"]);
-      SetValue($this->GetIDForIdent("StatusHex"),$this->parseStatus($Buffer)["statushex"]);
+    SetValue($this->GetIDForIdent("StatusHex"),$this->parseStatus($Buffer)["statushex"]);
     SetValue($this->GetIDForIdent("Strength"),$this->parseStatus($Buffer)["strength"]);
     SetValue($this->GetIDForIdent("WaterLevel"),$this->parseStatus($Buffer)["waterlevel"]);
 
@@ -88,10 +88,7 @@ class TS_SmarterCoffee extends IPSModule {
     SetValue($this->GetIDForIdent("Heizplatte"),$this->parseStatus($Buffer)["heizplatte"]);    
     SetValue($this->GetIDForIdent("Kaffeefertig"),$this->parseStatus($Buffer)["fertig"]);
     SetValue($this->GetIDForIdent("KanneinMaschine"),$this->parseStatus($Buffer)["kanne"]);
-
-
-
-  }
+   }
 
   public function parseStatus($data) {
     $byte0      = ord(substr($data,0,1));// immer 0x32 - 50 Startbyte
