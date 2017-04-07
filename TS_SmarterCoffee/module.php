@@ -62,6 +62,8 @@ class TS_SmarterCoffee extends IPSModule {
     $this->RegisterVariableBoolean("Boiler", "Boiler", "Coffee_Kanne");
     $this->RegisterVariableBoolean("Working", "Working", "Coffee_Kanne");
     $this->RegisterVariableBoolean("Mahlwerk", "Mahlwerk", "Coffee_Kanne");
+    $this->RegisterVariableString ("Meldung", "Meldung", "");
+    
     $this->EnableAction("Strength");
     $this->EnableAction("CupsSoll");
     $this->EnableAction("Start");
@@ -94,22 +96,25 @@ class TS_SmarterCoffee extends IPSModule {
       SetValue($this->GetIDForIdent("Boiler"),$this->parseStatus($Buffer)["boiler"]);    
       SetValue($this->GetIDForIdent("Working"),$this->parseStatus($Buffer)["working"]);
       SetValue($this->GetIDForIdent("Mahlwerk"),$this->parseStatus($Buffer)["grinder"]);
-
    }
+   if ($byte0 == 3){//0x32
+      $byte1      = ord(substr($Buffer,1,1));
+      $meldung = $byte1;
+      setValue($this->GetIDForIdent("Meldung"),$meldung);
+   }  
   }
 
   public function parseStatus($data) {
-    $byte0      = ord(substr($data,0,1));// immer 0x32 - 50 Startbyte
-
+//    $byte0      = ord(substr($data,0,1));// immer 0x32 - 50 Startbyte
     $result["status"] = ord(substr($data,1,1));//(carafe << 0) + (grind << 1) + (ready << 2) + (grinder << 3) + (heater << 4) + (hotplate << 6) + (working << 5) + (timer << 7))
     $result["statushex"] = dechex (ord(substr($data,1,1)) );//(carafe << 0) + (grind << 1) + (ready << 2) + (grinder << 3) + (heater << 4) + (hotplate << 6) + (working << 5) + (timer << 7))
 
     $result["waterlevel"]= ord(substr($data,2,1));
-    $byte3      = ord(substr($data,3,1));// immer 0x00 - 0
+//    $byte3      = ord(substr($data,3,1));// immer 0x00 - 0
     $result["strength"] = ord(substr($data,4,1));
     $result["cups"]     = dechex (ord(substr($data,5,1))); // passt hier nicht,44 wird angezeigt bei 2C ist es aber 12 Tassen....
     // 1te Stelle die Anzahl die gekocht werden, 2te Stelle Sollwert
-	  $byte6      = ord(substr($data,6,1));// immer 0x7E - 126 Endbyte
+//	  $byte6      = ord(substr($data,6,1));// immer 0x7E - 126 Endbyte
 	  
       	$cups =str_pad($result["cups"] , 2 ,'0', STR_PAD_LEFT);
     		$arr=str_split($cups, 1);
