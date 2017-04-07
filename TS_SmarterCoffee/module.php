@@ -59,7 +59,9 @@ class TS_SmarterCoffee extends IPSModule {
     $this->RegisterVariableBoolean("Kaffeefertig", "Kaffee fertig", "Coffee_Kanne");
     $this->RegisterVariableBoolean("KanneinMaschine", "Kanne in Maschine ?", "Coffee_Kanne");
     $this->RegisterVariableBoolean("Start", "Start", "~Switch");
-    
+    $this->RegisterVariableBoolean("Boiler", "Boiler", "Coffee_Kanne");
+    $this->RegisterVariableBoolean("Working", "Working", "Coffee_Kanne");
+    $this->RegisterVariableBoolean("Mahlwerk", "Mahlwerk", "Coffee_Kanne");
     $this->EnableAction("Strength");
     $this->EnableAction("CupsSoll");
     $this->EnableAction("Start");
@@ -89,6 +91,10 @@ class TS_SmarterCoffee extends IPSModule {
       SetValue($this->GetIDForIdent("Heizplatte"),$this->parseStatus($Buffer)["heizplatte"]);    
       SetValue($this->GetIDForIdent("Kaffeefertig"),$this->parseStatus($Buffer)["fertig"]);
       SetValue($this->GetIDForIdent("KanneinMaschine"),$this->parseStatus($Buffer)["kanne"]);
+      SetValue($this->GetIDForIdent("Boiler"),$this->parseStatus($Buffer)["boiler"]);    
+      SetValue($this->GetIDForIdent("Working"),$this->parseStatus($Buffer)["working"]);
+      SetValue($this->GetIDForIdent("Mahlwerk"),$this->parseStatus($Buffer)["grinder"]);
+
    }
   }
 
@@ -121,6 +127,10 @@ class TS_SmarterCoffee extends IPSModule {
         $result["kanne"] =substr($stat,7,1);
         $result["heizplatte"] =substr($stat,1,1);
         $result["fertig"] =substr($stat,5,1);
+        $result["boiler"] =substr($stat,3,1);
+        $result["working"] =substr($stat,2,1);
+        $result["grinder"] =substr($stat,4,1);
+        
         return $result;
 
  }
