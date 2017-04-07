@@ -76,18 +76,22 @@ class TS_SmarterCoffee extends IPSModule {
     $Buffer = utf8_decode($data->Buffer);
 //    $this->SendDebug('ReceiveData',$Buffer, 0);
 //    $this->SendDebug('Status Tassen',$this->parseStatus($Buffer)["cups"], 0);
-    SetValue($this->GetIDForIdent("Cups"),$this->parseStatus($Buffer)["cups"]);
-    SetValue($this->GetIDForIdent("CupsSoll"),$this->parseStatus($Buffer)["cups_soll"]);
-    SetValue($this->GetIDForIdent("Status"),$this->parseStatus($Buffer)["status"]);
-    SetValue($this->GetIDForIdent("StatusHex"),$this->parseStatus($Buffer)["statushex"]);
-    SetValue($this->GetIDForIdent("Strength"),$this->parseStatus($Buffer)["strength"]);
-    SetValue($this->GetIDForIdent("WaterLevel"),$this->parseStatus($Buffer)["waterlevel"]);
-
-    SetValue($this->GetIDForIdent("FilterBohnen"),$this->parseStatus($Buffer)["filter"]);
-    SetValue($this->GetIDForIdent("genugWasser"),$this->parseStatus($Buffer)["genugwasser"]);
-    SetValue($this->GetIDForIdent("Heizplatte"),$this->parseStatus($Buffer)["heizplatte"]);    
-    SetValue($this->GetIDForIdent("Kaffeefertig"),$this->parseStatus($Buffer)["fertig"]);
-    SetValue($this->GetIDForIdent("KanneinMaschine"),$this->parseStatus($Buffer)["kanne"]);
+    $byte0      = ord(substr($data,0,1));// immer 0x32 - 50 Startbyte
+  	if ($byte0 == 50){//0x32
+      SetValue($this->GetIDForIdent("Status"),$this->parseStatus($Buffer)["status"]);
+      SetValue($this->GetIDForIdent("Cups"),$this->parseStatus($Buffer)["cups"]);
+      SetValue($this->GetIDForIdent("CupsSoll"),$this->parseStatus($Buffer)["cups_soll"]);
+      SetValue($this->GetIDForIdent("Status"),$this->parseStatus($Buffer)["status"]);
+      SetValue($this->GetIDForIdent("StatusHex"),$this->parseStatus($Buffer)["statushex"]);
+      SetValue($this->GetIDForIdent("Strength"),$this->parseStatus($Buffer)["strength"]);
+      SetValue($this->GetIDForIdent("WaterLevel"),$this->parseStatus($Buffer)["waterlevel"]);
+  
+      SetValue($this->GetIDForIdent("FilterBohnen"),$this->parseStatus($Buffer)["filter"]);
+      SetValue($this->GetIDForIdent("genugWasser"),$this->parseStatus($Buffer)["genugwasser"]);
+      SetValue($this->GetIDForIdent("Heizplatte"),$this->parseStatus($Buffer)["heizplatte"]);    
+      SetValue($this->GetIDForIdent("Kaffeefertig"),$this->parseStatus($Buffer)["fertig"]);
+      SetValue($this->GetIDForIdent("KanneinMaschine"),$this->parseStatus($Buffer)["kanne"]);
+    }
    }
 
   public function parseStatus($data) {
@@ -102,8 +106,6 @@ class TS_SmarterCoffee extends IPSModule {
     // 1te Stelle die Anzahl die gekocht werden, 2te Stelle Sollwert
 	  $byte6      = ord(substr($data,6,1));// immer 0x7E - 126 Endbyte
 	  
-  	if ($byte0 == 50){//0x32
-    	if  ($result["status"] <> 0 ) {
       	$cups =str_pad($result["cups"] , 2 ,'0', STR_PAD_LEFT);
     		$arr=str_split($cups, 1);
     		$result["cups"] = hexdec($arr[0]);
@@ -121,8 +123,6 @@ class TS_SmarterCoffee extends IPSModule {
         $result["heizplatte"] =substr($stat,1,1);
         $result["fertig"] =substr($stat,5,1);
         return $result;
-      }
-  	}
 
  }
  
@@ -151,9 +151,8 @@ class TS_SmarterCoffee extends IPSModule {
 			default:
 				throw new Exception("Invalid Ident");
 		}
-		
- 
 	}
+
   public function SetZeitHeizplatte($value) {
     SetValue($this->GetIDForIdent("ZeitHeizplatte"), $value);
  	}
@@ -163,7 +162,6 @@ class TS_SmarterCoffee extends IPSModule {
     $CMD_END = hex2bin(dechex(126));
     $CMD_STOP_BREWING =   hex2bin(dechex(52)); //34
 		$SocketID = IPS_GetInstance($this->InstanceID)["ConnectionID"];
-
     SetValue($this->GetIDForIdent("Start"), $value);
     if ($value === true){  
   		$tassen = GetValue($this->GetIDForIdent("CupsSoll"));
@@ -189,9 +187,8 @@ class TS_SmarterCoffee extends IPSModule {
       $senden = $CMD_STOP_BREWING.$CMD_END;    //kochen
 		  $Send 		 = CSCK_SendText($SocketID, $senden);
     }  
-
-
  	}
+
   public function SetFilterBohnen($value) {
     $CMD_SET_GRINDER  = hex2bin(dechex(60));    
     $CMD_END = hex2bin(dechex(126));
