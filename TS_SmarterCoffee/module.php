@@ -99,7 +99,18 @@ class TS_SmarterCoffee extends IPSModule {
    }
    if ($byte0 == 3){//0x32
       $byte1      = ord(substr($Buffer,1,1));
-      $meldung = $byte1;
+        switch ($byte1) {
+            case 0:
+                $meldung = "Ok";
+            case 1:
+                $meldung = "brühen in Arbeit";
+            case 5:
+                $meldung = "keine Kanne";
+            case 6:
+                $meldung = "kein Wasser";
+            default:
+                $meldung = "unbekannt";
+        }
       setValue($this->GetIDForIdent("Meldung"),$meldung);
    }  
   }
