@@ -106,17 +106,52 @@ class TS_SmarterCoffee extends IPSModule {
             case 1:
                 $meldung = "brühen in Arbeit";
                 break;
+            case 4:
+                $meldung = "fehlerhaftes Kommando";
+                break;
             case 5:
                 $meldung = "keine Kanne";
                 break;
             case 6:
                 $meldung = "kein Wasser";
                 break;
+            case 7:
+                $meldung = "wenig Wasser";
+                break;
+
+            default:
+                $meldung = "unbekannt";
+        }
+      setValue($this->GetIDForIdent("Meldung"),$meldung);
+   }
+      if ($byte0 == 49){//0x32
+      $byte1      = ord(substr($Buffer,1,1));
+        switch ($byte1) {
+            case 0:
+                $meldung = "Ok";
+                break;
+            case 1:
+                $meldung = "brühen in Arbeit";
+                break;
+            case 4:
+                $meldung = "fehlerhaftes Kommando";
+                break;
+            case 5:
+                $meldung = "keine Kanne";
+                break;
+            case 6:
+                $meldung = "kein Wasser";
+                break;
+            case 7:
+                $meldung = "wenig Wasser";
+                break;
+
             default:
                 $meldung = "unbekannt";
         }
       setValue($this->GetIDForIdent("Meldung"),$meldung);
    }  
+  
   }
 
   public function parseStatus($data) {
