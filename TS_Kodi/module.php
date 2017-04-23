@@ -698,10 +698,41 @@ class TSKodi extends IPSModule {
 	}
 	
 	private function CheckSocketRegVar(){
+    $SocketID = IPS_GetInstance($this->InstanceID)["ConnectionID"];
+		// Prüfen / Erstellen und Verbinden der "RegisterVariable"
+		$scriptsCatID 	= @IPS_GetObjectIDByIdent("TSKodi_scripts", $this->InstanceID);
+		$rxScriptID 	= @IPS_GetScriptIDByName("TSKodi_Receiver", $scriptsCatID);
+		
+		$registerVariableModuleID = "{F3855B3C-7CD6-47CA-97AB-E66D346C037F}";
+		$moduleIDs = IPS_GetInstanceListByModuleID($registerVariableModuleID);
+		foreach($moduleIDs as $moduleID) {
+			$name = IPS_GetName($moduleID);
+			if($name == "TSKodi RegisterVariable") {
+				$registerVariable = IPS_GetInstance($moduleID);
+				$registerVariableID = $registerVariable["InstanceID"];
+				if($registerVariable['ConnectionID'] == 0) {
+					IPS_ConnectInstance($registerVariableID, $SocketID);
+					IPS_SetProperty($registerVariableID, "RXObjectID", $rxScriptID);
+					IPS_SetHidden($registerVariableID, true); //Objekt verstecken
+					IPS_ApplyChanges($registerVariableID);
+				}				
+			}
+		}
+
+
+
+
+
+
+
+    
+/*
 		// Prüfen / Erstellen und Verbinden des "TSKodi JSON-RPC-Socket"
 		$instance = IPS_GetInstance($this->InstanceID);
 		$rpcSocketModuleID = '{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}'; //Socket ID
 		if($instance['ConnectionID'] == 0) { //Keine Socket Verbindung in der Instanz hinterlegt
+		if($SocketID == 0) { //Keine Socket Verbindung in der Instanz hinterlegt
+
 			$moduleIDs = IPS_GetInstanceListByModuleID($rpcSocketModuleID);
 			foreach($moduleIDs as $moduleID) {
 				$name = IPS_GetName($moduleID);
@@ -711,7 +742,9 @@ class TSKodi extends IPSModule {
 					IPS_ConnectInstance($this->InstanceID, $moduleID);
 				}		
 			}
-			if(!isset($jsonRpcSocketID)) {
+		
+
+      if(!isset($jsonRpcSocketID)) {
 				$jsonRpcSocketID = IPS_CreateInstance($rpcSocketModuleID);
 				IPS_SetName($jsonRpcSocketID, "TSKodi JSON-RPC-Socket");
 				IPS_SetProperty($jsonRpcSocketID, "Open", false);
@@ -755,6 +788,8 @@ class TSKodi extends IPSModule {
 			IPS_ApplyChanges($newRegisterVariableID);
 			IPS_SetParent($newRegisterVariableID, $scriptsCatID); //verschieben
 		}
+*/
+
 	}
 
       protected function RegisterProfileIntegerEx($Name, $Icon, $Prefix, $Suffix, $Associations) {
