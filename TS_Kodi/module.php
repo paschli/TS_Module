@@ -3,6 +3,7 @@ class TSKodi extends IPSModule {
 	public function Create()
 	{
 		parent::Create();		
+        $this->ForceParent("{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}"); //Client Socket
         $this->RegisterPropertyString("S1_Name", "ARD");
         $this->RegisterPropertyString("S1_Wert", "1");      
         $this->RegisterPropertyString("S2_Name", "ZDF");
