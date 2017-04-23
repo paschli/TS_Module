@@ -698,9 +698,10 @@ class TSKodi extends IPSModule {
 	}
 	
 	private function CheckSocketRegVar(){
+
     $SocketID = IPS_GetInstance($this->InstanceID)["ConnectionID"];
 		// Prüfen / Erstellen und Verbinden der "RegisterVariable"
-		$scriptsCatID 	= @IPS_GetObjectIDByIdent("TSKodi_scripts", $this->InstanceID);
+		$scriptsCatID = @IPS_GetObjectIDByIdent("TSKodi_scripts", $this->InstanceID);
 		$rxScriptID 	= @IPS_GetScriptIDByName("TSKodi_Receiver", $scriptsCatID);
 		
 		$registerVariableModuleID = "{F3855B3C-7CD6-47CA-97AB-E66D346C037F}";
@@ -717,6 +718,16 @@ class TSKodi extends IPSModule {
 					IPS_ApplyChanges($registerVariableID);
 				}				
 			}
+		}
+		if(!isset($registerVariableID)) {
+			$scriptsCatID = @IPS_GetObjectIDByIdent("TSKodi_scripts", $this->InstanceID);
+			$newRegisterVariableID = IPS_CreateInstance("{F3855B3C-7CD6-47CA-97AB-E66D346C037F}");	
+			IPS_SetName($newRegisterVariableID,"TSKodi RegisterVariable");
+			IPS_ConnectInstance($newRegisterVariableID, $SocketID );
+			IPS_SetProperty($newRegisterVariableID, "RXObjectID", $rxScriptID);
+			IPS_SetHidden($newRegisterVariableID, true); //Objekt verstecken
+			IPS_ApplyChanges($newRegisterVariableID);
+			IPS_SetParent($newRegisterVariableID, $scriptsCatID); //verschieben
 		}
 
 
