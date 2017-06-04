@@ -85,6 +85,7 @@ class TS_MPD extends IPSModule
         }
         
         // 2c) Mute
+/*
         $this->RegisterVariableInteger("Mute","Mute", "MPD.Switch", 31);
         if ($this->ReadPropertyBoolean("MuteControl")){
             $this->EnableAction("Mute");
@@ -93,7 +94,7 @@ class TS_MPD extends IPSModule
             $this->removeVariableAction("Mute", $links);
             IPS_SetHidden($this->GetIDForIdent("Mute"),true);
         }
-
+*/
   	     $this->RegisterVariableString("Logo", "Logo", "~HTMLBox",200);
          if ( $this->ReadPropertyBoolean("Logo")){
               IPS_SetHidden($this->GetIDForIdent("Logo"),false);
@@ -215,7 +216,7 @@ switch ($_IPS["SENDER"])                                     // Ursache (Absende
       if (Sys_Ping($this->ReadPropertyString("IPAddress"), 1000) == true) {		
         SetValue($this->GetIDForIdent("Status"), 1);
         include_once(__DIR__ . "/mpd.php");
-        (new PHPmpd($this->ReadPropertyString("IPAddress")))->Play();
+        (new PHPmpd($this->ReadPropertyString("IPAddress")))->Play(0);
       }  
     }
     

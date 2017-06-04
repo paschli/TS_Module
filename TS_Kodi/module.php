@@ -698,7 +698,7 @@ class TSKodi extends IPSModule {
 	}
 	
 	private function CheckSocketRegVar(){
-
+/*
     $SocketID = IPS_GetInstance($this->InstanceID)["ConnectionID"];
 		// Prüfen / Erstellen und Verbinden der "RegisterVariable"
 		$scriptsCatID = @IPS_GetObjectIDByIdent("TSKodi_scripts", $this->InstanceID);
@@ -729,7 +729,7 @@ class TSKodi extends IPSModule {
 			IPS_ApplyChanges($newRegisterVariableID);
 			IPS_SetParent($newRegisterVariableID, $scriptsCatID); //verschieben
 		}
-
+*/
 
 
 
@@ -737,7 +737,7 @@ class TSKodi extends IPSModule {
 
 
     
-/*
+
 		// Prüfen / Erstellen und Verbinden des "TSKodi JSON-RPC-Socket"
 		$instance = IPS_GetInstance($this->InstanceID);
 		$rpcSocketModuleID = '{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}'; //Socket ID
@@ -799,7 +799,7 @@ class TSKodi extends IPSModule {
 			IPS_ApplyChanges($newRegisterVariableID);
 			IPS_SetParent($newRegisterVariableID, $scriptsCatID); //verschieben
 		}
-*/
+
 
 	}
 
