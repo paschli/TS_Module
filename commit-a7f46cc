@@ -1,0 +1,39 @@
+commit a7f46cce8b8c63cea06845802eeed83bf222f5e8
+Author: Thomas Schnittcher <thomas.schnittcher@t-online.de>
+Date:   Sun Apr 23 16:08:51 2017 +0200
+
+    Signed-off-by: Thomas Schnittcher <thomas.schnittcher@t-online.de>
+
+diff --git a/TS_Kodi/module.php b/TS_Kodi/module.php
+index 1ff7085..9ba04f6 100644
+--- a/TS_Kodi/module.php
++++ b/TS_Kodi/module.php
+@@ -698,9 +698,10 @@ class TSKodi extends IPSModule {
+ 	}
+ 	
+ 	private function CheckSocketRegVar(){
++
+     $SocketID = IPS_GetInstance($this->InstanceID)["ConnectionID"];
+ 		// Prüfen / Erstellen und Verbinden der "RegisterVariable"
+-		$scriptsCatID 	= @IPS_GetObjectIDByIdent("TSKodi_scripts", $this->InstanceID);
++		$scriptsCatID = @IPS_GetObjectIDByIdent("TSKodi_scripts", $this->InstanceID);
+ 		$rxScriptID 	= @IPS_GetScriptIDByName("TSKodi_Receiver", $scriptsCatID);
+ 		
+ 		$registerVariableModuleID = "{F3855B3C-7CD6-47CA-97AB-E66D346C037F}";
+@@ -718,6 +719,16 @@ class TSKodi extends IPSModule {
+ 				}				
+ 			}
+ 		}
++		if(!isset($registerVariableID)) {
++			$scriptsCatID = @IPS_GetObjectIDByIdent("TSKodi_scripts", $this->InstanceID);
++			$newRegisterVariableID = IPS_CreateInstance("{F3855B3C-7CD6-47CA-97AB-E66D346C037F}");	
++			IPS_SetName($newRegisterVariableID,"TSKodi RegisterVariable");
++			IPS_ConnectInstance($newRegisterVariableID, $SocketID );
++			IPS_SetProperty($newRegisterVariableID, "RXObjectID", $rxScriptID);
++			IPS_SetHidden($newRegisterVariableID, true); //Objekt verstecken
++			IPS_ApplyChanges($newRegisterVariableID);
++			IPS_SetParent($newRegisterVariableID, $scriptsCatID); //verschieben
++		}
+ 
+ 
+ 
