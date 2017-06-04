@@ -262,7 +262,7 @@ switch ($_IPS["SENDER"])                                     // Ursache (Absende
       if (Sys_Ping($this->ReadPropertyString("IPAddress"), 1000) == true) {		
         SetValue($this->GetIDForIdent("Volume"), $volume);
         include_once(__DIR__ . "/mpd.php");
-        (new PHPmpd($this->ReadPropertyString("IPAddress")))->SetVolume($volume);
+        (new PHPmpd($this->ReadPropertyString("IPAddress")))->setvol($volume);
       }  
     }
 
