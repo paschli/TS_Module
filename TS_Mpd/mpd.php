@@ -67,7 +67,15 @@ define("CMD_PLAYLISTREMOVE", "rm");
 define("CMD_PLAYLISTSAVE", "save");
 define("CMD_CLOSE", "close");
 define("CMD_KILL", "kill");
-class MPD {
+class PHPmpd {
+	private $address = "";
+
+	public function __construct( $address ) {
+	   $this->address = $address;
+	}
+
+
+// class MPD {
 	
 	private $php_mpd_version = '1.1';
 	private $host;
