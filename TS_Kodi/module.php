@@ -803,7 +803,7 @@ class TSKodi extends IPSModule {
 
 
 	}
-
+}
       protected function RegisterProfileIntegerEx($Name, $Icon, $Prefix, $Suffix, $Associations) {
         if ( sizeof($Associations) === 0 ){
             $MinValue = 0;
