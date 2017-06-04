@@ -1,5 +1,4 @@
 <?php
-<?
 /* 
 https://github.com/jimmikristensen/PHP-MPD
  * PHP MPD (mpd.class.php) is a single PHP class that gives easy access to 
@@ -1199,4 +1198,4 @@ class MPD {
 		}
 	}
 }
-?>?>
+?>
