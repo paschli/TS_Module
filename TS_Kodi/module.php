@@ -804,7 +804,7 @@ class TSKodi extends IPSModule {
 
 	}
 
-      function RegisterProfileIntegerEx($Name, $Icon, $Prefix, $Suffix, $Associations) {
+      protected function RegisterProfileIntegerEx($Name, $Icon, $Prefix, $Suffix, $Associations) {
         if ( sizeof($Associations) === 0 ){
             $MinValue = 0;
             $MaxValue = 0;
@@ -820,7 +820,7 @@ class TSKodi extends IPSModule {
         }
         
     }	
-      function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize) {
+      protected function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize) {
         
         if(!IPS_VariableProfileExists($Name)) {
             IPS_CreateVariableProfile($Name, 1);
