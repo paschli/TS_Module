@@ -85,7 +85,6 @@ class TS_MPD extends IPSModule
         }
         
         // 2c) Mute
-/*
         $this->RegisterVariableInteger("Mute","Mute", "MPD.Switch", 31);
         if ($this->ReadPropertyBoolean("MuteControl")){
             $this->EnableAction("Mute");
@@ -94,7 +93,7 @@ class TS_MPD extends IPSModule
             $this->removeVariableAction("Mute", $links);
             IPS_SetHidden($this->GetIDForIdent("Mute"),true);
         }
-*/
+
   	     $this->RegisterVariableString("Logo", "Logo", "~HTMLBox",200);
          if ( $this->ReadPropertyBoolean("Logo")){
               IPS_SetHidden($this->GetIDForIdent("Logo"),false);
@@ -216,8 +215,7 @@ switch ($_IPS["SENDER"])                                     // Ursache (Absende
       if (Sys_Ping($this->ReadPropertyString("IPAddress"), 1000) == true) {		
         SetValue($this->GetIDForIdent("Status"), 1);
         include_once(__DIR__ . "/mpd.php");
- //       (new PHPmpd($this->ReadPropertyString("IPAddress")))->Play(0);
-        (new PHPmpd($this->ReadPropertyString("IPAddress")), 6600, '' )->Play(0);
+        (new PHPmpd($this->ReadPropertyString("IPAddress")))->Play();
       }  
     }
     
@@ -226,7 +224,7 @@ switch ($_IPS["SENDER"])                                     // Ursache (Absende
       if (Sys_Ping($this->ReadPropertyString("IPAddress"), 1000) == true) {		
         SetValue($this->GetIDForIdent("Status"), 2);
         include_once(__DIR__ . "/mpd.php");
-        (new PHPmpd($this->ReadPropertyString("IPAddress")), 6600, '' )->Pause();
+        (new PHPmpd($this->ReadPropertyString("IPAddress")))->Pause();
       }  
     }
     
@@ -234,7 +232,7 @@ switch ($_IPS["SENDER"])                                     // Ursache (Absende
     {
       if (Sys_Ping($this->ReadPropertyString("IPAddress"), 1000) == true) {		
         include_once(__DIR__ . "/mpd.php");
-        (new PHPmpd($this->ReadPropertyString("IPAddress")), 6600, '' )->Previous();
+        (new PHPmpd($this->ReadPropertyString("IPAddress")))->Previous();
       }  
     }
     
@@ -242,7 +240,7 @@ switch ($_IPS["SENDER"])                                     // Ursache (Absende
     {
       if (Sys_Ping($this->ReadPropertyString("IPAddress"), 1000) == true) {		
         include_once(__DIR__ . "/mpd.php");
-        (new PHPmpd($this->ReadPropertyString("IPAddress")), 6600, '' )->Next();
+        (new PHPmpd($this->ReadPropertyString("IPAddress")))->Next();
       }  
     }
     
@@ -254,7 +252,7 @@ switch ($_IPS["SENDER"])                                     // Ursache (Absende
 
         SetValue($this->GetIDForIdent("Mute"), $mute);
         include_once(__DIR__ . "/mpd.php");
-        (new PHPmpd($this->ReadPropertyString("IPAddress")), 6600, '' )->SetMute($mute);
+        (new PHPmpd($this->ReadPropertyString("IPAddress")))->SetMute($mute);
       }  
     }
     
@@ -263,7 +261,7 @@ switch ($_IPS["SENDER"])                                     // Ursache (Absende
       if (Sys_Ping($this->ReadPropertyString("IPAddress"), 1000) == true) {		
         SetValue($this->GetIDForIdent("Volume"), $volume);
         include_once(__DIR__ . "/mpd.php");
-        (new PHPmpd($this->ReadPropertyString("IPAddress")), 6600, '' )->setvol($volume);
+        (new PHPmpd($this->ReadPropertyString("IPAddress")))->SetVolume($volume);
       }  
     }
 
@@ -277,9 +275,8 @@ switch ($_IPS["SENDER"])                                     // Ursache (Absende
       if (Sys_Ping($this->ReadPropertyString("IPAddress"), 1000) == true) {		
         include_once(__DIR__ . "/mpd.php");
         include_once(__DIR__ . "/radio_stations.php");
-        (new PHPmpd($this->ReadPropertyString("IPAddress")), 6600, '' )->playlist_clear();;
-        (new PHPmpd($this->ReadPropertyString("IPAddress")), 6600, '' )->playlist_add, $radio);
-        (new PHPmpd($this->ReadPropertyString("IPAddress")), 6600, '' )->Play(0);
+        (new PHPmpd($this->ReadPropertyString("IPAddress")))->SetRadio( get_station_url($radio), $radio);
+        (new PHPmpd($this->ReadPropertyString("IPAddress")))->Play();
       }  
     }
     
@@ -294,7 +291,7 @@ switch ($_IPS["SENDER"])                                     // Ursache (Absende
       if (Sys_Ping($this->ReadPropertyString("IPAddress"), 1000) == true) {		
         SetValue($this->GetIDForIdent("Status"), 3);
         include_once(__DIR__ . "/mpd.php");
-        (new PHPmpd($this->ReadPropertyString("IPAddress")), 6600, '' )->Stop();
+        (new PHPmpd($this->ReadPropertyString("IPAddress")))->Stop();
       }  
     }
     
