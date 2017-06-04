@@ -1,7 +1,8 @@
 {
 	"elements":
 	[
-		{ "name": "IPAddress",        "type": "ValidationTextBox", "caption": "IP-Address/Host"     },
+		{ "name": "Host",        "type": "ValidationTextBox", "caption": "Host"     },
+    { "name": "Port",        "type": "ValidationTextBox", "caption": "Port"     },
 		{ "name": "DefaultVolume",    "type": "NumberSpinner",     "caption": "Default volume (%)", },
                 { "name": "MuteControl",      "type": "CheckBox",          "caption": "Enable Mute Control" },
                 { "name": "Logo",             "type": "CheckBox",          "caption": "Enable Logo" },

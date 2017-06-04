@@ -9,7 +9,8 @@ class TS_MPD extends IPSModule
         
         //These lines are parsed on Symcon Startup or Instance creation
         //You cannot use variables here. Just static values.
-        $this->RegisterPropertyString("IPAddress", "192.168.1.103");
+        $this->RegisterPropertyString("Host", "192.168.1.103");
+        $this->RegisterPropertyString("Port", "6600");
         $this->RegisterPropertyInteger("DefaultVolume", 15);
         $this->RegisterPropertyBoolean("MuteControl", true);
         $this->RegisterPropertyBoolean("Logo", true);
@@ -85,6 +86,7 @@ class TS_MPD extends IPSModule
         }
         
         // 2c) Mute
+/*
         $this->RegisterVariableInteger("Mute","Mute", "MPD.Switch", 31);
         if ($this->ReadPropertyBoolean("MuteControl")){
             $this->EnableAction("Mute");
@@ -93,7 +95,7 @@ class TS_MPD extends IPSModule
             $this->removeVariableAction("Mute", $links);
             IPS_SetHidden($this->GetIDForIdent("Mute"),true);
         }
-
+*/
   	     $this->RegisterVariableString("Logo", "Logo", "~HTMLBox",200);
          if ( $this->ReadPropertyBoolean("Logo")){
               IPS_SetHidden($this->GetIDForIdent("Logo"),false);
@@ -109,86 +111,7 @@ class TS_MPD extends IPSModule
 
         // 1) _updateStatus 
         $statusScriptID = $this->RegisterScript("_updateStatus", "_updateStatus", '<?
-switch ($_IPS["SENDER"])                                     // Ursache (Absender) des Triggers ermittlen
-{
-  case "Variable":                                       // 
-    $RelId = IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "Rel_id");
-    $Rel= GetValueBoolean($RelId);
-    if ($Rel == 0) {
-     IPS_SetScriptTimer($_IPS["SELF"]  , 0);                  // ScriptTimer einschalten (auf 60 Sekunde setzen)
-     SetValueInteger(IPS_GetObjectIDByName("Status", IPS_GetParent($_IPS["SELF"])), 3);
-     SetValueString(IPS_GetObjectIDByName("nowPlaying", IPS_GetParent($_IPS["SELF"])), "");
-     SetValueInteger(IPS_GetObjectIDByName("Volume", IPS_GetParent($_IPS["SELF"])), 0);
-    }
-    if ($Rel == 1){
-     IPS_SetScriptTimer($_IPS["SELF"]  , 5);                  // ScriptTimer einschalten (auf 60 Sekunde setzen)
-    }
-  break;
-
-  case "TimerEvent":                                     // Timer hat getriggert
-    include_once("../modules/Ts_Module/TS_Mpd/mpd.php");
-    $ip = IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "IPAddress");
-    
-    if (Sys_Ping($ip, 1000) == true) {
-    
-        $mpd = new PHPmpd($ip);
-    
-        $status = $mpd->GetTransportInfo();
-        SetValueInteger(IPS_GetObjectIDByName("Volume", IPS_GetParent($_IPS["SELF"])), $mpd->GetVolume());
-    
-        if (IPS_GetProperty(IPS_GetParent($_IPS["SELF"]), "MuteControl"))
-            SetValueInteger(IPS_GetObjectIDByName("Mute", IPS_GetParent($_IPS["SELF"])), $mpd->GetMute());
-    
-    
-            SetValueInteger(IPS_GetObjectIDByName("Status", IPS_GetParent($_IPS["SELF"])), $status);
-            // Titelanzeige
-            $currentStation = 0;
-    
-            if ( $status <> 1 ){
-                // No title if not playing
-                $actuallyPlaying = "";
-            }else{
-                $positionInfo = $mpd->GetPositionInfo();
-                $mediaInfo    = $mpd->GetMediaInfo();
-    //print_r($mediaInfo);
-    //print_r($positionInfo);
-    //
-                if (strlen($positionInfo["title"]) <> 0){
-                    $title = $mediaInfo["title"];
-                    $actuallyPlaying = utf8_decode($positionInfo["title"]." | ".$positionInfo["creator"]);
-                } else {
-                    $actuallyPlaying = utf8_decode($positionInfo["title"]." | ".$positionInfo["creator"]);
-                }
-                // start find current Radio in VariableProfile
-                $Associations = IPS_GetVariableProfile("MPD.Radio")["Associations"];
-    
-                if(isset($mediaInfo["title"])){
-                  foreach($Associations as $key=>$station) {
-                      if( $station["Name"] == $mediaInfo["title"] ){
-                          $currentStation = $Associations[$key]["Value"];
-                      }
-                  }
-                }
-                // end find current Radio in VariableProfile
-            }
-            SetValueInteger(IPS_GetObjectIDByName("Radio", IPS_GetParent($_IPS["SELF"])), $currentStation);
-    
-        $nowPlaying   = GetValueString(IPS_GetObjectIDByName("nowPlaying", IPS_GetParent($_IPS["SELF"])));
-    //    $logo = $mpd->RadiotimeGetNowPlaying();
-    //    SetValueString(IPS_GetObjectIDByName("Logo", IPS_GetParent($_IPS[\'SELF\'])) ,\'<img src="\'.$logo[\'logo\'].\'">\');
-    
-        if ($actuallyPlaying <> $nowPlaying) {
-            SetValueString(IPS_GetObjectIDByName("nowPlaying", IPS_GetParent($_IPS["SELF"])), $actuallyPlaying);
-    
-    
-        }
-    }
-
-  break;
-
-}
-
-
+    include_once("../modules/Ts_Module/TS_Mpd/status.php");
 
 ?>', 98);
         IPS_SetHidden($statusScriptID,true);
@@ -212,56 +135,56 @@ switch ($_IPS["SENDER"])                                     // Ursache (Absende
 
     public function Play()
     {
-      if (Sys_Ping($this->ReadPropertyString("IPAddress"), 1000) == true) {		
+      if (Sys_Ping($this->ReadPropertyString("Host"), 1000) == true) {		
         SetValue($this->GetIDForIdent("Status"), 1);
         include_once(__DIR__ . "/mpd.php");
-        (new PHPmpd($this->ReadPropertyString("IPAddress")))->Play();
+       (new MPD($this->ReadPropertyString("Host"),$this->ReadPropertyString("Port"),''))->Play(0);
       }  
     }
     
     public function Pause()
     {
-      if (Sys_Ping($this->ReadPropertyString("IPAddress"), 1000) == true) {		
+      if (Sys_Ping($this->ReadPropertyString("Host"), 1000) == true) {		
         SetValue($this->GetIDForIdent("Status"), 2);
         include_once(__DIR__ . "/mpd.php");
-        (new PHPmpd($this->ReadPropertyString("IPAddress")))->Pause();
+        (new MPD($this->ReadPropertyString("Host"),$this->ReadPropertyString("Port"),''))->pause(1);
       }  
     }
     
     public function Previous()
     {
-      if (Sys_Ping($this->ReadPropertyString("IPAddress"), 1000) == true) {		
+      if (Sys_Ping($this->ReadPropertyString("Host"), 1000) == true) {		
         include_once(__DIR__ . "/mpd.php");
-        (new PHPmpd($this->ReadPropertyString("IPAddress")))->Previous();
+        (new MPD($this->ReadPropertyString("Host"),$this->ReadPropertyString("Port"),''))->Previous();
       }  
     }
     
     public function Next()
     {
-      if (Sys_Ping($this->ReadPropertyString("IPAddress"), 1000) == true) {		
+      if (Sys_Ping($this->ReadPropertyString("Host"), 1000) == true) {		
         include_once(__DIR__ . "/mpd.php");
-        (new PHPmpd($this->ReadPropertyString("IPAddress")))->Next();
+        (new MPD($this->ReadPropertyString("Host"),$this->ReadPropertyString("Port"),''))->Next();
       }  
     }
     
 
     public function SetMute($mute)
     {
-      if (Sys_Ping($this->ReadPropertyString("IPAddress"), 1000) == true) {		
+      if (Sys_Ping($this->ReadPropertyString("Host"), 1000) == true) {		
         if (!$this->ReadPropertyBoolean("MuteControl")) die("This function is not enabled for this instance");
 
         SetValue($this->GetIDForIdent("Mute"), $mute);
         include_once(__DIR__ . "/mpd.php");
-        (new PHPmpd($this->ReadPropertyString("IPAddress")))->SetMute($mute);
+        (new MPD($this->ReadPropertyString("Host"),$this->ReadPropertyString("Port"),''))->SetMute($mute);
       }  
     }
     
     public function SetVolume($volume)
     {
-      if (Sys_Ping($this->ReadPropertyString("IPAddress"), 1000) == true) {		
+      if (Sys_Ping($this->ReadPropertyString("Host"), 1000) == true) {		
         SetValue($this->GetIDForIdent("Volume"), $volume);
         include_once(__DIR__ . "/mpd.php");
-        (new PHPmpd($this->ReadPropertyString("IPAddress")))->SetVolume($volume);
+        (new MPD($this->ReadPropertyString("Host"),$this->ReadPropertyString("Port"),''))->setvol($volume);
       }  
     }
 
@@ -272,11 +195,13 @@ switch ($_IPS["SENDER"])                                     // Ursache (Absende
     
     public function SetRadio($radio)
     {
-      if (Sys_Ping($this->ReadPropertyString("IPAddress"), 1000) == true) {		
+      if (Sys_Ping($this->ReadPropertyString("Host"), 1000) == true) {		
         include_once(__DIR__ . "/mpd.php");
         include_once(__DIR__ . "/radio_stations.php");
-        (new PHPmpd($this->ReadPropertyString("IPAddress")))->SetRadio( get_station_url($radio), $radio);
-        (new PHPmpd($this->ReadPropertyString("IPAddress")))->Play();
+
+        (new MPD($this->ReadPropertyString("Host"),$this->ReadPropertyString("Port"),''))->playlist_clear();
+        (new MPD($this->ReadPropertyString("Host"),$this->ReadPropertyString("Port"),''))->playlist_add(get_station_url($radio), $radio);
+        (new MPD($this->ReadPropertyString("Host"),$this->ReadPropertyString("Port"),''))->Play(0);
       }  
     }
     
@@ -288,10 +213,10 @@ switch ($_IPS["SENDER"])                                     // Ursache (Absende
     
     public function Stop()
     {
-      if (Sys_Ping($this->ReadPropertyString("IPAddress"), 1000) == true) {		
+      if (Sys_Ping($this->ReadPropertyString("Host"), 1000) == true) {		
         SetValue($this->GetIDForIdent("Status"), 3);
         include_once(__DIR__ . "/mpd.php");
-        (new PHPmpd($this->ReadPropertyString("IPAddress")))->Stop();
+        (new MPD($this->ReadPropertyString("Host"),$this->ReadPropertyString("Port"),''))->Stop();
       }  
     }
     
