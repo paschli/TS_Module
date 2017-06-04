@@ -820,7 +820,7 @@ class TSKodi extends IPSModule {
         }
         
     }	
-    protected function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize) {
+      function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize) {
         
         if(!IPS_VariableProfileExists($Name)) {
             IPS_CreateVariableProfile($Name, 1);
