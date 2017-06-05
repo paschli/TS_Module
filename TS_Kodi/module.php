@@ -1,6 +1,6 @@
 <?
 
-class TSKodi extends IPSModule {
+class TS_Kodi extends IPSModule {
 	public function Create()
 	{
 		parent::Create();		
