@@ -631,7 +631,7 @@ class TS_Kodi extends IPSModule {
 		$script .= '			$data = json_decode($jsonData,true);'."\n";
 		$script .= '			//print_r($data);'."\n";
 		$script .= '			if($data){'."\n";
-		$script .= '				TSKodi_IncomingData('.$this->InstanceID.', serialize($data));'."\n";
+		$script .= '				TS_Kodi_IncomingData('.$this->InstanceID.', serialize($data));'."\n";
 		$script .= '			}'."\n";
 		$script .= '		}'."\n";
 		$script .= '	}'."\n";
