@@ -6,25 +6,25 @@ class TSKodi extends IPSModule {
 		parent::Create();		
         $this->ForceParent("{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}"); //Client Socket
         $this->RegisterPropertyString("S1_Name", "ARD");
-        $this->RegisterPropertyString("S1_Wert", "1");      
+        $this->RegisterPropertyString("S1_Wert", "194");      
         $this->RegisterPropertyString("S2_Name", "ZDF");
-        $this->RegisterPropertyString("S2_Wert", "2");      
+        $this->RegisterPropertyString("S2_Wert", "23");      
         $this->RegisterPropertyString("S3_Name", "WDR3");
-        $this->RegisterPropertyString("S3_Wert", "3");      
+        $this->RegisterPropertyString("S3_Wert", "59");      
         $this->RegisterPropertyString("S4_Name", "RTL");
-        $this->RegisterPropertyString("S4_Wert", "4");      
+        $this->RegisterPropertyString("S4_Wert", "140");      
         $this->RegisterPropertyString("S5_Name", "SP1");
-        $this->RegisterPropertyString("S5_Wert", "5");      
+        $this->RegisterPropertyString("S5_Wert", "181");      
         $this->RegisterPropertyString("S6_Name", "ORF1");
-        $this->RegisterPropertyString("S6_Wert", "6");      
+        $this->RegisterPropertyString("S6_Wert", "73");      
         $this->RegisterPropertyString("S7_Name", "ORF2");
-        $this->RegisterPropertyString("S7_Wert", "7");      
+        $this->RegisterPropertyString("S7_Wert", "125");      
         $this->RegisterPropertyString("S8_Name", "Act");
-        $this->RegisterPropertyString("S8_Wert", "8");
+        $this->RegisterPropertyString("S8_Wert", "77");
         $this->RegisterPropertyString("S9_Name", "Disc");
-        $this->RegisterPropertyString("S9_Wert", "9");      
-        $this->RegisterPropertyString("S10_Name", "Test");
-        $this->RegisterPropertyString("S10_Wert", "10");      
+        $this->RegisterPropertyString("S9_Wert", "143");      
+        $this->RegisterPropertyString("S10_Name", "Film");
+        $this->RegisterPropertyString("S10_Wert", "90");      
     }
     public function ApplyChanges()
     {
@@ -699,7 +699,7 @@ class TSKodi extends IPSModule {
 	}
 	
 	private function CheckSocketRegVar(){
-/*
+
     $SocketID = IPS_GetInstance($this->InstanceID)["ConnectionID"];
 		// Prüfen / Erstellen und Verbinden der "RegisterVariable"
 		$scriptsCatID = @IPS_GetObjectIDByIdent("TSKodi_scripts", $this->InstanceID);
@@ -709,6 +709,7 @@ class TSKodi extends IPSModule {
 		$moduleIDs = IPS_GetInstanceListByModuleID($registerVariableModuleID);
 		foreach($moduleIDs as $moduleID) {
 			$name = IPS_GetName($moduleID);
+      
 			if($name == "TSKodi RegisterVariable") {
 				$registerVariable = IPS_GetInstance($moduleID);
 				$registerVariableID = $registerVariable["InstanceID"];
@@ -730,7 +731,7 @@ class TSKodi extends IPSModule {
 			IPS_ApplyChanges($newRegisterVariableID);
 			IPS_SetParent($newRegisterVariableID, $scriptsCatID); //verschieben
 		}
-*/
+
 
 
 
@@ -738,16 +739,19 @@ class TSKodi extends IPSModule {
 
 
     
-
+ 
 		// Prüfen / Erstellen und Verbinden des "TSKodi JSON-RPC-Socket"
 		$instance = IPS_GetInstance($this->InstanceID);
 		$rpcSocketModuleID = '{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}'; //Socket ID
-		if($instance['ConnectionID'] == 0) { //Keine Socket Verbindung in der Instanz hinterlegt
+IPS_LogMessage("test", $rpcSocketModuleID);	
+  	if($instance['ConnectionID'] == 0) { //Keine Socket Verbindung in der Instanz hinterlegt
 		if($SocketID == 0) { //Keine Socket Verbindung in der Instanz hinterlegt
-
+IPS_LogMessage("$SocketID", $SocketID);
 			$moduleIDs = IPS_GetInstanceListByModuleID($rpcSocketModuleID);
 			foreach($moduleIDs as $moduleID) {
 				$name = IPS_GetName($moduleID);
+IPS_LogMessage("test", $name);	
+
 				if($name == "TSKodi JSON-RPC-Socket") {
 					$jsonRpcSocket = IPS_GetInstance($moduleID);
 					$jsonRpcSocketID = $jsonRpcSocket["InstanceID"];
@@ -773,14 +777,14 @@ class TSKodi extends IPSModule {
 		
 		$registerVariableModuleID = "{F3855B3C-7CD6-47CA-97AB-E66D346C037F}";
 		$moduleIDs = IPS_GetInstanceListByModuleID($registerVariableModuleID);
-//print_r($moduleIDs);
+print_r($moduleIDs);
 		foreach($moduleIDs as $moduleID) {
 			$name = IPS_GetName($moduleID);
-//print_r($name);
+print_r($name);
 			if($name == "TSKodi RegisterVariable") {
 				$registerVariable = IPS_GetInstance($moduleID);
 				$registerVariableID = $registerVariable["InstanceID"];
-//print_r($registerVariableID);        
+print_r($registerVariableID);        
 				if($registerVariable['ConnectionID'] == 0) {
 					IPS_ConnectInstance($registerVariableID, $jsonRpcSocketID);
 					IPS_SetProperty($registerVariableID, "RXObjectID", $rxScriptID);
@@ -792,7 +796,7 @@ class TSKodi extends IPSModule {
 		if(!isset($registerVariableID)) {
 			$scriptsCatID = @IPS_GetObjectIDByIdent("TSKodi_scripts", $this->InstanceID);
 			$newRegisterVariableID = IPS_CreateInstance("{F3855B3C-7CD6-47CA-97AB-E66D346C037F}");	
-//print_r($newRegisterVariableID); 
+print_r($newRegisterVariableID); 
 			IPS_SetName($newRegisterVariableID,"TSKodi RegisterVariable");
 			IPS_ConnectInstance($newRegisterVariableID, $jsonRpcSocketID);
 			IPS_SetProperty($newRegisterVariableID, "RXObjectID", $rxScriptID);
