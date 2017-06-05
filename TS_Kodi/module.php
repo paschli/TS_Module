@@ -288,28 +288,16 @@ class TS_Kodi extends IPSModule {
         if ($_steuer === 14)($_befehl='"Application.SetMute", "params": {"mute": "toggle"}' );
         if ($_steuer === 27)($_befehl='"GUI.SetFullscreen", "params": {"fullscreen": "toggle"}' );
         
-/*       
-        if ($_steuer === 15)($_befehl="1" );
-        if ($_steuer === 16)($_befehl="2" );
-        if ($_steuer === 17)($_befehl="3" );
-        if ($_steuer === 18)($_befehl="4" );
-        if ($_steuer === 19)($_befehl="5" );
-        if ($_steuer === 20)($_befehl="6" );
-        if ($_steuer === 21)($_befehl="7" );
-        if ($_steuer === 22)($_befehl="8" );
-        if ($_steuer === 23)($_befehl="9" );
-        if ($_steuer === 24)($_befehl="0" );
-*/
 			  SetValue($this->GetIDForIdent("FB"), $_steuer);	
-		$sendJson = '{"jsonrpc": "2.0", "method": '.$_befehl.', "id": "1"}';
-		$jsonRpcSocketID = IPS_GetInstance($this->InstanceID)["ConnectionID"];
-		$kodiSend 		 = CSCK_SendText($jsonRpcSocketID, $sendJson);
-  		if($kodiSend) {
-			return true;
-		} else {
-			return false;
-		}
-  
+    		$sendJson = '{"jsonrpc": "2.0", "method": '.$_befehl.', "id": "1"}';
+    		$jsonRpcSocketID = IPS_GetInstance($this->InstanceID)["ConnectionID"];
+    		$kodiSend 		 = CSCK_SendText($jsonRpcSocketID, $sendJson);
+    		if($kodiSend) {
+  			return true;
+  		} else {
+  			return false;
+  		}
+    
 }
  
     public function Station(Int $_steuer)
@@ -548,14 +536,14 @@ class TS_Kodi extends IPSModule {
 	}
 	
 	private function CreateCatsVars(){ 
-		$scriptsCatID = $this->CreateCategoryByIdent($this->InstanceID, "TSKodi_scripts", "Scripte"); //Kategorie Scripte
+		$scriptsCatID = $this->CreateCategoryByIdent($this->InstanceID, "TSKodi_scripts", "TSKodi_scripts"); //Kategorie Scripte
 		IPS_SetHidden($scriptsCatID, true);
 		IPS_SetPosition($scriptsCatID,0);
-/*		
+		
 		$onPlayCatID = $this->CreateCategoryByIdent($this->InstanceID, "TSKodi_onPlay", "Play"); //Kategorie Scripte
 		IPS_SetHidden($onPlayCatID, true);
 		IPS_SetPosition($onPlayCatID,1);
-		
+	
 		$onPauseCatID = $this->CreateCategoryByIdent($this->InstanceID, "TSKodi_onPause", "Pause"); //Kategorie Scripte
 		IPS_SetHidden($onPauseCatID, true);
 		IPS_SetPosition($onPauseCatID,2);
@@ -567,7 +555,7 @@ class TS_Kodi extends IPSModule {
 		$screensaverActivatedCatID 	= $this->CreateCategoryByIdent($this->InstanceID, "TSKodi_screensaverActivated", "Screensaver"); //Kategorie Scripte
 		IPS_SetHidden($screensaverActivatedCatID, true);
 		IPS_SetPosition($screensaverActivatedCatID,4);
-*/		
+		
 		$channelID = $this->CreateVariableByIdent($this->InstanceID, "TSKodi_channel", "Kanal", 3, "");
 		IPS_SetPosition($channelID,5);
 		
@@ -699,32 +687,21 @@ class TS_Kodi extends IPSModule {
 	}
 	
 	private function CheckSocketRegVar(){
-
+    //Socket einstellen
     $SocketID = IPS_GetInstance($this->InstanceID)["ConnectionID"];
-		// Prüfen / Erstellen und Verbinden der "RegisterVariable"
+    IPS_SetProperty($SocketID, "Open", false);
+	  IPS_SetProperty($SocketID, "Host", "127.0.0.1");
+	  IPS_SetProperty($SocketID, "Port", "9090");
+	  IPS_ApplyChanges($SocketID); 
+
 		$scriptsCatID = @IPS_GetObjectIDByIdent("TSKodi_scripts", $this->InstanceID);
 		$rxScriptID 	= @IPS_GetScriptIDByName("TSKodi_Receiver", $scriptsCatID);
-		
-		$registerVariableModuleID = "{F3855B3C-7CD6-47CA-97AB-E66D346C037F}";
-		$moduleIDs = IPS_GetInstanceListByModuleID($registerVariableModuleID);
-		foreach($moduleIDs as $moduleID) {
-			$name = IPS_GetName($moduleID);
-      
-			if($name == "TSKodi RegisterVariable") {
-				$registerVariable = IPS_GetInstance($moduleID);
-				$registerVariableID = $registerVariable["InstanceID"];
-				if($registerVariable['ConnectionID'] == 0) {
-					IPS_ConnectInstance($registerVariableID, $SocketID);
-					IPS_SetProperty($registerVariableID, "RXObjectID", $rxScriptID);
-					IPS_SetHidden($registerVariableID, true); //Objekt verstecken
-					IPS_ApplyChanges($registerVariableID);
-				}				
-			}
-		}
-		if(!isset($registerVariableID)) {
-			$scriptsCatID = @IPS_GetObjectIDByIdent("TSKodi_scripts", $this->InstanceID);
+//IPS_LogMessage("scriptsCatID", $scriptsCatID) ;
+    if(!@IPS_GetObjectIDByName("TSKodi_RegisterVariable", $scriptsCatID)){
+//IPS_LogMessage("regvar", IPS_GetObjectIDByName("TSKodi_RegisterVariable", $scriptsCatID));
+		// Prüfen / Erstellen und Verbinden der "RegisterVariable"
 			$newRegisterVariableID = IPS_CreateInstance("{F3855B3C-7CD6-47CA-97AB-E66D346C037F}");	
-			IPS_SetName($newRegisterVariableID,"TSKodi RegisterVariable");
+			IPS_SetName($newRegisterVariableID,"TSKodi_RegisterVariable");
 			IPS_ConnectInstance($newRegisterVariableID, $SocketID );
 			IPS_SetProperty($newRegisterVariableID, "RXObjectID", $rxScriptID);
 			IPS_SetHidden($newRegisterVariableID, true); //Objekt verstecken
@@ -733,80 +710,6 @@ class TS_Kodi extends IPSModule {
 		}
 
 
-
-
-
-
-
-    
- 
-		// Prüfen / Erstellen und Verbinden des "TSKodi JSON-RPC-Socket"
-		$instance = IPS_GetInstance($this->InstanceID);
-		$rpcSocketModuleID = '{3CFF0FD9-E306-41DB-9B5A-9D06D38576C3}'; //Socket ID
-IPS_LogMessage("test", $rpcSocketModuleID);	
-  	if($instance['ConnectionID'] == 0) { //Keine Socket Verbindung in der Instanz hinterlegt
-		if($SocketID == 0) { //Keine Socket Verbindung in der Instanz hinterlegt
-IPS_LogMessage("$SocketID", $SocketID);
-			$moduleIDs = IPS_GetInstanceListByModuleID($rpcSocketModuleID);
-			foreach($moduleIDs as $moduleID) {
-				$name = IPS_GetName($moduleID);
-IPS_LogMessage("test", $name);	
-
-				if($name == "TSKodi JSON-RPC-Socket") {
-					$jsonRpcSocket = IPS_GetInstance($moduleID);
-					$jsonRpcSocketID = $jsonRpcSocket["InstanceID"];
-					IPS_ConnectInstance($this->InstanceID, $moduleID);
-				}		
-			}
-		
-
-      if(!isset($jsonRpcSocketID)) {
-				$jsonRpcSocketID = IPS_CreateInstance($rpcSocketModuleID);
-				IPS_SetName($jsonRpcSocketID, "TSKodi JSON-RPC-Socket");
-				IPS_SetProperty($jsonRpcSocketID, "Open", false);
-				IPS_SetProperty($jsonRpcSocketID, "Host", "127.0.0.1");
-				IPS_SetProperty($jsonRpcSocketID, "Port", "9090");
-				IPS_ApplyChanges($jsonRpcSocketID); 
-				IPS_ConnectInstance($this->InstanceID, $jsonRpcSocketID);
-			}
-		}
-		
-		// Prüfen / Erstellen und Verbinden der "RegisterVariable"
-		$scriptsCatID 	= @IPS_GetObjectIDByIdent("TSKodi_scripts", $this->InstanceID);
-		$rxScriptID 	= @IPS_GetScriptIDByName("TSKodi_Receiver", $scriptsCatID);
-		
-		$registerVariableModuleID = "{F3855B3C-7CD6-47CA-97AB-E66D346C037F}";
-		$moduleIDs = IPS_GetInstanceListByModuleID($registerVariableModuleID);
-print_r($moduleIDs);
-		foreach($moduleIDs as $moduleID) {
-			$name = IPS_GetName($moduleID);
-print_r($name);
-			if($name == "TSKodi RegisterVariable") {
-				$registerVariable = IPS_GetInstance($moduleID);
-				$registerVariableID = $registerVariable["InstanceID"];
-print_r($registerVariableID);        
-				if($registerVariable['ConnectionID'] == 0) {
-					IPS_ConnectInstance($registerVariableID, $jsonRpcSocketID);
-					IPS_SetProperty($registerVariableID, "RXObjectID", $rxScriptID);
-					IPS_SetHidden($registerVariableID, true); //Objekt verstecken
-					IPS_ApplyChanges($registerVariableID);
-				}				
-			}
-		}
-		if(!isset($registerVariableID)) {
-			$scriptsCatID = @IPS_GetObjectIDByIdent("TSKodi_scripts", $this->InstanceID);
-			$newRegisterVariableID = IPS_CreateInstance("{F3855B3C-7CD6-47CA-97AB-E66D346C037F}");	
-print_r($newRegisterVariableID); 
-			IPS_SetName($newRegisterVariableID,"TSKodi RegisterVariable");
-			IPS_ConnectInstance($newRegisterVariableID, $jsonRpcSocketID);
-			IPS_SetProperty($newRegisterVariableID, "RXObjectID", $rxScriptID);
-			IPS_SetHidden($newRegisterVariableID, true); //Objekt verstecken
-			IPS_ApplyChanges($newRegisterVariableID);
-			IPS_SetParent($newRegisterVariableID, $scriptsCatID); //verschieben
-		}
-
-
-	}
 }
       protected function RegisterProfileIntegerEx($Name, $Icon, $Prefix, $Suffix, $Associations) {
         if ( sizeof($Associations) === 0 ){
