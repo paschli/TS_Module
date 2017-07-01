@@ -690,7 +690,7 @@ class TS_Kodi extends IPSModule {
     //Socket einstellen
     $SocketID = IPS_GetInstance($this->InstanceID)["ConnectionID"];
     IPS_SetProperty($SocketID, "Open", false);
-	  IPS_SetProperty($SocketID, "Host", "127.0.0.1");
+//	  IPS_SetProperty($SocketID, "Host", "127.0.0.1");
 	  IPS_SetProperty($SocketID, "Port", "9090");
 	  IPS_ApplyChanges($SocketID); 
 
